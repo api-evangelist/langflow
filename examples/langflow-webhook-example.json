@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://localhost:7860/api/v1/webhook/f3a1c2e4-9b0d-4e8f-8c1a-2b3d4e5f6071",
+    "headers": {
+      "Content-Type": "application/json",
+      "x-api-key": "{{LANGFLOW_API_KEY}}"
+    },
+    "body": {
+      "data": {
+        "event": "stripe.charge.succeeded",
+        "id": "evt_3O8x2y2eZvKYlo2C1abc",
+        "amount": 4900,
+        "currency": "usd",
+        "customer": "cus_OabcDefGhi"
+      }
+    }
+  },
+  "response": {
+    "status": 202,
+    "body": {
+      "message": "Task started in the background",
+      "status": "in progress"
+    }
+  }
+}

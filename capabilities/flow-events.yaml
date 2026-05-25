@@ -1,0 +1,130 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Langflow Flow Events
+  description: 'Langflow Flow Events. 2 operations. Lead operation: Get Flow Events. Self-contained Naftiko capability covering
+    one Langflow business surface.'
+  tags:
+  - Langflow
+  - Flow Events
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    LANGFLOW_API_KEY: LANGFLOW_API_KEY
+    LANGFLOW_BASE_URL: LANGFLOW_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: flow-events
+    baseUri: '{{env.LANGFLOW_BASE_URL}}'
+    description: Langflow Flow Events business capability.
+    resources:
+    - name: api-v1-flows-flow-id-events
+      path: /api/v1/flows/{flow_id}/events
+      operations:
+      - name: get-flow-events
+        method: GET
+        description: Get Flow Events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          description: flow_id parameter.
+          required: true
+        - name: since
+          in: query
+          type: number
+          description: UTC timestamp to get events after
+          required: false
+      - name: create-flow-event
+        method: POST
+        description: Create Flow Event
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          description: flow_id parameter.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.LANGFLOW_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: flow-events-rest
+    port: 8080
+    description: REST adapter for Langflow Flow Events.
+    resources:
+    - path: /v1/api/v1/flows/{flow_id}/events
+      name: api-v1-flows-flow-id-events
+      description: REST surface for /api/v1/flows/{flow_id}/events.
+      operations:
+      - method: GET
+        name: get-flow-events
+        description: Get Flow Events
+        call: flow-events.get-flow-events
+        with:
+          flow_id: rest.flow_id
+          since: rest.since
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-flow-event
+        description: Create Flow Event
+        call: flow-events.create-flow-event
+        with:
+          flow_id: rest.flow_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: flow-events-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Langflow Flow Events. One tool per consumed operation.
+    tools:
+    - name: langflow-get-flow-events
+      description: Get Flow Events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: flow-events.get-flow-events
+      with:
+        flow_id: tools.flow_id
+        since: tools.since
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-create-flow-event
+      description: Create Flow Event
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: flow-events.create-flow-event
+      with:
+        flow_id: tools.flow_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

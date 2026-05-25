@@ -1,0 +1,81 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Langflow OpenAI Responses API
+  description: 'Langflow OpenAI Responses API. 1 operations. Lead operation: Create Response. Self-contained Naftiko capability
+    covering one Langflow business surface.'
+  tags:
+  - Langflow
+  - OpenAI Responses API
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    LANGFLOW_API_KEY: LANGFLOW_API_KEY
+    LANGFLOW_BASE_URL: LANGFLOW_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: openai-responses
+    baseUri: '{{env.LANGFLOW_BASE_URL}}'
+    description: Langflow OpenAI Responses API business capability.
+    resources:
+    - name: api-v1-responses
+      path: /api/v1/responses
+      operations:
+      - name: create-response
+        method: POST
+        description: Create Response
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.LANGFLOW_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: openai-responses-rest
+    port: 8080
+    description: REST adapter for Langflow OpenAI Responses API.
+    resources:
+    - path: /v1/api/v1/responses
+      name: api-v1-responses
+      description: REST surface for /api/v1/responses.
+      operations:
+      - method: POST
+        name: create-response
+        description: Create Response
+        call: openai-responses.create-response
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: openai-responses-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Langflow OpenAI Responses API. One tool per consumed operation.
+    tools:
+    - name: langflow-create-response
+      description: Create Response
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: openai-responses.create-response
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

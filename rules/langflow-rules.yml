@@ -1,0 +1,56 @@
+extends:
+- spectral:oas
+
+documentationUrl: https://docs.langflow.org/api-reference-api-examples
+
+rules:
+  langflow-api-prefix:
+    description: Langflow REST paths must be served under /api/v1 or /api/v2 (health and logs are exempt).
+    message: "Path '{{value}}' should start with /api/v1 or /api/v2."
+    severity: warn
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^(/api/v[12]|/health|/health_check|/logs)'
+
+  langflow-operation-summary:
+    description: Every operation must have a Title Case summary.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy
+
+  langflow-operation-tags:
+    description: Every operation must carry at least one tag for grouping in the Langflow docs.
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  langflow-apikey-security:
+    description: Components must declare the x-api-key API key security scheme used by Langflow.
+    severity: info
+    given: $.components.securitySchemes
+    then:
+      function: truthy
+
+  langflow-no-trailing-slash-inconsistency:
+    description: Avoid offering both `/foo` and `/foo/` for the same resource. Langflow's v2 Files API does this — flag it.
+    severity: hint
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '/$'
+
+  langflow-flow-id-param-naming:
+    description: Path parameters that identify a flow should be named `flow_id` or `flow_id_or_name`.
+    severity: hint
+    given: $.paths.*~
+    then:
+      function: pattern
+      functionOptions:
+        match: '^[^{]*(\{(?!flow_id\b|flow_id_or_name\b|job_id|file_name|trace_id|message_id|server_name|project_id|user_id|old_session_id|session_id|folder_name)[^}]+\}.*)?$|^[^{]+$'

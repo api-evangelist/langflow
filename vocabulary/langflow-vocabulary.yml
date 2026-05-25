@@ -1,0 +1,116 @@
+name: Langflow Vocabulary
+description: Operational and capability vocabulary for the Langflow visual AI agent and workflow builder.
+version: 1.9.3
+source: https://docs.langflow.org
+modified: '2026-05-24'
+
+dimensions:
+- name: Authoring
+  description: Visual and programmatic construction of agents and workflows.
+  terms:
+  - Flow
+  - Component
+  - Vertex
+  - Edge
+  - Bundle
+  - Custom Component
+  - Starter Project
+  - Template
+
+- name: Execution
+  description: Runtime invocation, streaming, and lifecycle of flow runs.
+  terms:
+  - Run
+  - Build
+  - Webhook
+  - Job
+  - Stream
+  - Cancel
+  - Session
+  - Vertex Build
+
+- name: Composition
+  description: Higher-order grouping and orchestration.
+  terms:
+  - Project
+  - Workflow
+  - Agent
+  - Multi-Agent
+  - Tool
+  - Memory
+  - Chain
+
+- name: Integration
+  description: External systems Langflow connects to or exposes itself as.
+  terms:
+  - MCP Server
+  - MCP Client
+  - REST API
+  - OpenAI Responses API
+  - Webhook
+  - Embedded Chat
+  - LangChain
+  - LangFuse
+  - LangSmith
+  - Vector Store
+  - Astra DB
+  - LLM Provider
+
+- name: Identity
+  description: Authentication, authorization, and user management.
+  terms:
+  - User
+  - Superuser
+  - API Key
+  - x-api-key
+  - Auto Login
+  - Reset Password
+
+- name: Storage
+  description: Files, artifacts, and persistence.
+  terms:
+  - File
+  - Profile Picture
+  - Flow Export
+  - Project Export
+
+- name: Observability
+  description: Visibility into flow execution.
+  terms:
+  - Trace
+  - Message
+  - Shared Session
+  - Transaction
+  - Vertex Build Log
+  - Logs Stream
+
+- name: Distribution
+  description: How Langflow is packaged and deployed.
+  terms:
+  - PyPI Package
+  - Docker Image
+  - Helm Chart
+  - Desktop App
+  - Langflow Cloud
+  - DataStax Hosted
+
+- name: Governance
+  description: Ownership, license, and stewardship.
+  terms:
+  - MIT License
+  - DataStax
+  - IBM
+  - Open Source
+  - langflow-ai
+
+tags:
+- AI
+- Agents
+- Workflows
+- Visual Builder
+- Low-Code
+- LangChain
+- RAG
+- MCP
+- FastAPI
+- Open Source

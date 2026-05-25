@@ -1,0 +1,344 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Langflow Projects
+  description: 'Langflow Projects. 7 operations. Lead operation: Read Projects. Self-contained Naftiko capability covering
+    one Langflow business surface.'
+  tags:
+  - Langflow
+  - Projects
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    LANGFLOW_API_KEY: LANGFLOW_API_KEY
+    LANGFLOW_BASE_URL: LANGFLOW_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: projects
+    baseUri: '{{env.LANGFLOW_BASE_URL}}'
+    description: Langflow Projects business capability.
+    resources:
+    - name: api-v1-projects
+      path: /api/v1/projects/
+      operations:
+      - name: read-projects
+        method: GET
+        description: Read Projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-project
+        method: POST
+        description: Create Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-projects-download-project-id
+      path: /api/v1/projects/download/{project_id}
+      operations:
+      - name: download-file
+        method: GET
+        description: Download File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: project_id
+          in: path
+          type: string
+          description: project_id parameter.
+          required: true
+    - name: api-v1-projects-upload
+      path: /api/v1/projects/upload/
+      operations:
+      - name: upload-file
+        method: POST
+        description: Upload File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-projects-project-id
+      path: /api/v1/projects/{project_id}
+      operations:
+      - name: delete-project
+        method: DELETE
+        description: Delete Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: project_id
+          in: path
+          type: string
+          description: project_id parameter.
+          required: true
+      - name: read-project
+        method: GET
+        description: Read Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: project_id
+          in: path
+          type: string
+          description: project_id parameter.
+          required: true
+        - name: page
+          in: query
+          type: string
+          description: page parameter.
+          required: false
+        - name: size
+          in: query
+          type: string
+          description: size parameter.
+          required: false
+        - name: is_component
+          in: query
+          type: boolean
+          description: is_component parameter.
+          required: false
+        - name: is_flow
+          in: query
+          type: boolean
+          description: is_flow parameter.
+          required: false
+        - name: search
+          in: query
+          type: string
+          description: search parameter.
+          required: false
+      - name: update-project
+        method: PATCH
+        description: Update Project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: project_id
+          in: path
+          type: string
+          description: project_id parameter.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.LANGFLOW_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: projects-rest
+    port: 8080
+    description: REST adapter for Langflow Projects.
+    resources:
+    - path: /v1/api/v1/projects/
+      name: api-v1-projects
+      description: REST surface for /api/v1/projects/.
+      operations:
+      - method: GET
+        name: read-projects
+        description: Read Projects
+        call: projects.read-projects
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-project
+        description: Create Project
+        call: projects.create-project
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/projects/download/{project_id}
+      name: api-v1-projects-download-project-id
+      description: REST surface for /api/v1/projects/download/{project_id}.
+      operations:
+      - method: GET
+        name: download-file
+        description: Download File
+        call: projects.download-file
+        with:
+          project_id: rest.project_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/projects/upload/
+      name: api-v1-projects-upload
+      description: REST surface for /api/v1/projects/upload/.
+      operations:
+      - method: POST
+        name: upload-file
+        description: Upload File
+        call: projects.upload-file
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/projects/{project_id}
+      name: api-v1-projects-project-id
+      description: REST surface for /api/v1/projects/{project_id}.
+      operations:
+      - method: DELETE
+        name: delete-project
+        description: Delete Project
+        call: projects.delete-project
+        with:
+          project_id: rest.project_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: read-project
+        description: Read Project
+        call: projects.read-project
+        with:
+          project_id: rest.project_id
+          page: rest.page
+          size: rest.size
+          is_component: rest.is_component
+          is_flow: rest.is_flow
+          search: rest.search
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: update-project
+        description: Update Project
+        call: projects.update-project
+        with:
+          project_id: rest.project_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: projects-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Langflow Projects. One tool per consumed operation.
+    tools:
+    - name: langflow-read-projects
+      description: Read Projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: projects.read-projects
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-create-project
+      description: Create Project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: projects.create-project
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-download-file
+      description: Download File
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: projects.download-file
+      with:
+        project_id: tools.project_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-upload-file
+      description: Upload File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: projects.upload-file
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-delete-project
+      description: Delete Project
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: projects.delete-project
+      with:
+        project_id: tools.project_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-read-project
+      description: Read Project
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: projects.read-project
+      with:
+        project_id: tools.project_id
+        page: tools.page
+        size: tools.size
+        is_component: tools.is_component
+        is_flow: tools.is_flow
+        search: tools.search
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-update-project
+      description: Update Project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: projects.update-project
+      with:
+        project_id: tools.project_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

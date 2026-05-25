@@ -1,0 +1,593 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Langflow Flows
+  description: 'Langflow Flows. 13 operations. Lead operation: Delete Multiple Flows. Self-contained Naftiko capability covering
+    one Langflow business surface.'
+  tags:
+  - Langflow
+  - Flows
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    LANGFLOW_API_KEY: LANGFLOW_API_KEY
+    LANGFLOW_BASE_URL: LANGFLOW_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: flows
+    baseUri: '{{env.LANGFLOW_BASE_URL}}'
+    description: Langflow Flows business capability.
+    resources:
+    - name: api-v1-flows
+      path: /api/v1/flows/
+      operations:
+      - name: delete-multiple-flows
+        method: DELETE
+        description: Delete Multiple Flows
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: read-flows
+        method: GET
+        description: Read Flows
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: remove_example_flows
+          in: query
+          type: boolean
+          description: remove_example_flows parameter.
+          required: false
+        - name: components_only
+          in: query
+          type: boolean
+          description: components_only parameter.
+          required: false
+        - name: get_all
+          in: query
+          type: boolean
+          description: get_all parameter.
+          required: false
+        - name: folder_id
+          in: query
+          type: string
+          description: folder_id parameter.
+          required: false
+        - name: header_flows
+          in: query
+          type: boolean
+          description: header_flows parameter.
+          required: false
+        - name: page
+          in: query
+          type: integer
+          description: page parameter.
+          required: false
+        - name: size
+          in: query
+          type: integer
+          description: size parameter.
+          required: false
+      - name: create-flow
+        method: POST
+        description: Create Flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-flows-basic-examples
+      path: /api/v1/flows/basic_examples/
+      operations:
+      - name: read-basic-examples
+        method: GET
+        description: Read Basic Examples
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-flows-batch
+      path: /api/v1/flows/batch/
+      operations:
+      - name: create-flows
+        method: POST
+        description: Create Flows
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-flows-download
+      path: /api/v1/flows/download/
+      operations:
+      - name: download-multiple-file
+        method: POST
+        description: Download Multiple File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-flows-public-flow-flow-id
+      path: /api/v1/flows/public_flow/{flow_id}
+      operations:
+      - name: read-public-flow
+        method: GET
+        description: Read Public Flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          description: flow_id parameter.
+          required: true
+    - name: api-v1-flows-upload
+      path: /api/v1/flows/upload/
+      operations:
+      - name: upload-file
+        method: POST
+        description: Upload File
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: folder_id
+          in: query
+          type: string
+          description: folder_id parameter.
+          required: false
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-flows-flow-id
+      path: /api/v1/flows/{flow_id}
+      operations:
+      - name: delete-flow
+        method: DELETE
+        description: Delete Flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          description: flow_id parameter.
+          required: true
+      - name: read-flow
+        method: GET
+        description: Read Flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          description: flow_id parameter.
+          required: true
+      - name: update-flow
+        method: PATCH
+        description: Update Flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          description: flow_id parameter.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: upsert-flow
+        method: PUT
+        description: Upsert Flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          description: flow_id parameter.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-starter-projects
+      path: /api/v1/starter-projects/
+      operations:
+      - name: get-starter-projects
+        method: GET
+        description: Get Starter Projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.LANGFLOW_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: flows-rest
+    port: 8080
+    description: REST adapter for Langflow Flows.
+    resources:
+    - path: /v1/api/v1/flows/
+      name: api-v1-flows
+      description: REST surface for /api/v1/flows/.
+      operations:
+      - method: DELETE
+        name: delete-multiple-flows
+        description: Delete Multiple Flows
+        call: flows.delete-multiple-flows
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: read-flows
+        description: Read Flows
+        call: flows.read-flows
+        with:
+          remove_example_flows: rest.remove_example_flows
+          components_only: rest.components_only
+          get_all: rest.get_all
+          folder_id: rest.folder_id
+          header_flows: rest.header_flows
+          page: rest.page
+          size: rest.size
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-flow
+        description: Create Flow
+        call: flows.create-flow
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/flows/basic_examples/
+      name: api-v1-flows-basic-examples
+      description: REST surface for /api/v1/flows/basic_examples/.
+      operations:
+      - method: GET
+        name: read-basic-examples
+        description: Read Basic Examples
+        call: flows.read-basic-examples
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/flows/batch/
+      name: api-v1-flows-batch
+      description: REST surface for /api/v1/flows/batch/.
+      operations:
+      - method: POST
+        name: create-flows
+        description: Create Flows
+        call: flows.create-flows
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/flows/download/
+      name: api-v1-flows-download
+      description: REST surface for /api/v1/flows/download/.
+      operations:
+      - method: POST
+        name: download-multiple-file
+        description: Download Multiple File
+        call: flows.download-multiple-file
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/flows/public_flow/{flow_id}
+      name: api-v1-flows-public-flow-flow-id
+      description: REST surface for /api/v1/flows/public_flow/{flow_id}.
+      operations:
+      - method: GET
+        name: read-public-flow
+        description: Read Public Flow
+        call: flows.read-public-flow
+        with:
+          flow_id: rest.flow_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/flows/upload/
+      name: api-v1-flows-upload
+      description: REST surface for /api/v1/flows/upload/.
+      operations:
+      - method: POST
+        name: upload-file
+        description: Upload File
+        call: flows.upload-file
+        with:
+          folder_id: rest.folder_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/flows/{flow_id}
+      name: api-v1-flows-flow-id
+      description: REST surface for /api/v1/flows/{flow_id}.
+      operations:
+      - method: DELETE
+        name: delete-flow
+        description: Delete Flow
+        call: flows.delete-flow
+        with:
+          flow_id: rest.flow_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: read-flow
+        description: Read Flow
+        call: flows.read-flow
+        with:
+          flow_id: rest.flow_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: update-flow
+        description: Update Flow
+        call: flows.update-flow
+        with:
+          flow_id: rest.flow_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: upsert-flow
+        description: Upsert Flow
+        call: flows.upsert-flow
+        with:
+          flow_id: rest.flow_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/starter-projects/
+      name: api-v1-starter-projects
+      description: REST surface for /api/v1/starter-projects/.
+      operations:
+      - method: GET
+        name: get-starter-projects
+        description: Get Starter Projects
+        call: flows.get-starter-projects
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: flows-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Langflow Flows. One tool per consumed operation.
+    tools:
+    - name: langflow-delete-multiple-flows
+      description: Delete Multiple Flows
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: flows.delete-multiple-flows
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-read-flows
+      description: Read Flows
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: flows.read-flows
+      with:
+        remove_example_flows: tools.remove_example_flows
+        components_only: tools.components_only
+        get_all: tools.get_all
+        folder_id: tools.folder_id
+        header_flows: tools.header_flows
+        page: tools.page
+        size: tools.size
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-create-flow
+      description: Create Flow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: flows.create-flow
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-read-basic-examples
+      description: Read Basic Examples
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: flows.read-basic-examples
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-create-flows
+      description: Create Flows
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: flows.create-flows
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-download-multiple-file
+      description: Download Multiple File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: flows.download-multiple-file
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-read-public-flow
+      description: Read Public Flow
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: flows.read-public-flow
+      with:
+        flow_id: tools.flow_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-upload-file
+      description: Upload File
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: flows.upload-file
+      with:
+        folder_id: tools.folder_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-delete-flow
+      description: Delete Flow
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: flows.delete-flow
+      with:
+        flow_id: tools.flow_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-read-flow
+      description: Read Flow
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: flows.read-flow
+      with:
+        flow_id: tools.flow_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-update-flow
+      description: Update Flow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: flows.update-flow
+      with:
+        flow_id: tools.flow_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-upsert-flow
+      description: Upsert Flow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: flows.upsert-flow
+      with:
+        flow_id: tools.flow_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-get-starter-projects
+      description: Get Starter Projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: flows.get-starter-projects
+      outputParameters:
+      - type: object
+        mapping: $.

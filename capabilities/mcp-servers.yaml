@@ -1,0 +1,242 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Langflow MCP
+  description: 'Langflow MCP. 5 operations. Lead operation: Get Servers. Self-contained Naftiko capability covering one Langflow
+    business surface.'
+  tags:
+  - Langflow
+  - MCP
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    LANGFLOW_API_KEY: LANGFLOW_API_KEY
+    LANGFLOW_BASE_URL: LANGFLOW_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: mcp-servers
+    baseUri: '{{env.LANGFLOW_BASE_URL}}'
+    description: Langflow MCP business capability.
+    resources:
+    - name: api-v2-mcp-servers
+      path: /api/v2/mcp/servers
+      operations:
+      - name: get-servers
+        method: GET
+        description: Get Servers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: action_count
+          in: query
+          type: string
+          description: action_count parameter.
+          required: false
+    - name: api-v2-mcp-servers-server-name
+      path: /api/v2/mcp/servers/{server_name}
+      operations:
+      - name: delete-server
+        method: DELETE
+        description: Delete Server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: server_name
+          in: path
+          type: string
+          description: server_name parameter.
+          required: true
+      - name: get-server-endpoint
+        method: GET
+        description: Get Server Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: server_name
+          in: path
+          type: string
+          description: server_name parameter.
+          required: true
+      - name: update-server-endpoint
+        method: PATCH
+        description: Update Server Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: server_name
+          in: path
+          type: string
+          description: server_name parameter.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: add-server
+        method: POST
+        description: Add Server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: server_name
+          in: path
+          type: string
+          description: server_name parameter.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.LANGFLOW_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: mcp-servers-rest
+    port: 8080
+    description: REST adapter for Langflow MCP.
+    resources:
+    - path: /v1/api/v2/mcp/servers
+      name: api-v2-mcp-servers
+      description: REST surface for /api/v2/mcp/servers.
+      operations:
+      - method: GET
+        name: get-servers
+        description: Get Servers
+        call: mcp-servers.get-servers
+        with:
+          action_count: rest.action_count
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v2/mcp/servers/{server_name}
+      name: api-v2-mcp-servers-server-name
+      description: REST surface for /api/v2/mcp/servers/{server_name}.
+      operations:
+      - method: DELETE
+        name: delete-server
+        description: Delete Server
+        call: mcp-servers.delete-server
+        with:
+          server_name: rest.server_name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: get-server-endpoint
+        description: Get Server Endpoint
+        call: mcp-servers.get-server-endpoint
+        with:
+          server_name: rest.server_name
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: update-server-endpoint
+        description: Update Server Endpoint
+        call: mcp-servers.update-server-endpoint
+        with:
+          server_name: rest.server_name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: add-server
+        description: Add Server
+        call: mcp-servers.add-server
+        with:
+          server_name: rest.server_name
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: mcp-servers-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Langflow MCP. One tool per consumed operation.
+    tools:
+    - name: langflow-get-servers
+      description: Get Servers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: mcp-servers.get-servers
+      with:
+        action_count: tools.action_count
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-delete-server
+      description: Delete Server
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: mcp-servers.delete-server
+      with:
+        server_name: tools.server_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-get-server-endpoint
+      description: Get Server Endpoint
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: mcp-servers.get-server-endpoint
+      with:
+        server_name: tools.server_name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-update-server-endpoint
+      description: Update Server Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: mcp-servers.update-server-endpoint
+      with:
+        server_name: tools.server_name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-add-server
+      description: Add Server
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: mcp-servers.add-server
+      with:
+        server_name: tools.server_name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

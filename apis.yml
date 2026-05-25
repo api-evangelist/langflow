@@ -1,0 +1,435 @@
+aid: langflow
+url: https://raw.githubusercontent.com/api-evangelist/langflow/refs/heads/main/apis.yml
+apis:
+- aid: langflow:langflow-api
+  name: Langflow API
+  tags:
+  - AI
+  - Agents
+  - Workflows
+  - Low-Code
+  - LangChain
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  properties:
+  - url: https://docs.langflow.org/api-reference-api-examples
+    type: Documentation
+  - url: https://docs.langflow.org/api-keys-and-authentication
+    type: Authentication
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - url: json-ld/langflow-context.jsonld
+    type: JSONLD
+  - url: vocabulary/langflow-vocabulary.yml
+    type: Vocabulary
+  - url: rules/langflow-rules.yml
+    type: SpectralRuleset
+  description: Langflow's FastAPI-based REST API exposes every capability of a running Langflow server — running
+    flows, building flows, managing projects, files, users, API keys, MCP servers, messages and sessions, traces,
+    starter projects, and an OpenAI-compatible Responses endpoint. Authentication is via the `x-api-key` header or
+    query parameter. An interactive OpenAPI 3.1 spec is served at `/docs` and `/openapi.json` on every deployment.
+- aid: langflow:langflow-flows-api
+  name: Langflow Flows API
+  tags:
+  - AI
+  - Flows
+  - Agents
+  humanURL: https://docs.langflow.org/concepts-flows
+  properties:
+  - url: https://docs.langflow.org/concepts-flows
+    type: Documentation
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - url: json-schema/langflow-flow-schema.json
+    type: JSONSchema
+  - type: NaftikoCapability
+    url: capabilities/flows.yaml
+  - type: NaftikoCapability
+    url: capabilities/flow-events.yaml
+  description: Create, read, update, delete, upload, download, and list flows. A flow is the canonical Langflow
+    unit — a directed graph of components representing an AI agent or workflow. Includes endpoints for batch
+    creation, basic examples, public flows, and starter projects.
+- aid: langflow:langflow-run-api
+  name: Langflow Run API
+  tags:
+  - AI
+  - Agents
+  - Execution
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  properties:
+  - url: https://docs.langflow.org/api-reference-api-examples
+    type: Documentation
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/base.yaml
+  description: Execute a flow by id or name via POST `/api/v1/run/{flow_id_or_name}` (simplified), POST
+    `/api/v1/run/advanced/{flow_id_or_name}` (experimental advanced), or POST
+    `/api/v1/webhook/{flow_id_or_name}` for webhook-triggered runs. Returns flow outputs and supports streaming
+    via the `stream` query parameter.
+- aid: langflow:langflow-build-api
+  name: Langflow Build API
+  tags:
+  - AI
+  - Build
+  - Streaming
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  properties:
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/chat-builds.yaml
+  description: Build endpoints run a flow with full vertex-level streaming. POST `/api/v1/build/{flow_id}/flow`
+    kicks off a build job and returns a job id; GET `/api/v1/build/{job_id}/events` streams vertex build events;
+    POST `/api/v1/build/{job_id}/cancel` cancels in-flight builds. Public-tmp variants exist for unauthenticated
+    public flow execution.
+- aid: langflow:langflow-projects-api
+  name: Langflow Projects API
+  tags:
+  - AI
+  - Projects
+  - Organization
+  humanURL: https://docs.langflow.org/concepts-flows-import
+  properties:
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - url: json-schema/langflow-project-schema.json
+    type: JSONSchema
+  - type: NaftikoCapability
+    url: capabilities/projects.yaml
+  description: Create, list, read, update, delete, upload, and download Langflow projects. Projects are
+    containers that group flows and provide MCP server installation context.
+- aid: langflow:langflow-files-api
+  name: Langflow Files API
+  tags:
+  - AI
+  - Files
+  - Storage
+  humanURL: https://docs.langflow.org/concepts-file-management
+  properties:
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/files.yaml
+  description: Upload, download, list, and delete files attached to a flow (v1) or to the authenticated user
+    (v2). The v2 Files API supports batch upload/download, batch delete, and profile-picture management.
+- aid: langflow:langflow-monitor-api
+  name: Langflow Monitor API
+  tags:
+  - AI
+  - Monitoring
+  - Messages
+  - Sessions
+  humanURL: https://docs.langflow.org/concepts-flows-monitor
+  properties:
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - url: json-schema/langflow-message-schema.json
+    type: JSONSchema
+  - type: NaftikoCapability
+    url: capabilities/monitor.yaml
+  description: Inspect and manage execution history — vertex builds, chat messages, sessions, and shared sessions.
+    Supports listing, updating, renaming, and deleting messages and entire sessions, plus shared-session sharing
+    for read-only collaboration.
+- aid: langflow:langflow-traces-api
+  name: Langflow Traces API
+  tags:
+  - AI
+  - Tracing
+  - Observability
+  humanURL: https://docs.langflow.org/concepts-flows-monitor
+  properties:
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/traces.yaml
+  description: Retrieve and delete execution traces. GET `/api/v1/monitor/traces` lists traces with flow-id
+    filtering; GET `/api/v1/monitor/traces/{trace_id}` returns a single trace. Integrates with external
+    observability providers like LangSmith and LangFuse.
+- aid: langflow:langflow-users-api
+  name: Langflow Users API
+  tags:
+  - AI
+  - Users
+  - Administration
+  humanURL: https://docs.langflow.org/configuration-authentication
+  properties:
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - url: json-schema/langflow-user-schema.json
+    type: JSONSchema
+  - type: NaftikoCapability
+    url: capabilities/users.yaml
+  description: User management endpoints — create, read, patch, and delete users; `/api/v1/users/whoami` returns
+    the current authenticated user; reset-password endpoint for superuser-driven credential resets.
+- aid: langflow:langflow-mcp-api
+  name: Langflow MCP API
+  tags:
+  - AI
+  - MCP
+  - Model Context Protocol
+  - Servers
+  humanURL: https://docs.langflow.org/mcp-server
+  properties:
+  - url: https://docs.langflow.org/mcp-server
+    type: Documentation
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - url: json-schema/langflow-mcp-server-schema.json
+    type: JSONSchema
+  - type: NaftikoCapability
+    url: capabilities/mcp-servers.yaml
+  description: Manage MCP (Model Context Protocol) servers attached to Langflow projects and globally. Every
+    Langflow project can be exposed as an MCP server so its flows are callable as MCP tools. Endpoints list,
+    register, update, and remove MCP servers, and install MCP configurations into Claude Desktop and other MCP
+    hosts.
+- aid: langflow:langflow-workflow-api
+  name: Langflow Workflow API
+  tags:
+  - AI
+  - Workflows
+  - Execution
+  humanURL: https://docs.langflow.org/concepts-flows
+  properties:
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/workflow.yaml
+  description: v2 Workflow execution API — POST `/api/v2/workflows` executes a workflow; GET returns workflow
+    status; POST `/api/v2/workflows/stop` halts a running workflow. The v2 workflow surface is the forward-looking
+    execution interface for Langflow agents.
+- aid: langflow:langflow-openai-responses-api
+  name: Langflow OpenAI Responses API
+  tags:
+  - AI
+  - OpenAI-Compatible
+  - Responses
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  properties:
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  - type: NaftikoCapability
+    url: capabilities/openai-responses.yaml
+  description: OpenAI-compatible Responses endpoint at POST `/api/v1/responses`. Lets clients written against
+    OpenAI's Responses API point at a Langflow flow without code changes — the flow plays the role of the model
+    and tool-calling layer.
+- aid: langflow:langflow-api-keys-api
+  name: Langflow API Keys API
+  tags:
+  - AI
+  - Authentication
+  - Administration
+  humanURL: https://docs.langflow.org/api-keys-and-authentication
+  properties:
+  - url: https://docs.langflow.org/api-keys-and-authentication
+    type: Documentation
+  - url: openapi/langflow-openapi.yml
+    type: OpenAPI
+  description: Create, list, rotate, and delete Langflow API keys. Keys authenticate requests against any of the
+    Langflow REST endpoints via the `x-api-key` header. Also creatable via the `langflow api-key` CLI when the
+    frontend is disabled.
+name: Langflow
+tags:
+- AI
+- Artificial Intelligence
+- Agents
+- Workflows
+- Low-Code
+- Visual Builder
+- LangChain
+- RAG
+- MCP
+- Open Source
+- FastAPI
+kind: contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+common:
+- url: https://www.langflow.org
+  type: Portal
+- url: https://docs.langflow.org
+  name: Langflow Documentation
+  type: Documentation
+- url: https://docs.langflow.org/get-started-installation
+  name: Installation
+  type: GettingStarted
+- url: https://docs.langflow.org/get-started-quickstart
+  name: Quickstart
+  type: GettingStarted
+- url: https://docs.langflow.org/api-reference-api-examples
+  name: API Reference
+  type: Documentation
+- url: https://docs.langflow.org/api-keys-and-authentication
+  name: API Keys and Authentication
+  type: Authentication
+- url: https://docs.langflow.org/concepts-flows
+  name: Flows Concepts
+  type: Documentation
+- url: https://docs.langflow.org/concepts-components
+  name: Components Reference
+  type: Documentation
+- url: https://docs.langflow.org/configuration-authentication
+  name: Authentication Configuration
+  type: Documentation
+- url: https://docs.langflow.org/deployment-overview
+  name: Deployment Overview
+  type: Documentation
+- url: https://docs.langflow.org/deployment-docker
+  name: Docker Deployment
+  type: Documentation
+- url: https://docs.langflow.org/deployment-kubernetes
+  name: Kubernetes Deployment
+  type: Documentation
+- url: https://docs.langflow.org/release-notes
+  name: Release Notes
+  type: ChangeLog
+- url: https://github.com/langflow-ai/langflow
+  name: Langflow GitHub
+  type: SourceCode
+- url: https://github.com/langflow-ai
+  name: Langflow GitHub Organization
+  type: GitHubOrganization
+- url: https://github.com/langflow-ai/langflow/blob/main/LICENSE
+  name: MIT License
+  type: License
+- url: https://github.com/langflow-ai/langflow/releases
+  name: Releases
+  type: ChangeLog
+- url: https://github.com/langflow-ai/langflow/issues
+  name: Issues
+  type: IssueTracker
+- url: https://github.com/langflow-ai/langflow/blob/main/CONTRIBUTING.md
+  name: Contributing
+  type: Documentation
+- url: https://github.com/langflow-ai/langflow-helm-charts
+  name: Langflow Helm Charts
+  type: HelmChart
+- url: https://github.com/langflow-ai/langflow-embedded-chat
+  name: Langflow Embedded Chat
+  type: Tool
+- url: https://github.com/langflow-ai/langflow-client-ts
+  name: TypeScript Client
+  type: SDK
+- url: https://github.com/langflow-ai/langflow-railway
+  name: Railway Template
+  type: Deployment
+- url: https://github.com/langflow-ai/openrag
+  name: OpenRAG
+  type: Tool
+- url: https://github.com/langflow-ai/langflow-bundles
+  name: Langflow Bundles
+  type: Tool
+- url: https://github.com/langflow-ai/langflow-twilio-voice
+  name: Twilio Voice Example
+  type: CodeExamples
+- url: https://github.com/langflow-ai/mcp-sse-shim
+  name: MCP SSE Shim
+  type: Tool
+- url: https://pypi.org/project/langflow/
+  name: PyPI Package
+  type: Package
+- url: https://hub.docker.com/r/langflowai/langflow
+  name: Docker Image
+  type: Container
+- url: https://docs.langflow.org/develop-application
+  name: Develop with Langflow
+  type: Documentation
+- url: https://docs.langflow.org/concepts-flows-import
+  name: Import and Export Flows
+  type: Documentation
+- url: https://docs.langflow.org/concepts-file-management
+  name: File Management
+  type: Documentation
+- url: https://docs.langflow.org/concepts-flows-monitor
+  name: Monitor Flows
+  type: Documentation
+- url: https://docs.langflow.org/concepts-publish
+  name: Publish Flows
+  type: Documentation
+- url: https://docs.langflow.org/concepts-playground
+  name: Playground
+  type: Documentation
+- url: https://docs.langflow.org/agents-overview
+  name: Agents Overview
+  type: Documentation
+- url: https://docs.langflow.org/mcp-server
+  name: MCP Server
+  type: Documentation
+- url: https://docs.langflow.org/mcp-client
+  name: MCP Client
+  type: Documentation
+- url: https://docs.langflow.org/typescript-client
+  name: TypeScript Client Docs
+  type: Documentation
+- url: https://discord.com/invite/EqksyE2EX9
+  name: Discord Community
+  type: Forum
+- url: https://www.youtube.com/@Langflow
+  name: YouTube Channel
+  type: Video
+- url: https://twitter.com/langflow_ai
+  name: Twitter
+  type: Twitter
+- url: https://www.linkedin.com/company/langflow-ai/
+  name: LinkedIn
+  type: LinkedIn
+- url: https://www.langflow.org/blog
+  type: Blog
+- url: https://www.langflow.org/use-cases
+  type: UseCases
+- url: https://www.langflow.org/newsletter
+  type: Newsletter
+- url: https://www.ibm.com/products/datastax
+  name: IBM DataStax (Owner)
+  type: Owner
+- type: Features
+  data:
+  - Visual drag-and-drop builder for AI agents, RAG pipelines, and LangChain workflows
+  - FastAPI-based REST API with OpenAPI 3.1 spec served at /docs and /openapi.json on every deployment
+  - 67 REST endpoints covering flows, builds, projects, files, users, API keys, MCP servers, monitoring, and
+    traces
+  - OpenAI-compatible Responses endpoint (/api/v1/responses) so OpenAI clients can target a Langflow flow
+  - Webhook execution endpoint per flow for event-driven invocation
+  - Streaming flow execution via SSE on the build endpoints
+  - Native MCP (Model Context Protocol) server — every Langflow project is exposable as an MCP server
+  - MCP client support for consuming external MCP servers as Langflow components
+  - Project / flow / component hierarchy with import-export, batch operations, and public-flow sharing
+  - Session-aware chat with shared sessions for read-only collaboration
+  - Built-in trace explorer plus integrations with LangSmith and LangFuse for observability
+  - Pluggable Python components — every component's source is editable in the UI
+  - Multi-agent orchestration with conditional routing and tool calls
+  - Vector-store integrations including Astra DB, Chroma, Pinecone, Milvus, Weaviate, Qdrant, and pgvector
+  - LLM integrations including OpenAI, Anthropic, Google, Azure, Bedrock, Mistral, Cohere, Hugging Face, Ollama,
+    and Groq
+  - File upload and per-user file management with batch operations (v2 Files API)
+  - API key authentication via `x-api-key` header or query parameter
+  - Auto-login mode for local dev and superuser mode for production
+  - Distributed by Python package on PyPI (`pip install langflow`), Docker image (`langflowai/langflow:latest`),
+    Helm chart, and Desktop app for macOS and Windows
+  - MIT-licensed, written in Python (FastAPI backend) and TypeScript (React Flow frontend)
+  - 149k+ GitHub stars, v1.9.3 (May 2026) — actively maintained by langflow-ai with 800+ contributors
+  - Hosted Langflow Cloud offering operated by IBM DataStax (post-acquisition)
+  sources:
+  - https://www.langflow.org
+  - https://docs.langflow.org
+  - https://github.com/langflow-ai/langflow
+  - https://docs.langflow.org/api-reference-api-examples
+  - https://docs.langflow.org/api-keys-and-authentication
+  updated: '2026-05-24'
+created: '2026-05-24T00:00:00.000Z'
+modified: '2026-05-24'
+position: Producing
+description: Langflow is an open-source low-code visual builder for AI agents, RAG pipelines, and LangChain-based
+  workflows. It pairs a drag-and-drop React Flow frontend with a FastAPI backend that exposes every flow as a REST
+  API, an MCP server, and an OpenAI-compatible Responses endpoint. Components are editable Python and ship with
+  integrations across most major LLMs, vector stores, and observability platforms. Langflow was acquired by
+  DataStax in 2025; DataStax itself was acquired by IBM and the deal closed on May 28, 2025, making Langflow an
+  IBM property while remaining MIT-licensed open source. The project is the canonical reference implementation
+  for visually composing LangChain agents — 149k+ GitHub stars, distributed via PyPI, Docker, Helm, and native
+  Desktop apps, with a hosted cloud option run by DataStax.
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
+specificationVersion: '0.16'

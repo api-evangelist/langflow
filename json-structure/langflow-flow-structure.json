@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-structure.org/draft/2025-01/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/langflow/main/json-structure/langflow-flow-structure.json",
+  "title": "Langflow Flow Structure",
+  "description": "Structural shape of a Langflow Flow — the canonical graph of components, vertices, and edges that defines an AI agent or workflow.",
+  "type": "object",
+  "properties": {
+    "id": {"type": "string", "description": "Unique flow identifier (UUID)."},
+    "name": {"type": "string", "description": "Human-readable flow name."},
+    "description": {"type": "string"},
+    "endpoint_name": {"type": "string", "description": "Slug used as the URL path component for /api/v1/run/{endpoint_name}."},
+    "is_component": {"type": "boolean", "description": "True if the flow is exported as a reusable component."},
+    "tags": {"type": "array", "items": {"type": "string"}},
+    "data": {
+      "type": "object",
+      "description": "React Flow graph payload.",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "description": "Vertices in the flow graph; each node has an id, type (component class), position, and data.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {"type": "string"},
+              "type": {"type": "string", "description": "Component class — e.g. ChatInput, OpenAIModel, AstraDB, AgentExecutor."},
+              "position": {
+                "type": "object",
+                "properties": {"x": {"type": "number"}, "y": {"type": "number"}}
+              },
+              "data": {"type": "object", "description": "Component configuration: parameter values, template, and tweaks."}
+            }
+          }
+        },
+        "edges": {
+          "type": "array",
+          "description": "Connections between component output ports and component input ports.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {"type": "string", "description": "Source node id."},
+              "target": {"type": "string", "description": "Target node id."},
+              "sourceHandle": {"type": "string", "description": "Source port name."},
+              "targetHandle": {"type": "string", "description": "Target port name."}
+            }
+          }
+        },
+        "viewport": {
+          "type": "object",
+          "properties": {"x": {"type": "number"}, "y": {"type": "number"}, "zoom": {"type": "number"}}
+        }
+      }
+    },
+    "user_id": {"type": "string"},
+    "folder_id": {"type": "string", "description": "Parent project id."},
+    "updated_at": {"type": "string", "format": "date-time"}
+  },
+  "required": ["name", "data"]
+}

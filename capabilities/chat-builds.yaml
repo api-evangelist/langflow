@@ -1,0 +1,389 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Langflow Chat
+  description: 'Langflow Chat. 6 operations. Lead operation: Build Flow. Self-contained Naftiko capability covering one Langflow
+    business surface.'
+  tags:
+  - Langflow
+  - Chat
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+- namespace: env
+  keys:
+    LANGFLOW_API_KEY: LANGFLOW_API_KEY
+    LANGFLOW_BASE_URL: LANGFLOW_BASE_URL
+capability:
+  consumes:
+  - type: http
+    namespace: chat-builds
+    baseUri: '{{env.LANGFLOW_BASE_URL}}'
+    description: Langflow Chat business capability.
+    resources:
+    - name: api-v1-build-flow-id-flow
+      path: /api/v1/build/{flow_id}/flow
+      operations:
+      - name: build-flow
+        method: POST
+        description: Build Flow
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          description: flow_id parameter.
+          required: true
+        - name: stop_component_id
+          in: query
+          type: string
+          description: stop_component_id parameter.
+          required: false
+        - name: start_component_id
+          in: query
+          type: string
+          description: start_component_id parameter.
+          required: false
+        - name: log_builds
+          in: query
+          type: boolean
+          description: log_builds parameter.
+          required: false
+        - name: flow_name
+          in: query
+          type: string
+          description: flow_name parameter.
+          required: false
+        - name: event_delivery
+          in: query
+          type: string
+          description: event_delivery parameter.
+          required: false
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-build-job-id-cancel
+      path: /api/v1/build/{job_id}/cancel
+      operations:
+      - name: cancel-build
+        method: POST
+        description: Cancel Build
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: job_id
+          in: path
+          type: string
+          description: job_id parameter.
+          required: true
+    - name: api-v1-build-job-id-events
+      path: /api/v1/build/{job_id}/events
+      operations:
+      - name: get-build-events
+        method: GET
+        description: Get Build Events
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: job_id
+          in: path
+          type: string
+          description: job_id parameter.
+          required: true
+        - name: event_delivery
+          in: query
+          type: string
+          description: event_delivery parameter.
+          required: false
+    - name: api-v1-build-public-tmp-flow-id-flow
+      path: /api/v1/build_public_tmp/{flow_id}/flow
+      operations:
+      - name: build-public-tmp
+        method: POST
+        description: Build Public Tmp
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: flow_id
+          in: path
+          type: string
+          description: flow_id parameter.
+          required: true
+        - name: stop_component_id
+          in: query
+          type: string
+          description: stop_component_id parameter.
+          required: false
+        - name: start_component_id
+          in: query
+          type: string
+          description: start_component_id parameter.
+          required: false
+        - name: log_builds
+          in: query
+          type: string
+          description: log_builds parameter.
+          required: false
+        - name: flow_name
+          in: query
+          type: string
+          description: flow_name parameter.
+          required: false
+        - name: event_delivery
+          in: query
+          type: string
+          description: event_delivery parameter.
+          required: false
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: api-v1-build-public-tmp-job-id-cancel
+      path: /api/v1/build_public_tmp/{job_id}/cancel
+      operations:
+      - name: cancel-build-public
+        method: POST
+        description: Cancel Build Public
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: job_id
+          in: path
+          type: string
+          description: job_id parameter.
+          required: true
+    - name: api-v1-build-public-tmp-job-id-events
+      path: /api/v1/build_public_tmp/{job_id}/events
+      operations:
+      - name: get-build-events-public
+        method: GET
+        description: Get Build Events Public
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: job_id
+          in: path
+          type: string
+          description: job_id parameter.
+          required: true
+        - name: event_delivery
+          in: query
+          type: string
+          description: event_delivery parameter.
+          required: false
+    authentication:
+      type: apikey
+      key: x-api-key
+      value: '{{env.LANGFLOW_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: chat-builds-rest
+    port: 8080
+    description: REST adapter for Langflow Chat.
+    resources:
+    - path: /v1/api/v1/build/{flow_id}/flow
+      name: api-v1-build-flow-id-flow
+      description: REST surface for /api/v1/build/{flow_id}/flow.
+      operations:
+      - method: POST
+        name: build-flow
+        description: Build Flow
+        call: chat-builds.build-flow
+        with:
+          flow_id: rest.flow_id
+          stop_component_id: rest.stop_component_id
+          start_component_id: rest.start_component_id
+          log_builds: rest.log_builds
+          flow_name: rest.flow_name
+          event_delivery: rest.event_delivery
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/build/{job_id}/cancel
+      name: api-v1-build-job-id-cancel
+      description: REST surface for /api/v1/build/{job_id}/cancel.
+      operations:
+      - method: POST
+        name: cancel-build
+        description: Cancel Build
+        call: chat-builds.cancel-build
+        with:
+          job_id: rest.job_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/build/{job_id}/events
+      name: api-v1-build-job-id-events
+      description: REST surface for /api/v1/build/{job_id}/events.
+      operations:
+      - method: GET
+        name: get-build-events
+        description: Get Build Events
+        call: chat-builds.get-build-events
+        with:
+          job_id: rest.job_id
+          event_delivery: rest.event_delivery
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/build_public_tmp/{flow_id}/flow
+      name: api-v1-build-public-tmp-flow-id-flow
+      description: REST surface for /api/v1/build_public_tmp/{flow_id}/flow.
+      operations:
+      - method: POST
+        name: build-public-tmp
+        description: Build Public Tmp
+        call: chat-builds.build-public-tmp
+        with:
+          flow_id: rest.flow_id
+          stop_component_id: rest.stop_component_id
+          start_component_id: rest.start_component_id
+          log_builds: rest.log_builds
+          flow_name: rest.flow_name
+          event_delivery: rest.event_delivery
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/build_public_tmp/{job_id}/cancel
+      name: api-v1-build-public-tmp-job-id-cancel
+      description: REST surface for /api/v1/build_public_tmp/{job_id}/cancel.
+      operations:
+      - method: POST
+        name: cancel-build-public
+        description: Cancel Build Public
+        call: chat-builds.cancel-build-public
+        with:
+          job_id: rest.job_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/build_public_tmp/{job_id}/events
+      name: api-v1-build-public-tmp-job-id-events
+      description: REST surface for /api/v1/build_public_tmp/{job_id}/events.
+      operations:
+      - method: GET
+        name: get-build-events-public
+        description: Get Build Events Public
+        call: chat-builds.get-build-events-public
+        with:
+          job_id: rest.job_id
+          event_delivery: rest.event_delivery
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: chat-builds-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Langflow Chat. One tool per consumed operation.
+    tools:
+    - name: langflow-build-flow
+      description: Build Flow
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chat-builds.build-flow
+      with:
+        flow_id: tools.flow_id
+        stop_component_id: tools.stop_component_id
+        start_component_id: tools.start_component_id
+        log_builds: tools.log_builds
+        flow_name: tools.flow_name
+        event_delivery: tools.event_delivery
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-cancel-build
+      description: Cancel Build
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chat-builds.cancel-build
+      with:
+        job_id: tools.job_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-get-build-events
+      description: Get Build Events
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: chat-builds.get-build-events
+      with:
+        job_id: tools.job_id
+        event_delivery: tools.event_delivery
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-build-public-tmp
+      description: Build Public Tmp
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chat-builds.build-public-tmp
+      with:
+        flow_id: tools.flow_id
+        stop_component_id: tools.stop_component_id
+        start_component_id: tools.start_component_id
+        log_builds: tools.log_builds
+        flow_name: tools.flow_name
+        event_delivery: tools.event_delivery
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-cancel-build-public
+      description: Cancel Build Public
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: chat-builds.cancel-build-public
+      with:
+        job_id: tools.job_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: langflow-get-build-events-public
+      description: Get Build Events Public
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: chat-builds.get-build-events-public
+      with:
+        job_id: tools.job_id
+        event_delivery: tools.event_delivery
+      outputParameters:
+      - type: object
+        mapping: $.

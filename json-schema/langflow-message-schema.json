@@ -1,0 +1,280 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/langflow/main/json-schema/langflow-message-schema.json",
+  "title": "MessageResponse",
+  "description": "A chat message produced or consumed by a Langflow flow.",
+  "properties": {
+    "category": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Category"
+    },
+    "content_blocks": {
+      "anyOf": [
+        {
+          "items": {
+            "description": "A block of content that can contain different types of content.",
+            "properties": {
+              "allow_markdown": {
+                "default": true,
+                "title": "Allow Markdown",
+                "type": "boolean"
+              },
+              "contents": {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "title": "Contents",
+                "type": "array"
+              },
+              "media_url": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Media Url"
+              },
+              "title": {
+                "title": "Title",
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "contents"
+            ],
+            "title": "ContentBlock",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Content Blocks"
+    },
+    "context_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Context Id"
+    },
+    "duration": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Duration"
+    },
+    "edit": {
+      "title": "Edit",
+      "type": "boolean"
+    },
+    "files": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Files",
+      "type": "array"
+    },
+    "flow_id": {
+      "anyOf": [
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Flow Id"
+    },
+    "id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "format": "uuid",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Id"
+    },
+    "properties": {
+      "anyOf": [
+        {
+          "properties": {
+            "allow_markdown": {
+              "default": false,
+              "title": "Allow Markdown",
+              "type": "boolean"
+            },
+            "background_color": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Background Color"
+            },
+            "build_duration": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Build Duration"
+            },
+            "edited": {
+              "default": false,
+              "title": "Edited",
+              "type": "boolean"
+            },
+            "icon": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Icon"
+            },
+            "positive_feedback": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Positive Feedback"
+            },
+            "source": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "state": {
+              "default": "complete",
+              "enum": [
+                "partial",
+                "complete"
+              ],
+              "title": "State",
+              "type": "string"
+            },
+            "targets": {
+              "default": [],
+              "items": {},
+              "title": "Targets",
+              "type": "array"
+            },
+            "text_color": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Text Color"
+            },
+            "usage": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/Usage"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "title": "Properties",
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "sender": {
+      "title": "Sender",
+      "type": "string"
+    },
+    "sender_name": {
+      "title": "Sender Name",
+      "type": "string"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "session_metadata": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Session Metadata"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    },
+    "timestamp": {
+      "format": "date-time",
+      "title": "Timestamp",
+      "type": "string"
+    }
+  },
+  "required": [
+    "sender",
+    "sender_name",
+    "session_id",
+    "text",
+    "edit"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://localhost:7860/api/v1/flows/",
+    "headers": {
+      "Content-Type": "application/json",
+      "x-api-key": "{{LANGFLOW_API_KEY}}"
+    },
+    "body": {
+      "name": "Customer Support Agent",
+      "description": "RAG-backed agent that answers order-status questions.",
+      "data": {
+        "nodes": [
+          {"id": "ChatInput-1", "type": "ChatInput", "data": {}},
+          {"id": "OpenAIModel-1", "type": "OpenAIModel", "data": {"model_name": "gpt-4o-mini"}},
+          {"id": "ChatOutput-1", "type": "ChatOutput", "data": {}}
+        ],
+        "edges": [
+          {"source": "ChatInput-1", "target": "OpenAIModel-1"},
+          {"source": "OpenAIModel-1", "target": "ChatOutput-1"}
+        ]
+      },
+      "endpoint_name": "customer-support-agent",
+      "tags": ["support", "agent", "rag"]
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": "f3a1c2e4-9b0d-4e8f-8c1a-2b3d4e5f6071",
+      "name": "Customer Support Agent",
+      "description": "RAG-backed agent that answers order-status questions.",
+      "endpoint_name": "customer-support-agent",
+      "is_component": false,
+      "updated_at": "2026-05-24T12:00:00Z",
+      "user_id": "00000000-0000-0000-0000-000000000001"
+    }
+  }
+}

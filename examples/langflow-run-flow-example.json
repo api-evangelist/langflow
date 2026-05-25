@@ -1,0 +1,41 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "http://localhost:7860/api/v1/run/customer-support-agent?stream=false",
+    "headers": {
+      "Content-Type": "application/json",
+      "x-api-key": "{{LANGFLOW_API_KEY}}"
+    },
+    "body": {
+      "input_value": "What is the status of order 12345?",
+      "input_type": "chat",
+      "output_type": "chat",
+      "session_id": "user-7c5b-2026-05-24",
+      "tweaks": {}
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "session_id": "user-7c5b-2026-05-24",
+      "outputs": [
+        {
+          "inputs": {"input_value": "What is the status of order 12345?"},
+          "outputs": [
+            {
+              "results": {
+                "message": {
+                  "text": "Order 12345 shipped on 2026-05-22 and is out for delivery today.",
+                  "sender": "Machine",
+                  "sender_name": "AI",
+                  "session_id": "user-7c5b-2026-05-24",
+                  "timestamp": "2026-05-24T12:34:56.789Z"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
