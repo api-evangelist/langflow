@@ -1,0 +1,2821 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Langflow",
+    "version": "1.9.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Base",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/all",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve all component types with compression for better performance.<br><br>Returns a compressed response containing all available component types."
+        },
+        {
+          "info": {
+            "name": "Get Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/config",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve application configuration settings.<br><br>Returns different configuration based on authentication status:<br>- Authenticated users: Full ConfigResponse with all settings<br>- Unauthenticated users: PublicConfigResponse with limited, safe-to-expose settings<br><br>Args:<br>    user: The authenticated user, or None if unauthenticated.<br><br>Returns:<br>    ConfigResponse | PublicConfigResponse: Configuration settings appropriate for the user's auth status.<br><br>Raises:<br>    HTTPExce"
+        },
+        {
+          "info": {
+            "name": "Experimental Run Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/run/advanced/:flow_id_or_name",
+            "params": [
+              {
+                "name": "flow_id_or_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Executes a specified flow by ID with optional input values, output selection, tweaks, and streaming capability.<br><br>This endpoint supports running flows with caching to enhance performance and efficiency.<br><br>### Parameters:<br>- `flow` (Flow): The flow object to be executed, resolved via dependency injection.<br>- `inputs` (List[InputValueRequest], optional): A list of inputs specifying the input values and components<br>  for the flow. Each input can target specific components and provid"
+        },
+        {
+          "info": {
+            "name": "Simplified Run Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/run/:flow_id_or_name",
+            "params": [
+              {
+                "name": "flow_id_or_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "stream",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Executes a specified flow by ID with support for streaming and telemetry (API key auth).<br><br>This endpoint executes a flow identified by ID or name, with options for streaming the response<br>and tracking execution metrics. It handles both streaming and non-streaming execution modes.<br>This endpoint uses API key authentication (Bearer token).<br><br>Args:<br>    background_tasks (BackgroundTasks): FastAPI background task manager<br>    flow (FlowRead | None): The flow to execute, loaded via "
+        },
+        {
+          "info": {
+            "name": "Get Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/version"
+          },
+          "docs": "Get Version"
+        },
+        {
+          "info": {
+            "name": "Webhook Run Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/webhook/:flow_id_or_name",
+            "params": [
+              {
+                "name": "flow_id_or_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Run a flow using a webhook request.<br><br>Args:<br>    flow_id_or_name: The flow ID or endpoint name (used by dependency).<br>    flow: The flow to be executed.<br>    request: The incoming HTTP request.<br><br>Returns:<br>    A dictionary containing the status of the task.<br><br>Raises:<br>    HTTPException: If the flow is not found or if there is an error processing the request."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Chat",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Build Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/build/:flow_id/flow",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "stop_component_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_component_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "log_builds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flow_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "event_delivery",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Build and process a flow, returning a job ID for event polling.<br><br>This endpoint requires authentication through the CurrentActiveUser dependency.<br>For public flows that don't require authentication, use the /build_public_tmp/flow_id/flow endpoint.<br><br>Args:<br>    flow_id: UUID of the flow to build<br>    background_tasks: Background tasks manager<br>    inputs: Optional input values for the flow<br>    data: Optional flow data<br>    files: Optional files to include<br>    stop_compon"
+        },
+        {
+          "info": {
+            "name": "Cancel Build",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/build/:job_id/cancel",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Cancel a specific build job.<br><br>Requires authentication and ownership verification to prevent a user from<br>aborting another user's running build (DoS via job cancellation).<br>Jobs with no registered owner (build_public_tmp) are accessible to any<br>authenticated user, consistent with get_build_events."
+        },
+        {
+          "info": {
+            "name": "Get Build Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/build/:job_id/events",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "event_delivery",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get events for a specific build job.<br><br>Requires authentication and ownership verification. A job owner is registered<br>when build_flow is called; if a registered owner does not match the requesting<br>user the endpoint returns 404 to avoid leaking job existence.<br>Jobs started via build_public_tmp have no registered owner and remain accessible<br>to any authenticated user."
+        },
+        {
+          "info": {
+            "name": "Build Public Tmp",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/build_public_tmp/:flow_id/flow",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "stop_component_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_component_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "log_builds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "flow_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "event_delivery",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Build a public flow without requiring authentication.<br><br>This endpoint is specifically for public flows that don't require authentication.<br>It uses a client_id cookie to create a deterministic flow ID for tracking purposes.<br><br>Security Note:<br>- The 'data' parameter is NOT accepted to prevent flow definition tampering<br>- Public flows must execute the stored flow definition only<br>- The flow definition is always loaded from the database<br><br>The endpoint:<br>1. Verifies the reques"
+        },
+        {
+          "info": {
+            "name": "Cancel Build Public",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/build_public_tmp/:job_id/cancel",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Cancel a public flow build job.<br><br>This endpoint does not require authentication, matching the public build endpoint.<br>It is used by the shareable playground to cancel builds."
+        },
+        {
+          "info": {
+            "name": "Get Build Events Public",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/build_public_tmp/:job_id/events",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "event_delivery",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get events for a public flow build job.<br><br>This endpoint does not require authentication, matching the public build endpoint.<br>It is used by the shareable playground to consume build events."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Files",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/files/delete/:flow_id/:file_name",
+            "params": [
+              {
+                "name": "file_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete File"
+        },
+        {
+          "info": {
+            "name": "Download File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/files/download/:flow_id/:file_name",
+            "params": [
+              {
+                "name": "file_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download File"
+        },
+        {
+          "info": {
+            "name": "Download Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/files/images/:flow_id/:file_name",
+            "params": [
+              {
+                "name": "file_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download image from storage for browser rendering."
+        },
+        {
+          "info": {
+            "name": "List Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/files/list/:flow_id",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List Files"
+        },
+        {
+          "info": {
+            "name": "List Profile Pictures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/files/profile_pictures/list"
+          },
+          "docs": "List profile pictures from local filesystem.<br><br>Profile pictures are first looked up in config_dir/profile_pictures/,<br>then fallback to the package's bundled profile_pictures directory."
+        },
+        {
+          "info": {
+            "name": "Download Profile Picture",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/files/profile_pictures/:folder_name/:file_name",
+            "params": [
+              {
+                "name": "folder_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "file_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download profile picture from local filesystem.<br><br>Profile pictures are first looked up in config_dir/profile_pictures/,<br>then fallback to the package's bundled profile_pictures directory."
+        },
+        {
+          "info": {
+            "name": "Upload File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/files/upload/:flow_id",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload File"
+        },
+        {
+          "info": {
+            "name": "List Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/files",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the files available to the current user."
+        },
+        {
+          "info": {
+            "name": "Upload User File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v2/files",
+            "params": [
+              {
+                "name": "append",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ephemeral",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload a file for the current user and track it in the database."
+        },
+        {
+          "info": {
+            "name": "Delete All Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v2/files",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete all files for the current user."
+        },
+        {
+          "info": {
+            "name": "List Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/files/",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the files available to the current user."
+        },
+        {
+          "info": {
+            "name": "Upload User File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v2/files/",
+            "params": [
+              {
+                "name": "append",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ephemeral",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload a file for the current user and track it in the database."
+        },
+        {
+          "info": {
+            "name": "Delete All Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v2/files/",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete all files for the current user."
+        },
+        {
+          "info": {
+            "name": "Download Files Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v2/files/batch/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download multiple files as a zip file by their IDs."
+        },
+        {
+          "info": {
+            "name": "Delete Files Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v2/files/batch/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete multiple files by their IDs."
+        },
+        {
+          "info": {
+            "name": "Download File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/files/:file_id",
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "return_content",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download a file by its ID or return its content as a string/bytes.<br><br>Args:<br>    file_id: UUID of the file.<br>    current_user: Authenticated user.<br>    session: Database session.<br>    storage_service: File storage service.<br>    return_content: If True, return raw content (str) instead of StreamingResponse.<br><br>Returns:<br>    StreamingResponse for client downloads or str for internal use."
+        },
+        {
+          "info": {
+            "name": "Edit File Name",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v2/files/:file_id",
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Edit the name of a file by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v2/files/:file_id",
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a file by its ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Flows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Flows",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/flows/",
+            "params": [
+              {
+                "name": "remove_example_flows",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "components_only",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "get_all",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "header_flows",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a list of flows with optional pagination, filtering, and header-only mode."
+        },
+        {
+          "info": {
+            "name": "Create Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/flows/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Flow"
+        },
+        {
+          "info": {
+            "name": "Delete Multiple Flows",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/flows/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete multiple flows by their IDs."
+        },
+        {
+          "info": {
+            "name": "Read Basic Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/flows/basic_examples/"
+          },
+          "docs": "Retrieve a list of basic example flows."
+        },
+        {
+          "info": {
+            "name": "Create Flows",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/flows/batch/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create multiple new flows."
+        },
+        {
+          "info": {
+            "name": "Download Multiple File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/flows/download/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download all flows as a zip file."
+        },
+        {
+          "info": {
+            "name": "Read Public Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/flows/public_flow/:flow_id",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Read a public flow."
+        },
+        {
+          "info": {
+            "name": "Upload File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/flows/upload/",
+            "params": [
+              {
+                "name": "folder_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload flows from a JSON or ZIP file (upsert semantics for flows with stable IDs)."
+        },
+        {
+          "info": {
+            "name": "Read Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/flows/:flow_id",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Read a flow."
+        },
+        {
+          "info": {
+            "name": "Upsert Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/flows/:flow_id",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create or update a flow with a specific ID (upsert).<br><br>Returns 201 for creation, 200 for update.  Returns 404 if owned by another user."
+        },
+        {
+          "info": {
+            "name": "Update Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/flows/:flow_id",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a flow."
+        },
+        {
+          "info": {
+            "name": "Delete Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/flows/:flow_id",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a flow."
+        },
+        {
+          "info": {
+            "name": "Get Starter Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/starter-projects/",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a list of starter projects."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Flow Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Flow Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/flows/:flow_id/events",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "UTC timestamp to get events after"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Flow Events"
+        },
+        {
+          "info": {
+            "name": "Create Flow Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/flows/:flow_id/events",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Append an event to a flow's event queue."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "mcp_projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Project Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/mcp/project/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "mcp_enabled",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List project MCP tools."
+        },
+        {
+          "info": {
+            "name": "Update Project Mcp Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/mcp/project/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update the MCP settings of all flows in a project and project-level auth settings.<br><br>On MCP Composer failure, this endpoint should return with a 200 status code and an error message in<br>the body of the response to display to the user."
+        },
+        {
+          "info": {
+            "name": "Get Project Composer Url",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/mcp/project/:project_id/composer-url",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the MCP Composer URL for a specific project.<br><br>On failure, this endpoint should return with a 200 status code and an error message in<br>the body of the response to display to the user."
+        },
+        {
+          "info": {
+            "name": "Install Mcp Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/mcp/project/:project_id/install",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Install MCP server configuration for Cursor, Windsurf, or Claude."
+        },
+        {
+          "info": {
+            "name": "Check Installed Mcp Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/mcp/project/:project_id/installed",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Check if MCP server configuration is installed for this project in Cursor, Windsurf, or Claude."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Monitor",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Vertex Builds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/monitor/builds",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Vertex Builds"
+        },
+        {
+          "info": {
+            "name": "Delete Vertex Builds",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/monitor/builds",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete Vertex Builds"
+        },
+        {
+          "info": {
+            "name": "Get Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/monitor/messages",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sender",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sender_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Messages"
+        },
+        {
+          "info": {
+            "name": "Delete Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/monitor/messages",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete Messages"
+        },
+        {
+          "info": {
+            "name": "Update Session Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/session/:old_session_id",
+            "params": [
+              {
+                "name": "old_session_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "new_session_id",
+                "value": "",
+                "type": "query",
+                "description": "The new session ID to update to"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update Session Id"
+        },
+        {
+          "info": {
+            "name": "Delete Messages Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/session/:session_id",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete messages for a single session.<br><br>Only deletes messages from sessions belonging to flows owned by the current user."
+        },
+        {
+          "info": {
+            "name": "Get Message Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/sessions",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Message Sessions"
+        },
+        {
+          "info": {
+            "name": "Delete Messages Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/sessions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Bulk delete messages for multiple sessions at once.<br><br>Only deletes messages from sessions belonging to flows owned by the current user.<br><br>Args:<br>    session_ids: List of session IDs to delete (max 500)<br>    session: Database session<br>    current_user: Current authenticated user<br><br>Returns:<br>    Confirmation message with count of deleted sessions<br><br>Raises:<br>    HTTPException: 400 if session_ids list exceeds 500 items<br>    HTTPException: 500 if database operation fai"
+        },
+        {
+          "info": {
+            "name": "Get Shared Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/shared",
+            "params": [
+              {
+                "name": "source_flow_id",
+                "value": "",
+                "type": "query",
+                "description": "The original public flow ID"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get messages for a shared/public flow, scoped to the authenticated user.<br><br>Uses a deterministic virtual flow_id derived from the user's ID and the<br>original flow ID. Only messages stored under this virtual flow_id are returned."
+        },
+        {
+          "info": {
+            "name": "Rename Shared Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/shared/session/:old_session_id",
+            "params": [
+              {
+                "name": "old_session_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "new_session_id",
+                "value": "",
+                "type": "query",
+                "description": "The new session ID"
+              },
+              {
+                "name": "source_flow_id",
+                "value": "",
+                "type": "query",
+                "description": "The original public flow ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Rename a session on a shared/public flow, scoped to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Delete Shared Messages Session",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/shared/session/:session_id",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "source_flow_id",
+                "value": "",
+                "type": "query",
+                "description": "The original public flow ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete messages for a session on a shared/public flow, scoped to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get Shared Message Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/shared/sessions",
+            "params": [
+              {
+                "name": "source_flow_id",
+                "value": "",
+                "type": "query",
+                "description": "The original public flow ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get session IDs for a shared/public flow, scoped to the authenticated user.<br><br>Uses a deterministic virtual flow_id derived from the user's ID and the<br>original flow ID. Only messages stored under this virtual flow_id are returned."
+        },
+        {
+          "info": {
+            "name": "Update Shared Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/shared/:message_id",
+            "params": [
+              {
+                "name": "message_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "source_flow_id",
+                "value": "",
+                "type": "query",
+                "description": "The original public flow ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a message on a shared/public flow, scoped to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Update Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/v1/monitor/messages/:message_id",
+            "params": [
+              {
+                "name": "message_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update Message"
+        },
+        {
+          "info": {
+            "name": "Get Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/monitor/transactions",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Page size"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get Transactions"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Traces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Traces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/monitor/traces",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get list of traces for a flow.<br><br>Args:<br>    current_user: Authenticated user (required for authorization)<br>    flow_id: Filter by flow ID<br>    session_id: Filter by session ID<br>    status: Filter by trace status<br>    query: Search query for trace name/id/session id<br>    start_time: Filter traces starting on/after this time (ISO)<br>    end_time: Filter traces starting on/before this time (ISO)<br>    page: Page number (1-based)<br>    size: Page size<br><br>Returns:<br>    List "
+        },
+        {
+          "info": {
+            "name": "Delete Traces By Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/monitor/traces",
+            "params": [
+              {
+                "name": "flow_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete all traces for a flow.<br><br>Args:<br>    flow_id: The ID of the flow whose traces should be deleted.<br>    current_user: The authenticated user (required for authorization)."
+        },
+        {
+          "info": {
+            "name": "Get Trace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/monitor/traces/:trace_id",
+            "params": [
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a single trace with its hierarchical span tree.<br><br>Args:<br>    trace_id: The ID of the trace to retrieve.<br>    current_user: The authenticated user (required for authorization).<br><br>Returns:<br>    TraceRead containing the trace and its hierarchical span tree."
+        },
+        {
+          "info": {
+            "name": "Delete Trace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/monitor/traces/:trace_id",
+            "params": [
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a trace and all its spans.<br><br>Args:<br>    trace_id: The ID of the trace to delete.<br>    current_user: The authenticated user (required for authorization)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/projects/",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Read Projects"
+        },
+        {
+          "info": {
+            "name": "Create Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/projects/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create Project"
+        },
+        {
+          "info": {
+            "name": "Download File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/projects/download/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download all flows from project as a zip file."
+        },
+        {
+          "info": {
+            "name": "Upload File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/projects/upload/",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload flows from a file.<br><br>Accepts either a JSON file with project metadata (folder_name, folder_description, flows)<br>or a ZIP file containing individual flow JSON files (as produced by the download endpoint)."
+        },
+        {
+          "info": {
+            "name": "Read Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_component",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_flow",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Read Project"
+        },
+        {
+          "info": {
+            "name": "Update Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update Project"
+        },
+        {
+          "info": {
+            "name": "Delete Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete Project"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "OpenAI Responses API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/responses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Create a response using OpenAI Responses API format.<br><br>This endpoint accepts a flow_id in the model parameter and processes<br>the input through the specified Langflow flow.<br><br>Args:<br>    request: OpenAI Responses API request with model (flow_id) and input<br>    background_tasks: FastAPI background task manager<br>    api_key_user: Authenticated user from API key<br>    http_request: The incoming HTTP request<br>    telemetry_service: Telemetry service for logging<br><br>Returns:<br>"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read All Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/",
+            "params": [
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a list of users from the database with pagination."
+        },
+        {
+          "info": {
+            "name": "Add User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/users/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a new user to the database.<br><br>This endpoint allows public user registration (sign up).<br>User activation is controlled by the NEW_USER_IS_ACTIVE setting."
+        },
+        {
+          "info": {
+            "name": "Read Current User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/users/whoami",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve the current user's data."
+        },
+        {
+          "info": {
+            "name": "Patch User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update an existing user's data."
+        },
+        {
+          "info": {
+            "name": "Delete User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v1/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a user from the database."
+        },
+        {
+          "info": {
+            "name": "Reset Password",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v1/users/:user_id/reset-password",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Reset a user's password."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "MCP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/mcp/servers",
+            "params": [
+              {
+                "name": "action_count",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the list of available servers."
+        },
+        {
+          "info": {
+            "name": "Get Server Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/mcp/servers/:server_name",
+            "params": [
+              {
+                "name": "server_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a specific server."
+        },
+        {
+          "info": {
+            "name": "Add Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v2/mcp/servers/:server_name",
+            "params": [
+              {
+                "name": "server_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Add Server"
+        },
+        {
+          "info": {
+            "name": "Update Server Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/v2/mcp/servers/:server_name",
+            "params": [
+              {
+                "name": "server_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update Server Endpoint"
+        },
+        {
+          "info": {
+            "name": "Delete Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/v2/mcp/servers/:server_name",
+            "params": [
+              {
+                "name": "server_name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete Server"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Workflow",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Workflow Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v2/workflows",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "",
+                "type": "query",
+                "description": "Job ID to query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Get status of workflow job by job ID"
+        },
+        {
+          "info": {
+            "name": "Execute Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v2/workflows",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Execute a workflow with support for sync, stream, and background modes"
+        },
+        {
+          "info": {
+            "name": "Stop Workflow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v2/workflows/stop",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Stop a running workflow execution"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Health Check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          },
+          "docs": "Health"
+        },
+        {
+          "info": {
+            "name": "Health Check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health_check"
+          },
+          "docs": "Health Check"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Log",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/logs",
+            "params": [
+              {
+                "name": "lines_before",
+                "value": "",
+                "type": "query",
+                "description": "The number of logs before the timestamp or the last log"
+              },
+              {
+                "name": "lines_after",
+                "value": "",
+                "type": "query",
+                "description": "The number of logs after the timestamp"
+              },
+              {
+                "name": "timestamp",
+                "value": "",
+                "type": "query",
+                "description": "The timestamp to start getting logs from"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve application logs with authentication required.<br><br>SECURITY: Logs may contain sensitive information and require authentication."
+        },
+        {
+          "info": {
+            "name": "Stream Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/logs-stream",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "HTTP/2 Server-Sent-Event (SSE) endpoint for streaming logs.<br><br>Requires authentication to prevent exposure of sensitive log data.<br>It establishes a long-lived connection to the server and receives log messages in real-time.<br>The client should use the header \"Accept: text/event-stream\"."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
