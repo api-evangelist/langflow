@@ -291,25 +291,25 @@ common:
     type: HelmChart
   - url: https://github.com/langflow-ai/langflow-embedded-chat
     name: Langflow Embedded Chat
-    type: Tool
+    type: Tools
   - url: https://github.com/langflow-ai/langflow-client-ts
     name: TypeScript Client
-    type: SDK
+    type: SDKs
   - url: https://github.com/langflow-ai/langflow-railway
     name: Railway Template
     type: Deployment
   - url: https://github.com/langflow-ai/openrag
     name: OpenRAG
-    type: Tool
+    type: Tools
   - url: https://github.com/langflow-ai/langflow-bundles
     name: Langflow Bundles
-    type: Tool
+    type: Tools
   - url: https://github.com/langflow-ai/langflow-twilio-voice
     name: Twilio Voice Example
     type: CodeExamples
   - url: https://github.com/langflow-ai/mcp-sse-shim
     name: MCP SSE Shim
-    type: Tool
+    type: Tools
   - url: https://pypi.org/project/langflow/
     name: PyPI Package
     type: Package
@@ -348,7 +348,7 @@ common:
     type: Documentation
   - url: https://discord.com/invite/EqksyE2EX9
     name: Discord Community
-    type: Forum
+    type: Forums
   - url: https://www.youtube.com/@Langflow
     name: YouTube Channel
     type: Video
