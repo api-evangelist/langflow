@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/langflow-openapi.yml
+docs: https://docs.langflow.org/api-keys-and-authentication
+note: >-
+  Langflow does not publish OAuth scopes — API access is authorized via API keys that
+  adopt the privileges of the creating user (superuser vs regular user roles), not
+  scope-based permissions (https://docs.langflow.org/api-keys-and-authentication).
+schemes:
+- name: OAuth2PasswordBearerCookie
+  source: openapi/langflow-openapi.yml
+  flows:
+  - flow: password
+    tokenUrl: api/v1/login
+scopes: []
