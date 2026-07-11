@@ -1,0 +1,33 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/langflow-openapi.yml
+summary:
+  types:
+  - apiKey
+  - oauth2
+  api_key_in:
+  - header
+  - query
+  oauth2_flows:
+  - password
+schemes:
+- name: API key header
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  sources:
+  - openapi/langflow-openapi.yml
+- name: API key query
+  type: apiKey
+  in: query
+  parameter: x-api-key
+  sources:
+  - openapi/langflow-openapi.yml
+- name: OAuth2PasswordBearerCookie
+  type: oauth2
+  flows:
+  - flow: password
+    tokenUrl: api/v1/login
+    scopes: 0
+  sources:
+  - openapi/langflow-openapi.yml
