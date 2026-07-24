@@ -1,0 +1,723 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Files API
+  version: 1.9.0
+tags:
+- name: Files
+paths:
+  /api/v1/files/delete/{flow_id}/{file_name}:
+    delete:
+      operationId: delete_file_api_v1_files_delete__flow_id___file_name__delete
+      parameters:
+      - in: path
+        name: file_name
+        required: true
+        schema:
+          title: File Name
+          type: string
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete File
+      tags:
+      - Files
+  /api/v1/files/download/{flow_id}/{file_name}:
+    get:
+      operationId: download_file_api_v1_files_download__flow_id___file_name__get
+      parameters:
+      - in: path
+        name: file_name
+        required: true
+        schema:
+          title: File Name
+          type: string
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Download File
+      tags:
+      - Files
+  /api/v1/files/images/{flow_id}/{file_name}:
+    get:
+      description: Download image from storage for browser rendering.
+      operationId: download_image_api_v1_files_images__flow_id___file_name__get
+      parameters:
+      - in: path
+        name: file_name
+        required: true
+        schema:
+          title: File Name
+          type: string
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Download Image
+      tags:
+      - Files
+  /api/v1/files/list/{flow_id}:
+    get:
+      operationId: list_files_api_v1_files_list__flow_id__get
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: List Files
+      tags:
+      - Files
+  /api/v1/files/profile_pictures/list:
+    get:
+      description: List profile pictures from local filesystem.<br><br>Profile pictures are first looked up in config_dir/profile_pictures/,<br>then fallback to the package's bundled profile_pictures directory.
+      operationId: list_profile_pictures_api_v1_files_profile_pictures_list_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: List Profile Pictures
+      tags:
+      - Files
+  /api/v1/files/profile_pictures/{folder_name}/{file_name}:
+    get:
+      description: Download profile picture from local filesystem.<br><br>Profile pictures are first looked up in config_dir/profile_pictures/,<br>then fallback to the package's bundled profile_pictures directory.
+      operationId: download_profile_picture_api_v1_files_profile_pictures__folder_name___file_name__get
+      parameters:
+      - in: path
+        name: folder_name
+        required: true
+        schema:
+          title: Folder Name
+          type: string
+      - in: path
+        name: file_name
+        required: true
+        schema:
+          title: File Name
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Download Profile Picture
+      tags:
+      - Files
+  /api/v1/files/upload/{flow_id}:
+    post:
+      operationId: upload_file_api_v1_files_upload__flow_id__post
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_file_api_v1_files_upload__flow_id__post'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/langflow__api__v1__schemas__UploadFileResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Upload File
+      tags:
+      - Files
+  /api/v2/files:
+    delete:
+      description: Delete all files for the current user.
+      operationId: delete_all_files_api_v2_files_delete
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete All Files
+      tags:
+      - Files
+    get:
+      description: List the files available to the current user.
+      operationId: list_files_api_v2_files_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/langflow__services__database__models__file__model__File'
+                title: Response List Files Api V2 Files Get
+                type: array
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: List Files
+      tags:
+      - Files
+    post:
+      description: Upload a file for the current user and track it in the database.
+      operationId: upload_user_file_api_v2_files_post
+      parameters:
+      - in: query
+        name: append
+        required: false
+        schema:
+          default: false
+          title: Append
+          type: boolean
+      - in: query
+        name: ephemeral
+        required: false
+        schema:
+          default: false
+          title: Ephemeral
+          type: boolean
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_user_file_api_v2_files_post'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/langflow__api__schemas__UploadFileResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Upload User File
+      tags:
+      - Files
+  /api/v2/files/:
+    delete:
+      description: Delete all files for the current user.
+      operationId: delete_all_files_api_v2_files__delete
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete All Files
+      tags:
+      - Files
+    get:
+      description: List the files available to the current user.
+      operationId: list_files_api_v2_files__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/langflow__services__database__models__file__model__File'
+                title: Response List Files Api V2 Files  Get
+                type: array
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: List Files
+      tags:
+      - Files
+    post:
+      description: Upload a file for the current user and track it in the database.
+      operationId: upload_user_file_api_v2_files__post
+      parameters:
+      - in: query
+        name: append
+        required: false
+        schema:
+          default: false
+          title: Append
+          type: boolean
+      - in: query
+        name: ephemeral
+        required: false
+        schema:
+          default: false
+          title: Ephemeral
+          type: boolean
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_user_file_api_v2_files__post'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/langflow__api__schemas__UploadFileResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Upload User File
+      tags:
+      - Files
+  /api/v2/files/batch/:
+    delete:
+      description: Delete multiple files by their IDs.
+      operationId: delete_files_batch_api_v2_files_batch__delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                format: uuid
+                type: string
+              title: File Ids
+              type: array
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Files Batch
+      tags:
+      - Files
+    post:
+      description: Download multiple files as a zip file by their IDs.
+      operationId: download_files_batch_api_v2_files_batch__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                format: uuid
+                type: string
+              title: File Ids
+              type: array
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Download Files Batch
+      tags:
+      - Files
+  /api/v2/files/{file_id}:
+    delete:
+      description: Delete a file by its ID.
+      operationId: delete_file_api_v2_files__file_id__delete
+      parameters:
+      - in: path
+        name: file_id
+        required: true
+        schema:
+          format: uuid
+          title: File Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete File
+      tags:
+      - Files
+    get:
+      description: 'Download a file by its ID or return its content as a string/bytes.<br><br>Args:<br>    file_id: UUID of the file.<br>    current_user: Authenticated user.<br>    session: Database session.<br>    storage_service: File storage service.<br>    return_content: If True, return raw content (str) instead of StreamingResponse.<br><br>Returns:<br>    StreamingResponse for client downloads or str for internal use.'
+      operationId: download_file_api_v2_files__file_id__get
+      parameters:
+      - in: path
+        name: file_id
+        required: true
+        schema:
+          format: uuid
+          title: File Id
+          type: string
+      - in: query
+        name: return_content
+        required: false
+        schema:
+          default: false
+          title: Return Content
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Download File
+      tags:
+      - Files
+    put:
+      description: Edit the name of a file by its ID.
+      operationId: edit_file_name_api_v2_files__file_id__put
+      parameters:
+      - in: path
+        name: file_id
+        required: true
+        schema:
+          format: uuid
+          title: File Id
+          type: string
+      - in: query
+        name: name
+        required: true
+        schema:
+          title: Name
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/langflow__api__schemas__UploadFileResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Edit File Name
+      tags:
+      - Files
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    langflow__api__schemas__UploadFileResponse:
+      description: File upload response schema.
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        name:
+          title: Name
+          type: string
+        path:
+          title: Path
+          type: string
+        provider:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider
+        size:
+          title: Size
+          type: integer
+      required:
+      - id
+      - name
+      - path
+      - size
+      title: UploadFileResponse
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    langflow__api__v1__schemas__UploadFileResponse:
+      description: Upload file response schema.
+      properties:
+        file_path:
+          title: File Path
+          type: string
+        flowId:
+          title: Flowid
+          type: string
+      required:
+      - flowId
+      - file_path
+      title: UploadFileResponse
+      type: object
+    Body_upload_file_api_v1_files_upload__flow_id__post:
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_file_api_v1_files_upload__flow_id__post
+      type: object
+    Body_upload_user_file_api_v2_files_post:
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_user_file_api_v2_files_post
+      type: object
+    Body_upload_user_file_api_v2_files__post:
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_user_file_api_v2_files__post
+      type: object
+    langflow__services__database__models__file__model__File:
+      properties:
+        created_at:
+          format: date-time
+          title: Created At
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+        name:
+          title: Name
+          type: string
+        path:
+          title: Path
+          type: string
+        provider:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider
+        size:
+          title: Size
+          type: integer
+        updated_at:
+          format: date-time
+          title: Updated At
+          type: string
+        user_id:
+          format: uuid
+          title: User Id
+          type: string
+      required:
+      - user_id
+      - name
+      - path
+      - size
+      title: File
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

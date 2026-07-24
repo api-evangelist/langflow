@@ -1,0 +1,466 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Workflow API
+  version: 1.9.0
+tags:
+- name: Workflow
+paths:
+  /api/v2/workflows:
+    get:
+      description: Get status of workflow job by job ID
+      operationId: get_workflow_status_api_v2_workflows_get
+      parameters:
+      - description: Job ID to query
+        in: query
+        name: job_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: Job ID to query
+          title: Job Id
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: Synchronous workflow execution response.
+                properties:
+                  created_timestamp:
+                    title: Created Timestamp
+                    type: string
+                  errors:
+                    default: []
+                    items:
+                      $ref: '#/components/schemas/ErrorDetail'
+                    title: Errors
+                    type: array
+                  flow_id:
+                    title: Flow Id
+                    type: string
+                  inputs:
+                    additionalProperties: true
+                    default: {}
+                    title: Inputs
+                    type: object
+                  job_id:
+                    anyOf:
+                    - type: string
+                    - format: uuid
+                      type: string
+                    - type: 'null'
+                    title: Job Id
+                  object:
+                    const: response
+                    default: response
+                    title: Object
+                    type: string
+                  outputs:
+                    additionalProperties:
+                      $ref: '#/components/schemas/ComponentOutput'
+                    default: {}
+                    title: Outputs
+                    type: object
+                  status:
+                    $ref: '#/components/schemas/JobStatus'
+                required:
+                - flow_id
+                - status
+                title: WorkflowExecutionResponse
+                type: object
+            text/event-stream:
+              description: Server-sent events for streaming status
+              schema:
+                description: Streaming event response.
+                properties:
+                  raw_event:
+                    additionalProperties: true
+                    title: Raw Event
+                    type: object
+                  run_id:
+                    title: Run Id
+                    type: string
+                  timestamp:
+                    title: Timestamp
+                    type: integer
+                  type:
+                    title: Type
+                    type: string
+                required:
+                - type
+                - run_id
+                - timestamp
+                - raw_event
+                title: WorkflowStreamEvent
+                type: object
+          description: Workflow status response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API key query: []
+      - API key header: []
+      summary: Get Workflow Status
+      tags:
+      - Workflow
+    post:
+      description: Execute a workflow with support for sync, stream, and background modes
+      operationId: execute_workflow_api_v2_workflows_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowExecutionRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                discriminator:
+                  mapping:
+                    job: '#/components/schemas/WorkflowJobResponse'
+                    response: '#/components/schemas/WorkflowExecutionResponse'
+                  propertyName: object
+                oneOf:
+                - description: Synchronous workflow execution response.
+                  properties:
+                    created_timestamp:
+                      title: Created Timestamp
+                      type: string
+                    errors:
+                      default: []
+                      items:
+                        $ref: '#/components/schemas/ErrorDetail'
+                      title: Errors
+                      type: array
+                    flow_id:
+                      title: Flow Id
+                      type: string
+                    inputs:
+                      additionalProperties: true
+                      default: {}
+                      title: Inputs
+                      type: object
+                    job_id:
+                      anyOf:
+                      - type: string
+                      - format: uuid
+                        type: string
+                      - type: 'null'
+                      title: Job Id
+                    object:
+                      const: response
+                      default: response
+                      title: Object
+                      type: string
+                    outputs:
+                      additionalProperties:
+                        $ref: '#/components/schemas/ComponentOutput'
+                      default: {}
+                      title: Outputs
+                      type: object
+                    status:
+                      $ref: '#/components/schemas/JobStatus'
+                  required:
+                  - flow_id
+                  - status
+                  title: WorkflowExecutionResponse
+                  type: object
+                - description: Background job response.
+                  properties:
+                    created_timestamp:
+                      title: Created Timestamp
+                      type: string
+                    errors:
+                      default: []
+                      items:
+                        $ref: '#/components/schemas/ErrorDetail'
+                      title: Errors
+                      type: array
+                    flow_id:
+                      title: Flow Id
+                      type: string
+                    job_id:
+                      anyOf:
+                      - type: string
+                      - format: uuid
+                        type: string
+                      title: Job Id
+                    links:
+                      additionalProperties:
+                        type: string
+                      title: Links
+                      type: object
+                    object:
+                      const: job
+                      default: job
+                      title: Object
+                      type: string
+                    status:
+                      $ref: '#/components/schemas/JobStatus'
+                  required:
+                  - job_id
+                  - flow_id
+                  - status
+                  title: WorkflowJobResponse
+                  type: object
+            text/event-stream:
+              description: Server-sent events for streaming execution
+              schema:
+                description: Streaming event response.
+                properties:
+                  raw_event:
+                    additionalProperties: true
+                    title: Raw Event
+                    type: object
+                  run_id:
+                    title: Run Id
+                    type: string
+                  timestamp:
+                    title: Timestamp
+                    type: integer
+                  type:
+                    title: Type
+                    type: string
+                required:
+                - type
+                - run_id
+                - timestamp
+                - raw_event
+                title: WorkflowStreamEvent
+                type: object
+          description: Workflow execution response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API key query: []
+      - API key header: []
+      summary: Execute Workflow
+      tags:
+      - Workflow
+  /api/v2/workflows/stop:
+    post:
+      description: Stop a running workflow execution
+      operationId: stop_workflow_api_v2_workflows_stop_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowStopRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowStopResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API key query: []
+      - API key header: []
+      summary: Stop Workflow
+      tags:
+      - Workflow
+components:
+  schemas:
+    ComponentOutput:
+      description: Component output schema.
+      properties:
+        content:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Content
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        status:
+          $ref: '#/$defs/JobStatus'
+        type:
+          description: Type of the component output (e.g., 'message', 'data', 'tool', 'text')
+          title: Type
+          type: string
+      required:
+      - type
+      - status
+      title: ComponentOutput
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ErrorDetail:
+      description: Error detail schema.
+      properties:
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+        details:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Details
+        error:
+          title: Error
+          type: string
+      required:
+      - error
+      title: ErrorDetail
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    WorkflowExecutionRequest:
+      additionalProperties: false
+      description: Request schema for workflow execution.
+      examples:
+      - background: false
+        flow_id: flow_67ccd2be17f0819081ff3bb2cf6508e60bb6a6b452d3795b
+        inputs:
+          ChatInput-abc.input_value: Hello, how can you help me today?
+          ChatInput-abc.session_id: session-123
+          LLM-xyz.max_tokens: 100
+          LLM-xyz.temperature: 0.7
+          OpenSearch-def.opensearch_url: https://opensearch:9200
+        stream: false
+      - background: true
+        flow_id: flow_67ccd2be17f0819081ff3bb2cf6508e60bb6a6b452d3795b
+        inputs:
+          ChatInput-abc.input_value: Process this in the background
+        stream: false
+      - background: false
+        flow_id: flow_67ccd2be17f0819081ff3bb2cf6508e60bb6a6b452d3795b
+        inputs:
+          ChatInput-abc.input_value: Stream this conversation
+        stream: true
+      properties:
+        background:
+          default: false
+          title: Background
+          type: boolean
+        flow_id:
+          title: Flow Id
+          type: string
+        inputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: 'Component-specific inputs in flat format: ''component_id.param_name'': value'
+          title: Inputs
+        stream:
+          default: false
+          title: Stream
+          type: boolean
+      required:
+      - flow_id
+      title: WorkflowExecutionRequest
+      type: object
+    WorkflowStopRequest:
+      description: Request schema for stopping workflow.
+      properties:
+        job_id:
+          anyOf:
+          - type: string
+          - format: uuid
+            type: string
+          title: Job Id
+      required:
+      - job_id
+      title: WorkflowStopRequest
+      type: object
+    JobStatus:
+      description: Job execution status.
+      enum:
+      - queued
+      - in_progress
+      - completed
+      - failed
+      - cancelled
+      - timed_out
+      title: JobStatus
+      type: string
+    WorkflowStopResponse:
+      description: Response schema for stopping workflow.
+      properties:
+        job_id:
+          anyOf:
+          - type: string
+          - format: uuid
+            type: string
+          title: Job Id
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+      required:
+      - job_id
+      title: WorkflowStopResponse
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

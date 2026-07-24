@@ -1,0 +1,1120 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Monitor API
+  version: 1.9.0
+tags:
+- name: Monitor
+paths:
+  /api/v1/monitor/builds:
+    delete:
+      operationId: delete_vertex_builds_api_v1_monitor_builds_delete
+      parameters:
+      - in: query
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Vertex Builds
+      tags:
+      - Monitor
+    get:
+      operationId: get_vertex_builds_api_v1_monitor_builds_get
+      parameters:
+      - in: query
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VertexBuildMapModel'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Vertex Builds
+      tags:
+      - Monitor
+  /api/v1/monitor/messages:
+    delete:
+      operationId: delete_messages_api_v1_monitor_messages_delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                format: uuid
+                type: string
+              title: Message Ids
+              type: array
+        required: true
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Messages
+      tags:
+      - Monitor
+    get:
+      operationId: get_messages_api_v1_monitor_messages_get
+      parameters:
+      - in: query
+        name: flow_id
+        required: false
+        schema:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Flow Id
+      - in: query
+        name: session_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Id
+      - in: query
+        name: sender
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender
+      - in: query
+        name: sender_name
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Name
+      - in: query
+        name: order_by
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: timestamp
+          title: Order By
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MessageResponse'
+                title: Response Get Messages Api V1 Monitor Messages Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Messages
+      tags:
+      - Monitor
+  /api/v1/monitor/messages/session/{old_session_id}:
+    patch:
+      operationId: update_session_id_api_v1_monitor_messages_session__old_session_id__patch
+      parameters:
+      - in: path
+        name: old_session_id
+        required: true
+        schema:
+          title: Old Session Id
+          type: string
+      - description: The new session ID to update to
+        in: query
+        name: new_session_id
+        required: true
+        schema:
+          description: The new session ID to update to
+          title: New Session Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MessageResponse'
+                title: Response Update Session Id Api V1 Monitor Messages Session  Old Session Id  Patch
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Update Session Id
+      tags:
+      - Monitor
+  /api/v1/monitor/messages/session/{session_id}:
+    delete:
+      description: Delete messages for a single session.<br><br>Only deletes messages from sessions belonging to flows owned by the current user.
+      operationId: delete_messages_session_api_v1_monitor_messages_session__session_id__delete
+      parameters:
+      - in: path
+        name: session_id
+        required: true
+        schema:
+          title: Session Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Messages Session
+      tags:
+      - Monitor
+  /api/v1/monitor/messages/sessions:
+    delete:
+      description: 'Bulk delete messages for multiple sessions at once.<br><br>Only deletes messages from sessions belonging to flows owned by the current user.<br><br>Args:<br>    session_ids: List of session IDs to delete (max 500)<br>    session: Database session<br>    current_user: Current authenticated user<br><br>Returns:<br>    Confirmation message with count of deleted sessions<br><br>Raises:<br>    HTTPException: 400 if session_ids list exceeds 500 items<br>    HTTPException: 500 if database operation fails'
+      operationId: delete_messages_sessions_api_v1_monitor_messages_sessions_delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              title: Session Ids
+              type: array
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Messages Sessions
+      tags:
+      - Monitor
+    get:
+      operationId: get_message_sessions_api_v1_monitor_messages_sessions_get
+      parameters:
+      - in: query
+        name: flow_id
+        required: false
+        schema:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Flow Id
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                title: Response Get Message Sessions Api V1 Monitor Messages Sessions Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Message Sessions
+      tags:
+      - Monitor
+  /api/v1/monitor/messages/shared:
+    get:
+      description: Get messages for a shared/public flow, scoped to the authenticated user.<br><br>Uses a deterministic virtual flow_id derived from the user's ID and the<br>original flow ID. Only messages stored under this virtual flow_id are returned.
+      operationId: get_shared_messages_api_v1_monitor_messages_shared_get
+      parameters:
+      - description: The original public flow ID
+        in: query
+        name: source_flow_id
+        required: true
+        schema:
+          description: The original public flow ID
+          format: uuid
+          title: Source Flow Id
+          type: string
+      - in: query
+        name: session_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Id
+      - in: query
+        name: order_by
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: timestamp
+          title: Order By
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MessageResponse'
+                title: Response Get Shared Messages Api V1 Monitor Messages Shared Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Shared Messages
+      tags:
+      - Monitor
+  /api/v1/monitor/messages/shared/session/{old_session_id}:
+    patch:
+      description: Rename a session on a shared/public flow, scoped to the authenticated user.
+      operationId: rename_shared_session_api_v1_monitor_messages_shared_session__old_session_id__patch
+      parameters:
+      - in: path
+        name: old_session_id
+        required: true
+        schema:
+          title: Old Session Id
+          type: string
+      - description: The new session ID
+        in: query
+        name: new_session_id
+        required: true
+        schema:
+          description: The new session ID
+          title: New Session Id
+          type: string
+      - description: The original public flow ID
+        in: query
+        name: source_flow_id
+        required: true
+        schema:
+          description: The original public flow ID
+          format: uuid
+          title: Source Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/MessageResponse'
+                title: Response Rename Shared Session Api V1 Monitor Messages Shared Session  Old Session Id  Patch
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Rename Shared Session
+      tags:
+      - Monitor
+  /api/v1/monitor/messages/shared/session/{session_id}:
+    delete:
+      description: Delete messages for a session on a shared/public flow, scoped to the authenticated user.
+      operationId: delete_shared_messages_session_api_v1_monitor_messages_shared_session__session_id__delete
+      parameters:
+      - in: path
+        name: session_id
+        required: true
+        schema:
+          title: Session Id
+          type: string
+      - description: The original public flow ID
+        in: query
+        name: source_flow_id
+        required: true
+        schema:
+          description: The original public flow ID
+          format: uuid
+          title: Source Flow Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Shared Messages Session
+      tags:
+      - Monitor
+  /api/v1/monitor/messages/shared/sessions:
+    get:
+      description: Get session IDs for a shared/public flow, scoped to the authenticated user.<br><br>Uses a deterministic virtual flow_id derived from the user's ID and the<br>original flow ID. Only messages stored under this virtual flow_id are returned.
+      operationId: get_shared_message_sessions_api_v1_monitor_messages_shared_sessions_get
+      parameters:
+      - description: The original public flow ID
+        in: query
+        name: source_flow_id
+        required: true
+        schema:
+          description: The original public flow ID
+          format: uuid
+          title: Source Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  type: string
+                title: Response Get Shared Message Sessions Api V1 Monitor Messages Shared Sessions Get
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Shared Message Sessions
+      tags:
+      - Monitor
+  /api/v1/monitor/messages/shared/{message_id}:
+    put:
+      description: Update a message on a shared/public flow, scoped to the authenticated user.
+      operationId: update_shared_message_api_v1_monitor_messages_shared__message_id__put
+      parameters:
+      - in: path
+        name: message_id
+        required: true
+        schema:
+          format: uuid
+          title: Message Id
+          type: string
+      - description: The original public flow ID
+        in: query
+        name: source_flow_id
+        required: true
+        schema:
+          description: The original public flow ID
+          format: uuid
+          title: Source Flow Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Update Shared Message
+      tags:
+      - Monitor
+  /api/v1/monitor/messages/{message_id}:
+    put:
+      operationId: update_message_api_v1_monitor_messages__message_id__put
+      parameters:
+      - in: path
+        name: message_id
+        required: true
+        schema:
+          format: uuid
+          title: Message Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Update Message
+      tags:
+      - Monitor
+  /api/v1/monitor/transactions:
+    get:
+      operationId: get_transactions_api_v1_monitor_transactions_get
+      parameters:
+      - in: query
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      - description: Page number
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          description: Page number
+          minimum: 1
+          title: Page
+          type: integer
+      - description: Page size
+        in: query
+        name: size
+        required: false
+        schema:
+          default: 50
+          description: Page size
+          maximum: 100
+          minimum: 1
+          title: Size
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page_TransactionLogsResponse_'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Transactions
+      tags:
+      - Monitor
+components:
+  schemas:
+    ContentBlock:
+      description: A block of content that can contain different types of content.
+      properties:
+        allow_markdown:
+          default: true
+          title: Allow Markdown
+          type: boolean
+        contents:
+          items:
+            additionalProperties: true
+            type: object
+          title: Contents
+          type: array
+        media_url:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Media Url
+        title:
+          title: Title
+          type: string
+      required:
+      - title
+      - contents
+      title: ContentBlock
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Page_TransactionLogsResponse_:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/TransactionLogsResponse'
+          title: Items
+          type: array
+        page:
+          minimum: 1.0
+          title: Page
+          type: integer
+        pages:
+          minimum: 0.0
+          title: Pages
+          type: integer
+        size:
+          minimum: 1.0
+          title: Size
+          type: integer
+        total:
+          minimum: 0.0
+          title: Total
+          type: integer
+      required:
+      - items
+      - total
+      - page
+      - size
+      - pages
+      title: Page[TransactionLogsResponse]
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    TransactionLogsResponse:
+      description: Transaction response model for logs view - excludes error and flow_id fields.
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        inputs:
+          additionalProperties: true
+          title: Inputs
+          type: object
+        outputs:
+          additionalProperties: true
+          title: Outputs
+          type: object
+        status:
+          title: Status
+          type: string
+        target_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Id
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+        vertex_id:
+          title: Vertex Id
+          type: string
+      required:
+      - id
+      - vertex_id
+      - status
+      title: TransactionLogsResponse
+      type: object
+    VertexBuildTable:
+      properties:
+        artifacts:
+          additionalProperties: true
+          title: Artifacts
+          type: object
+        build_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Build Id
+        data:
+          additionalProperties: true
+          title: Data
+          type: object
+        flow_id:
+          format: uuid
+          title: Flow Id
+          type: string
+        id:
+          title: Id
+          type: string
+        job_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Job Id
+        params:
+          title: Params
+          type: string
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+        valid:
+          title: Valid
+          type: boolean
+      required:
+      - id
+      - valid
+      - flow_id
+      title: VertexBuildTable
+      type: object
+    MessageResponse:
+      properties:
+        category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Category
+        content_blocks:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ContentBlock'
+            type: array
+          - type: 'null'
+          title: Content Blocks
+        context_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Context Id
+        duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Duration
+        edit:
+          title: Edit
+          type: boolean
+        files:
+          default: []
+          items:
+            type: string
+          title: Files
+          type: array
+        flow_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Flow Id
+        id:
+          anyOf:
+          - type: string
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Id
+        properties:
+          anyOf:
+          - $ref: '#/components/schemas/Properties'
+          - type: 'null'
+        sender:
+          title: Sender
+          type: string
+        sender_name:
+          title: Sender Name
+          type: string
+        session_id:
+          title: Session Id
+          type: string
+        session_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Session Metadata
+        text:
+          title: Text
+          type: string
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - sender
+      - sender_name
+      - session_id
+      - text
+      - edit
+      title: MessageResponse
+      type: object
+    Source:
+      properties:
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The display name of the source component.
+          title: Display Name
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The id of the source component.
+          title: Id
+        source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The source of the message. Normally used to display the model name (e.g. 'gpt-4o')
+          title: Source
+      title: Source
+      type: object
+    MessageUpdate:
+      properties:
+        context_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Context Id
+        edit:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Edit
+        error:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Error
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        properties:
+          anyOf:
+          - $ref: '#/components/schemas/Properties'
+          - type: 'null'
+        sender:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender
+        sender_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sender Name
+        session_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Id
+        session_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Session Metadata
+        text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Text
+      title: MessageUpdate
+      type: object
+    Usage:
+      description: Token usage information from LLM responses.
+      properties:
+        input_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Input Tokens
+        output_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Output Tokens
+        total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Tokens
+      title: Usage
+      type: object
+    MessageRead:
+      properties:
+        category:
+          default: message
+          title: Category
+          type: string
+        content_blocks:
+          items:
+            $ref: '#/components/schemas/ContentBlock'
+          title: Content Blocks
+          type: array
+        context_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Context Id
+        edit:
+          default: false
+          title: Edit
+          type: boolean
+        error:
+          default: false
+          title: Error
+          type: boolean
+        files:
+          items:
+            type: string
+          title: Files
+          type: array
+        flow_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Flow Id
+        id:
+          format: uuid
+          title: Id
+          type: string
+        properties:
+          $ref: '#/components/schemas/Properties'
+        sender:
+          title: Sender
+          type: string
+        sender_name:
+          title: Sender Name
+          type: string
+        session_id:
+          title: Session Id
+          type: string
+        session_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Session Metadata
+        text:
+          title: Text
+          type: string
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - sender
+      - sender_name
+      - session_id
+      - text
+      - id
+      - flow_id
+      title: MessageRead
+      type: object
+    Properties:
+      properties:
+        allow_markdown:
+          default: false
+          title: Allow Markdown
+          type: boolean
+        background_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Background Color
+        build_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Build Duration
+        edited:
+          default: false
+          title: Edited
+          type: boolean
+        icon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon
+        positive_feedback:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Positive Feedback
+        source:
+          $ref: '#/components/schemas/Source'
+        state:
+          default: complete
+          enum:
+          - partial
+          - complete
+          title: State
+          type: string
+        targets:
+          default: []
+          items: {}
+          title: Targets
+          type: array
+        text_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Text Color
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+      title: Properties
+      type: object
+    VertexBuildMapModel:
+      properties:
+        vertex_builds:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/VertexBuildTable'
+            type: array
+          title: Vertex Builds
+          type: object
+      required:
+      - vertex_builds
+      title: VertexBuildMapModel
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

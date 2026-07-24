@@ -1,0 +1,190 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Flow Events API
+  version: 1.9.0
+tags:
+- name: Flow Events
+paths:
+  /api/v1/flows/{flow_id}/events:
+    get:
+      operationId: get_flow_events_api_v1_flows__flow_id__events_get
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      - description: UTC timestamp to get events after
+        in: query
+        name: since
+        required: false
+        schema:
+          default: 0.0
+          description: UTC timestamp to get events after
+          title: Since
+          type: number
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowEventsResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Flow Events
+      tags:
+      - Flow Events
+    post:
+      description: Append an event to a flow's event queue.
+      operationId: create_flow_event_api_v1_flows__flow_id__events_post
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlowEventCreate'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowEventResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Create Flow Event
+      tags:
+      - Flow Events
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    FlowEventResponse:
+      properties:
+        summary:
+          title: Summary
+          type: string
+        timestamp:
+          title: Timestamp
+          type: number
+        type:
+          title: Type
+          type: string
+      required:
+      - type
+      - timestamp
+      - summary
+      title: FlowEventResponse
+      type: object
+    FlowEventCreate:
+      properties:
+        summary:
+          default: ''
+          maxLength: 500
+          title: Summary
+          type: string
+        type:
+          enum:
+          - component_added
+          - component_removed
+          - component_configured
+          - connection_added
+          - connection_removed
+          - flow_updated
+          - flow_settled
+          title: Type
+          type: string
+      required:
+      - type
+      title: FlowEventCreate
+      type: object
+    FlowEventsResponse:
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/FlowEventResponse'
+          title: Events
+          type: array
+        settled:
+          title: Settled
+          type: boolean
+      required:
+      - events
+      - settled
+      title: FlowEventsResponse
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

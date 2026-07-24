@@ -1,0 +1,65 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Health Check API
+  version: 1.9.0
+tags:
+- name: Health Check
+paths:
+  /health:
+    get:
+      operationId: health_health_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Health
+      tags:
+      - Health Check
+  /health_check:
+    get:
+      operationId: health_check_health_check_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+          description: Successful Response
+      summary: Health Check
+      tags:
+      - Health Check
+components:
+  schemas:
+    HealthResponse:
+      properties:
+        chat:
+          default: error check the server logs
+          title: Chat
+          type: string
+        db:
+          default: error check the server logs
+          title: Db
+          type: string
+        status:
+          default: nok
+          title: Status
+          type: string
+      title: HealthResponse
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

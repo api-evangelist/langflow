@@ -1,0 +1,491 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Traces API
+  version: 1.9.0
+tags:
+- name: Traces
+paths:
+  /api/v1/monitor/traces:
+    delete:
+      description: 'Delete all traces for a flow.<br><br>Args:<br>    flow_id: The ID of the flow whose traces should be deleted.<br>    current_user: The authenticated user (required for authorization).'
+      operationId: delete_traces_by_flow_api_v1_monitor_traces_delete
+      parameters:
+      - in: query
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Traces By Flow
+      tags:
+      - Traces
+    get:
+      description: 'Get list of traces for a flow.<br><br>Args:<br>    current_user: Authenticated user (required for authorization)<br>    flow_id: Filter by flow ID<br>    session_id: Filter by session ID<br>    status: Filter by trace status<br>    query: Search query for trace name/id/session id<br>    start_time: Filter traces starting on/after this time (ISO)<br>    end_time: Filter traces starting on/before this time (ISO)<br>    page: Page number (1-based)<br>    size: Page size<br><br>Returns:<br>    List of traces'
+      operationId: get_traces_api_v1_monitor_traces_get
+      parameters:
+      - in: query
+        name: flow_id
+        required: false
+        schema:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Flow Id
+      - in: query
+        name: session_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Id
+      - in: query
+        name: status
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/SpanStatus'
+          - type: 'null'
+          title: Status
+      - in: query
+        name: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+      - in: query
+        name: start_time
+        required: false
+        schema:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Start Time
+      - in: query
+        name: end_time
+        required: false
+        schema:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: End Time
+      - in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          minimum: 0
+          title: Page
+          type: integer
+      - in: query
+        name: size
+        required: false
+        schema:
+          default: 50
+          maximum: 200
+          minimum: 1
+          title: Size
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceListResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Traces
+      tags:
+      - Traces
+  /api/v1/monitor/traces/{trace_id}:
+    delete:
+      description: 'Delete a trace and all its spans.<br><br>Args:<br>    trace_id: The ID of the trace to delete.<br>    current_user: The authenticated user (required for authorization).'
+      operationId: delete_trace_api_v1_monitor_traces__trace_id__delete
+      parameters:
+      - in: path
+        name: trace_id
+        required: true
+        schema:
+          format: uuid
+          title: Trace Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Trace
+      tags:
+      - Traces
+    get:
+      description: 'Get a single trace with its hierarchical span tree.<br><br>Args:<br>    trace_id: The ID of the trace to retrieve.<br>    current_user: The authenticated user (required for authorization).<br><br>Returns:<br>    TraceRead containing the trace and its hierarchical span tree.'
+      operationId: get_trace_api_v1_monitor_traces__trace_id__get
+      parameters:
+      - in: path
+        name: trace_id
+        required: true
+        schema:
+          format: uuid
+          title: Trace Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Trace
+      tags:
+      - Traces
+components:
+  schemas:
+    SpanType:
+      description: Types of spans that can be recorded.
+      enum:
+      - chain
+      - llm
+      - tool
+      - retriever
+      - embedding
+      - parser
+      - agent
+      title: SpanType
+      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    SpanStatus:
+      description: 'OpenTelemetry status codes.
+
+
+        - UNSET: Default status, span has not ended yet
+
+        - OK: Span completed successfully
+
+        - ERROR: Span completed with an error'
+      enum:
+      - unset
+      - ok
+      - error
+      title: SpanStatus
+      type: string
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    TraceSummaryRead:
+      description: 'Lightweight trace model for list endpoint.
+
+
+        Serializes to camelCase JSON to match the frontend API contract.'
+      properties:
+        flowId:
+          format: uuid
+          title: Flowid
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+        input:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Input
+        name:
+          title: Name
+          type: string
+        output:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Output
+        sessionId:
+          title: Sessionid
+          type: string
+        startTime:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Starttime
+        status:
+          $ref: '#/components/schemas/SpanStatus'
+        totalLatencyMs:
+          title: Totallatencyms
+          type: integer
+        totalTokens:
+          title: Totaltokens
+          type: integer
+      required:
+      - id
+      - name
+      - status
+      - startTime
+      - totalLatencyMs
+      - totalTokens
+      - flowId
+      - sessionId
+      title: TraceSummaryRead
+      type: object
+    TraceListResponse:
+      description: Paginated list response for traces.
+      properties:
+        pages:
+          title: Pages
+          type: integer
+        total:
+          title: Total
+          type: integer
+        traces:
+          items:
+            $ref: '#/components/schemas/TraceSummaryRead'
+          title: Traces
+          type: array
+      required:
+      - traces
+      - total
+      - pages
+      title: TraceListResponse
+      type: object
+    TraceRead:
+      description: 'Response model for a single trace with its hierarchical span tree.
+
+
+        Serializes to camelCase JSON to match the frontend API contract.'
+      properties:
+        endTime:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Endtime
+        flowId:
+          format: uuid
+          title: Flowid
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+        input:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Input
+        name:
+          title: Name
+          type: string
+        output:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Output
+        sessionId:
+          title: Sessionid
+          type: string
+        spans:
+          items:
+            $ref: '#/components/schemas/SpanReadResponse'
+          title: Spans
+          type: array
+        startTime:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Starttime
+        status:
+          $ref: '#/components/schemas/SpanStatus'
+        totalLatencyMs:
+          title: Totallatencyms
+          type: integer
+        totalTokens:
+          title: Totaltokens
+          type: integer
+      required:
+      - id
+      - name
+      - status
+      - startTime
+      - endTime
+      - totalLatencyMs
+      - totalTokens
+      - flowId
+      - sessionId
+      title: TraceRead
+      type: object
+    SpanReadResponse:
+      description: 'Response model for a single span, with nested children.
+
+
+        Serializes to camelCase JSON to match the frontend API contract.'
+      properties:
+        children:
+          items:
+            $ref: '#/components/schemas/SpanReadResponse'
+          title: Children
+          type: array
+        endTime:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Endtime
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+        id:
+          format: uuid
+          title: Id
+          type: string
+        inputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Inputs
+        latencyMs:
+          title: Latencyms
+          type: integer
+        modelName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Modelname
+        name:
+          title: Name
+          type: string
+        outputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputs
+        startTime:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Starttime
+        status:
+          $ref: '#/components/schemas/SpanStatus'
+        tokenUsage:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Tokenusage
+        type:
+          $ref: '#/components/schemas/SpanType'
+      required:
+      - id
+      - name
+      - type
+      - status
+      - startTime
+      - endTime
+      - latencyMs
+      - inputs
+      - outputs
+      - error
+      - modelName
+      - tokenUsage
+      title: SpanReadResponse
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

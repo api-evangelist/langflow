@@ -1,0 +1,1013 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Flows API
+  version: 1.9.0
+tags:
+- name: Flows
+paths:
+  /api/v1/flows/:
+    delete:
+      description: Delete multiple flows by their IDs.
+      operationId: delete_multiple_flows_api_v1_flows__delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                format: uuid
+                type: string
+              title: Flow Ids
+              type: array
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Multiple Flows
+      tags:
+      - Flows
+    get:
+      description: Retrieve a list of flows with optional pagination, filtering, and header-only mode.
+      operationId: read_flows_api_v1_flows__get
+      parameters:
+      - in: query
+        name: remove_example_flows
+        required: false
+        schema:
+          default: false
+          title: Remove Example Flows
+          type: boolean
+      - in: query
+        name: components_only
+        required: false
+        schema:
+          default: false
+          title: Components Only
+          type: boolean
+      - in: query
+        name: get_all
+        required: false
+        schema:
+          default: true
+          title: Get All
+          type: boolean
+      - in: query
+        name: folder_id
+        required: false
+        schema:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Folder Id
+      - in: query
+        name: header_flows
+        required: false
+        schema:
+          default: false
+          title: Header Flows
+          type: boolean
+      - in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          minimum: 1
+          title: Page
+          type: integer
+      - in: query
+        name: size
+        required: false
+        schema:
+          default: 50
+          maximum: 100
+          minimum: 1
+          title: Size
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - items:
+                    $ref: '#/components/schemas/FlowRead'
+                  type: array
+                - $ref: '#/components/schemas/Page_FlowRead_'
+                - items:
+                    $ref: '#/components/schemas/FlowHeader'
+                  type: array
+                title: Response Read Flows Api V1 Flows  Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Read Flows
+      tags:
+      - Flows
+    post:
+      operationId: create_flow_api_v1_flows__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlowCreate'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Create Flow
+      tags:
+      - Flows
+  /api/v1/flows/basic_examples/:
+    get:
+      description: Retrieve a list of basic example flows.
+      operationId: read_basic_examples_api_v1_flows_basic_examples__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FlowRead'
+                title: Response Read Basic Examples Api V1 Flows Basic Examples  Get
+                type: array
+          description: Successful Response
+      summary: Read Basic Examples
+      tags:
+      - Flows
+  /api/v1/flows/batch/:
+    post:
+      description: Create multiple new flows.
+      operationId: create_flows_api_v1_flows_batch__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlowListCreate'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FlowRead'
+                title: Response Create Flows Api V1 Flows Batch  Post
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Create Flows
+      tags:
+      - Flows
+  /api/v1/flows/download/:
+    post:
+      description: Download all flows as a zip file.
+      operationId: download_multiple_file_api_v1_flows_download__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                format: uuid
+                type: string
+              title: Flow Ids
+              type: array
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Download Multiple File
+      tags:
+      - Flows
+  /api/v1/flows/public_flow/{flow_id}:
+    get:
+      description: Read a public flow.
+      operationId: read_public_flow_api_v1_flows_public_flow__flow_id__get
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Read Public Flow
+      tags:
+      - Flows
+  /api/v1/flows/upload/:
+    post:
+      description: Upload flows from a JSON or ZIP file (upsert semantics for flows with stable IDs).
+      operationId: upload_file_api_v1_flows_upload__post
+      parameters:
+      - in: query
+        name: folder_id
+        required: false
+        schema:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Folder Id
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_file_api_v1_flows_upload__post'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FlowRead'
+                title: Response Upload File Api V1 Flows Upload  Post
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Upload File
+      tags:
+      - Flows
+  /api/v1/flows/{flow_id}:
+    delete:
+      description: Delete a flow.
+      operationId: delete_flow_api_v1_flows__flow_id__delete
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Flow
+      tags:
+      - Flows
+    get:
+      description: Read a flow.
+      operationId: read_flow_api_v1_flows__flow_id__get
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Read Flow
+      tags:
+      - Flows
+    patch:
+      description: Update a flow.
+      operationId: update_flow_api_v1_flows__flow_id__patch
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlowUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Update Flow
+      tags:
+      - Flows
+    put:
+      description: Create or update a flow with a specific ID (upsert).<br><br>Returns 201 for creation, 200 for update.  Returns 404 if owned by another user.
+      operationId: upsert_flow_api_v1_flows__flow_id__put
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlowCreate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlowRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Upsert Flow
+      tags:
+      - Flows
+  /api/v1/starter-projects/:
+    get:
+      description: Get a list of starter projects.
+      operationId: get_starter_projects_api_v1_starter_projects__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GraphDumpResponse'
+                title: Response Get Starter Projects Api V1 Starter Projects  Get
+                type: array
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Starter Projects
+      tags:
+      - Flows
+components:
+  schemas:
+    FlowHeader:
+      description: Model representing a header for a flow - Without the data.
+      properties:
+        access_type:
+          anyOf:
+          - $ref: '#/components/schemas/AccessTypeEnum'
+          - type: 'null'
+          description: The access type of the flow
+        action_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The description of the action associated with the flow
+          title: Action Description
+        action_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The name of the action associated with the flow
+          title: Action Name
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: The data of the component, if is_component is True
+          title: Data
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: A description of the flow
+          title: Description
+        endpoint_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The name of the endpoint associated with this flow
+          title: Endpoint Name
+        folder_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          description: The ID of the folder containing the flow. None if not associated with a folder
+          title: Folder Id
+        id:
+          description: Unique identifier for the flow
+          format: uuid
+          title: Id
+          type: string
+        is_component:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Flag indicating whether the flow is a component
+          title: Is Component
+        mcp_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Flag indicating whether the flow is exposed in the MCP server
+          title: Mcp Enabled
+        name:
+          description: The name of the flow
+          title: Name
+          type: string
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: The tags of the flow
+          title: Tags
+      required:
+      - id
+      - name
+      title: FlowHeader
+      type: object
+    AccessTypeEnum:
+      enum:
+      - PRIVATE
+      - PUBLIC
+      title: AccessTypeEnum
+      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    FlowCreate:
+      properties:
+        access_type:
+          $ref: '#/components/schemas/AccessTypeEnum'
+          default: PRIVATE
+        action_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The description of the action associated with the flow
+          title: Action Description
+        action_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The name of the action associated with the flow
+          title: Action Name
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        endpoint_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Endpoint Name
+        folder_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Folder Id
+        fs_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Fs Path
+        gradient:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gradient
+        icon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon
+        icon_bg_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Bg Color
+        id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Id
+        is_component:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Is Component
+        locked:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Locked
+        mcp_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          description: Can be exposed in the MCP server
+          title: Mcp Enabled
+        name:
+          title: Name
+          type: string
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+        updated_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Updated At
+        user_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: User Id
+        webhook:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          description: Can be used on the webhook endpoint
+          title: Webhook
+      required:
+      - name
+      title: FlowCreate
+      type: object
+    FlowListCreate:
+      properties:
+        flows:
+          items:
+            $ref: '#/components/schemas/FlowCreate'
+          title: Flows
+          type: array
+      required:
+      - flows
+      title: FlowListCreate
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    FlowUpdate:
+      properties:
+        access_type:
+          anyOf:
+          - $ref: '#/components/schemas/AccessTypeEnum'
+          - type: 'null'
+        action_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Action Description
+        action_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Action Name
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        endpoint_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Endpoint Name
+        folder_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Folder Id
+        fs_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Fs Path
+        locked:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Locked
+        mcp_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Mcp Enabled
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      title: FlowUpdate
+      type: object
+    GraphData:
+      properties:
+        edges:
+          items:
+            additionalProperties: true
+            type: object
+          title: Edges
+          type: array
+        nodes:
+          items:
+            additionalProperties: true
+            type: object
+          title: Nodes
+          type: array
+        viewport:
+          anyOf:
+          - $ref: '#/components/schemas/ViewPort'
+          - type: 'null'
+      required:
+      - nodes
+      - edges
+      title: GraphData
+      type: object
+    ViewPort:
+      properties:
+        x:
+          title: X
+          type: number
+        y:
+          title: Y
+          type: number
+        zoom:
+          title: Zoom
+          type: number
+      required:
+      - x
+      - y
+      - zoom
+      title: ViewPort
+      type: object
+    FlowRead:
+      properties:
+        access_type:
+          $ref: '#/components/schemas/AccessTypeEnum'
+          default: PRIVATE
+        action_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The description of the action associated with the flow
+          title: Action Description
+        action_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The name of the action associated with the flow
+          title: Action Name
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        endpoint_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Endpoint Name
+        folder_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Folder Id
+        gradient:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gradient
+        icon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon
+        icon_bg_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Bg Color
+        id:
+          format: uuid
+          title: Id
+          type: string
+        is_component:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Is Component
+        locked:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Locked
+        mcp_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          description: Can be exposed in the MCP server
+          title: Mcp Enabled
+        name:
+          title: Name
+          type: string
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: The tags of the flow
+          title: Tags
+        updated_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Updated At
+        user_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: User Id
+        webhook:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          description: Can be used on the webhook endpoint
+          title: Webhook
+      required:
+      - name
+      - id
+      - user_id
+      - folder_id
+      title: FlowRead
+      type: object
+    Body_upload_file_api_v1_flows_upload__post:
+      properties:
+        file:
+          anyOf:
+          - contentMediaType: application/octet-stream
+            type: string
+          - type: 'null'
+          title: File
+      title: Body_upload_file_api_v1_flows_upload__post
+      type: object
+    Page_FlowRead_:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/FlowRead'
+          title: Items
+          type: array
+        page:
+          minimum: 1.0
+          title: Page
+          type: integer
+        pages:
+          minimum: 0.0
+          title: Pages
+          type: integer
+        size:
+          minimum: 1.0
+          title: Size
+          type: integer
+        total:
+          minimum: 0.0
+          title: Total
+          type: integer
+      required:
+      - items
+      - total
+      - page
+      - size
+      - pages
+      title: Page[FlowRead]
+      type: object
+    GraphDumpResponse:
+      properties:
+        data:
+          $ref: '#/components/schemas/GraphData'
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        endpoint_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Endpoint Name
+        is_component:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Component
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      required:
+      - data
+      title: GraphDumpResponse
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

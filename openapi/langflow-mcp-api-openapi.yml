@@ -1,0 +1,254 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base MCP API
+  version: 1.9.0
+tags:
+- name: MCP
+paths:
+  /api/v2/mcp/servers:
+    get:
+      description: Get the list of available servers.
+      operationId: get_servers_api_v2_mcp_servers_get
+      parameters:
+      - in: query
+        name: action_count
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Action Count
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Servers
+      tags:
+      - MCP
+  /api/v2/mcp/servers/{server_name}:
+    delete:
+      operationId: delete_server_api_v2_mcp_servers__server_name__delete
+      parameters:
+      - in: path
+        name: server_name
+        required: true
+        schema:
+          title: Server Name
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Server
+      tags:
+      - MCP
+    get:
+      description: Get a specific server.
+      operationId: get_server_endpoint_api_v2_mcp_servers__server_name__get
+      parameters:
+      - in: path
+        name: server_name
+        required: true
+        schema:
+          title: Server Name
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Server Endpoint
+      tags:
+      - MCP
+    patch:
+      operationId: update_server_endpoint_api_v2_mcp_servers__server_name__patch
+      parameters:
+      - in: path
+        name: server_name
+        required: true
+        schema:
+          title: Server Name
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MCPServerConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Update Server Endpoint
+      tags:
+      - MCP
+    post:
+      operationId: add_server_api_v2_mcp_servers__server_name__post
+      parameters:
+      - in: path
+        name: server_name
+        required: true
+        schema:
+          title: Server Name
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MCPServerConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Add Server
+      tags:
+      - MCP
+components:
+  schemas:
+    MCPServerConfig:
+      additionalProperties: true
+      description: Pydantic model for MCP server configuration.
+      properties:
+        args:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Args
+        command:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Command
+        env:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Env
+        headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Headers
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Url
+      title: MCPServerConfig
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

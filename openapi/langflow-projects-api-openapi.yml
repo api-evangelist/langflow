@@ -1,0 +1,622 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Projects API
+  version: 1.9.0
+tags:
+- name: Projects
+paths:
+  /api/v1/projects/:
+    get:
+      operationId: read_projects_api_v1_projects__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FolderRead'
+                title: Response Read Projects Api V1 Projects  Get
+                type: array
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Read Projects
+      tags:
+      - Projects
+    post:
+      operationId: create_project_api_v1_projects__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderCreate'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Create Project
+      tags:
+      - Projects
+  /api/v1/projects/download/{project_id}:
+    get:
+      description: Download all flows from project as a zip file.
+      operationId: download_file_api_v1_projects_download__project_id__get
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        schema:
+          format: uuid
+          title: Project Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Download File
+      tags:
+      - Projects
+  /api/v1/projects/upload/:
+    post:
+      description: Upload flows from a file.<br><br>Accepts either a JSON file with project metadata (folder_name, folder_description, flows)<br>or a ZIP file containing individual flow JSON files (as produced by the download endpoint).
+      operationId: upload_file_api_v1_projects_upload__post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_file_api_v1_projects_upload__post'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/FlowRead'
+                title: Response Upload File Api V1 Projects Upload  Post
+                type: array
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Upload File
+      tags:
+      - Projects
+  /api/v1/projects/{project_id}:
+    delete:
+      operationId: delete_project_api_v1_projects__project_id__delete
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        schema:
+          format: uuid
+          title: Project Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete Project
+      tags:
+      - Projects
+    get:
+      operationId: read_project_api_v1_projects__project_id__get
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        schema:
+          format: uuid
+          title: Project Id
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Page
+      - in: query
+        name: size
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Size
+      - in: query
+        name: is_component
+        required: false
+        schema:
+          default: false
+          title: Is Component
+          type: boolean
+      - in: query
+        name: is_flow
+        required: false
+        schema:
+          default: false
+          title: Is Flow
+          type: boolean
+      - in: query
+        name: search
+        required: false
+        schema:
+          default: ''
+          title: Search
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/FolderWithPaginatedFlows'
+                - $ref: '#/components/schemas/FolderReadWithFlows'
+                title: Response Read Project Api V1 Projects  Project Id  Get
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Read Project
+      tags:
+      - Projects
+    patch:
+      operationId: update_project_api_v1_projects__project_id__patch
+      parameters:
+      - in: path
+        name: project_id
+        required: true
+        schema:
+          format: uuid
+          title: Project Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Update Project
+      tags:
+      - Projects
+components:
+  schemas:
+    AccessTypeEnum:
+      enum:
+      - PRIVATE
+      - PUBLIC
+      title: AccessTypeEnum
+      type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    FolderCreate:
+      properties:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: Authentication settings for the folder/project
+          title: Auth Settings
+        components_list:
+          anyOf:
+          - items:
+              format: uuid
+              type: string
+            type: array
+          - type: 'null'
+          title: Components List
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        flows_list:
+          anyOf:
+          - items:
+              format: uuid
+              type: string
+            type: array
+          - type: 'null'
+          title: Flows List
+        name:
+          title: Name
+          type: string
+      required:
+      - name
+      title: FolderCreate
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    FolderReadWithFlows:
+      properties:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: Authentication settings for the folder/project
+          title: Auth Settings
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        flows:
+          default: []
+          items:
+            $ref: '#/components/schemas/FlowRead'
+          title: Flows
+          type: array
+        id:
+          format: uuid
+          title: Id
+          type: string
+        name:
+          title: Name
+          type: string
+        parent_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Parent Id
+      required:
+      - name
+      - id
+      - parent_id
+      title: FolderReadWithFlows
+      type: object
+    FolderWithPaginatedFlows:
+      properties:
+        flows:
+          $ref: '#/components/schemas/Page_FlowRead_'
+        folder:
+          $ref: '#/components/schemas/FolderRead'
+      required:
+      - folder
+      - flows
+      title: FolderWithPaginatedFlows
+      type: object
+    FlowRead:
+      properties:
+        access_type:
+          $ref: '#/components/schemas/AccessTypeEnum'
+          default: PRIVATE
+        action_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The description of the action associated with the flow
+          title: Action Description
+        action_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The name of the action associated with the flow
+          title: Action Name
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        endpoint_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Endpoint Name
+        folder_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Folder Id
+        gradient:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gradient
+        icon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon
+        icon_bg_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon Bg Color
+        id:
+          format: uuid
+          title: Id
+          type: string
+        is_component:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Is Component
+        locked:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          title: Locked
+        mcp_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          description: Can be exposed in the MCP server
+          title: Mcp Enabled
+        name:
+          title: Name
+          type: string
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: The tags of the flow
+          title: Tags
+        updated_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Updated At
+        user_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: User Id
+        webhook:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: false
+          description: Can be used on the webhook endpoint
+          title: Webhook
+      required:
+      - name
+      - id
+      - user_id
+      - folder_id
+      title: FlowRead
+      type: object
+    FolderRead:
+      properties:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: Authentication settings for the folder/project
+          title: Auth Settings
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          format: uuid
+          title: Id
+          type: string
+        name:
+          title: Name
+          type: string
+        parent_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Parent Id
+      required:
+      - name
+      - id
+      - parent_id
+      title: FolderRead
+      type: object
+    Body_upload_file_api_v1_projects_upload__post:
+      properties:
+        file:
+          anyOf:
+          - contentMediaType: application/octet-stream
+            type: string
+          - type: 'null'
+          title: File
+      title: Body_upload_file_api_v1_projects_upload__post
+      type: object
+    FolderUpdate:
+      properties:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Auth Settings
+        components:
+          items:
+            format: uuid
+            type: string
+          title: Components
+          type: array
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        flows:
+          items:
+            format: uuid
+            type: string
+          title: Flows
+          type: array
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        parent_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Parent Id
+      title: FolderUpdate
+      type: object
+    Page_FlowRead_:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/FlowRead'
+          title: Items
+          type: array
+        page:
+          minimum: 1.0
+          title: Page
+          type: integer
+        pages:
+          minimum: 0.0
+          title: Pages
+          type: integer
+        size:
+          minimum: 1.0
+          title: Size
+          type: integer
+        total:
+          minimum: 0.0
+          title: Total
+          type: integer
+      required:
+      - items
+      - total
+      - page
+      - size
+      - pages
+      title: Page[FlowRead]
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

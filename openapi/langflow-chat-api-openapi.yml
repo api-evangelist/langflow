@@ -1,0 +1,469 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Chat API
+  version: 1.9.0
+tags:
+- name: Chat
+paths:
+  /api/v1/build/{flow_id}/flow:
+    post:
+      description: 'Build and process a flow, returning a job ID for event polling.<br><br>This endpoint requires authentication through the CurrentActiveUser dependency.<br>For public flows that don''t require authentication, use the /build_public_tmp/flow_id/flow endpoint.<br><br>Args:<br>    flow_id: UUID of the flow to build<br>    background_tasks: Background tasks manager<br>    inputs: Optional input values for the flow<br>    data: Optional flow data<br>    files: Optional files to include<br>    stop_component_id: Optional ID of component to stop at<br>    start_component_id: Optional ID of component to start from<br>    log_builds: Whether to log the build process<br>    current_user: The authenticated user<br>    queue_service: Queue service for job management<br>    flow_name: Optional name for the flow<br>    event_delivery: Optional event delivery type - default is streaming<br><br>Returns:<br>    Dict with job_id that can be used to poll for build status'
+      operationId: build_flow_api_v1_build__flow_id__flow_post
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      - in: query
+        name: stop_component_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stop Component Id
+      - in: query
+        name: start_component_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Component Id
+      - in: query
+        name: log_builds
+        required: false
+        schema:
+          default: true
+          title: Log Builds
+          type: boolean
+      - in: query
+        name: flow_name
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Flow Name
+      - in: query
+        name: event_delivery
+        required: false
+        schema:
+          $ref: '#/components/schemas/EventDeliveryType'
+          default: polling
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_build_flow_api_v1_build__flow_id__flow_post'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Build Flow
+      tags:
+      - Chat
+  /api/v1/build/{job_id}/cancel:
+    post:
+      description: Cancel a specific build job.<br><br>Requires authentication and ownership verification to prevent a user from<br>aborting another user's running build (DoS via job cancellation).<br>Jobs with no registered owner (build_public_tmp) are accessible to any<br>authenticated user, consistent with get_build_events.
+      operationId: cancel_build_api_v1_build__job_id__cancel_post
+      parameters:
+      - in: path
+        name: job_id
+        required: true
+        schema:
+          title: Job Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelFlowResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Cancel Build
+      tags:
+      - Chat
+  /api/v1/build/{job_id}/events:
+    get:
+      description: Get events for a specific build job.<br><br>Requires authentication and ownership verification. A job owner is registered<br>when build_flow is called; if a registered owner does not match the requesting<br>user the endpoint returns 404 to avoid leaking job existence.<br>Jobs started via build_public_tmp have no registered owner and remain accessible<br>to any authenticated user.
+      operationId: get_build_events_api_v1_build__job_id__events_get
+      parameters:
+      - in: path
+        name: job_id
+        required: true
+        schema:
+          title: Job Id
+          type: string
+      - in: query
+        name: event_delivery
+        required: false
+        schema:
+          $ref: '#/components/schemas/EventDeliveryType'
+          default: streaming
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Get Build Events
+      tags:
+      - Chat
+  /api/v1/build_public_tmp/{flow_id}/flow:
+    post:
+      description: 'Build a public flow without requiring authentication.<br><br>This endpoint is specifically for public flows that don''t require authentication.<br>It uses a client_id cookie to create a deterministic flow ID for tracking purposes.<br><br>Security Note:<br>- The ''data'' parameter is NOT accepted to prevent flow definition tampering<br>- Public flows must execute the stored flow definition only<br>- The flow definition is always loaded from the database<br><br>The endpoint:<br>1. Verifies the requested flow is marked as public in the database<br>2. Creates a deterministic UUID based on client_id and flow_id<br>3. Uses the flow owner''s permissions to build the flow<br>4. Always loads the flow definition from the database<br><br>Requirements:<br>- The flow must be marked as PUBLIC in the database<br>- The request must include a client_id cookie<br><br>Args:<br>    flow_id: UUID of the public flow to build<br>    background_tasks: Background tasks manager<br>    inputs: Optional input values for the flow<br>    files: Optional files to include<br>    stop_component_id: Optional ID of component to stop at<br>    start_component_id: Optional ID of component to start from<br>    log_builds: Whether to log the build process<br>    flow_name: Optional name for the flow<br>    request: FastAPI request object (needed for cookie access)<br>    queue_service: Queue service for job management<br>    authenticated_user: Optional authenticated user (resolved from cookie/token if present)<br>    event_delivery: Optional event delivery type - default is streaming<br><br>Returns:<br>    Dict with job_id that can be used to poll for build status'
+      operationId: build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
+      parameters:
+      - in: path
+        name: flow_id
+        required: true
+        schema:
+          format: uuid
+          title: Flow Id
+          type: string
+      - in: query
+        name: stop_component_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stop Component Id
+      - in: query
+        name: start_component_id
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Component Id
+      - in: query
+        name: log_builds
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: true
+          title: Log Builds
+      - in: query
+        name: flow_name
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Flow Name
+      - in: query
+        name: event_delivery
+        required: false
+        schema:
+          $ref: '#/components/schemas/EventDeliveryType'
+          default: polling
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Build Public Tmp
+      tags:
+      - Chat
+  /api/v1/build_public_tmp/{job_id}/cancel:
+    post:
+      description: Cancel a public flow build job.<br><br>This endpoint does not require authentication, matching the public build endpoint.<br>It is used by the shareable playground to cancel builds.
+      operationId: cancel_build_public_api_v1_build_public_tmp__job_id__cancel_post
+      parameters:
+      - in: path
+        name: job_id
+        required: true
+        schema:
+          title: Job Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelFlowResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Cancel Build Public
+      tags:
+      - Chat
+  /api/v1/build_public_tmp/{job_id}/events:
+    get:
+      description: Get events for a public flow build job.<br><br>This endpoint does not require authentication, matching the public build endpoint.<br>It is used by the shareable playground to consume build events.
+      operationId: get_build_events_public_api_v1_build_public_tmp__job_id__events_get
+      parameters:
+      - in: path
+        name: job_id
+        required: true
+        schema:
+          title: Job Id
+          type: string
+      - in: query
+        name: event_delivery
+        required: false
+        schema:
+          $ref: '#/components/schemas/EventDeliveryType'
+          default: streaming
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Build Events Public
+      tags:
+      - Chat
+components:
+  schemas:
+    Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post:
+      properties:
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        inputs:
+          anyOf:
+          - $ref: '#/components/schemas/InputValueRequest'
+          - type: 'null'
+      title: Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    FlowDataRequest:
+      properties:
+        edges:
+          items:
+            additionalProperties: true
+            type: object
+          title: Edges
+          type: array
+        nodes:
+          items:
+            additionalProperties: true
+            type: object
+          title: Nodes
+          type: array
+        viewport:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Viewport
+      required:
+      - nodes
+      - edges
+      title: FlowDataRequest
+      type: object
+    Body_build_flow_api_v1_build__flow_id__flow_post:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/FlowDataRequest'
+          - type: 'null'
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        inputs:
+          anyOf:
+          - $ref: '#/components/schemas/InputValueRequest'
+          - type: 'null'
+      title: Body_build_flow_api_v1_build__flow_id__flow_post
+      type: object
+    InputValueRequest:
+      additionalProperties: false
+      examples:
+      - components:
+        - components_id
+        - Component Name
+        input_value: input_value
+        session: session_id
+      - components:
+        - Component Name
+        input_value: input_value
+      - input_value: input_value
+      - components:
+        - Component Name
+        input_value: input_value
+        session: session_id
+      - input_value: input_value
+        session: session_id
+      - input_value: input_value
+        type: chat
+      - input_value: '{"key": "value"}'
+        type: json
+      properties:
+        client_request_time:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: Client-side timestamp in milliseconds when the request was initiated. Used to calculate accurate end-to-end duration.
+          title: Client Request Time
+        components:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          default: []
+          title: Components
+        input_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Input Value
+        session:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session
+        type:
+          anyOf:
+          - enum:
+            - chat
+            - text
+            - any
+            type: string
+          - type: 'null'
+          default: any
+          description: Defines on which components the input value should be applied. 'any' applies to all input components.
+          title: Type
+      title: InputValueRequest
+      type: object
+    EventDeliveryType:
+      enum:
+      - streaming
+      - direct
+      - polling
+      title: EventDeliveryType
+      type: string
+    CancelFlowResponse:
+      description: Response model for flow build cancellation.
+      properties:
+        message:
+          title: Message
+          type: string
+        success:
+          title: Success
+          type: boolean
+      required:
+      - success
+      - message
+      title: CancelFlowResponse
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

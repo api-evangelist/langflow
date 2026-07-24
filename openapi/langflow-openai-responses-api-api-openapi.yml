@@ -1,0 +1,134 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base OpenAI Responses API API
+  version: 1.9.0
+tags:
+- name: OpenAI Responses API
+paths:
+  /api/v1/responses:
+    post:
+      description: 'Create a response using OpenAI Responses API format.<br><br>This endpoint accepts a flow_id in the model parameter and processes<br>the input through the specified Langflow flow.<br><br>Args:<br>    request: OpenAI Responses API request with model (flow_id) and input<br>    background_tasks: FastAPI background task manager<br>    api_key_user: Authenticated user from API key<br>    http_request: The incoming HTTP request<br>    telemetry_service: Telemetry service for logging<br><br>Returns:<br>    OpenAI-compatible response or streaming response<br><br>Raises:<br>    HTTPException: For validation errors or flow execution issues'
+      operationId: create_response_api_v1_responses_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenAIResponsesRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - API key query: []
+      - API key header: []
+      summary: Create Response
+      tags:
+      - OpenAI Responses API
+components:
+  schemas:
+    OpenAIResponsesRequest:
+      description: OpenAI-compatible responses request with flow_id as model parameter.
+      properties:
+        background:
+          default: false
+          description: Whether to process in background
+          title: Background
+          type: boolean
+        include:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: Additional response data to include, e.g., ['tool_call.results']
+          title: Include
+        input:
+          description: The input text to process
+          title: Input
+          type: string
+        model:
+          description: The flow ID to execute (used instead of OpenAI model)
+          title: Model
+          type: string
+        previous_response_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of previous response to continue conversation
+          title: Previous Response Id
+        stream:
+          default: false
+          description: Whether to stream the response
+          title: Stream
+          type: boolean
+        tools:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          description: Tools are not supported yet
+          title: Tools
+      required:
+      - model
+      - input
+      title: OpenAIResponsesRequest
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

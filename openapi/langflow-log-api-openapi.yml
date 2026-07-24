@@ -1,0 +1,127 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Log API
+  version: 1.9.0
+tags:
+- name: Log
+paths:
+  /logs:
+    get:
+      description: 'Retrieve application logs with authentication required.<br><br>SECURITY: Logs may contain sensitive information and require authentication.'
+      operationId: logs_logs_get
+      parameters:
+      - description: The number of logs before the timestamp or the last log
+        in: query
+        name: lines_before
+        required: false
+        schema:
+          default: 0
+          description: The number of logs before the timestamp or the last log
+          title: Lines Before
+          type: integer
+      - description: The number of logs after the timestamp
+        in: query
+        name: lines_after
+        required: false
+        schema:
+          default: 0
+          description: The number of logs after the timestamp
+          title: Lines After
+          type: integer
+      - description: The timestamp to start getting logs from
+        in: query
+        name: timestamp
+        required: false
+        schema:
+          default: 0
+          description: The timestamp to start getting logs from
+          title: Timestamp
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Logs
+      tags:
+      - Log
+  /logs-stream:
+    get:
+      description: 'HTTP/2 Server-Sent-Event (SSE) endpoint for streaming logs.<br><br>Requires authentication to prevent exposure of sensitive log data.<br>It establishes a long-lived connection to the server and receives log messages in real-time.<br>The client should use the header "Accept: text/event-stream".'
+      operationId: stream_logs_logs_stream_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Stream Logs
+      tags:
+      - Log
+components:
+  schemas:
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2

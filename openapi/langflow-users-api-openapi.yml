@@ -1,0 +1,393 @@
+openapi: 3.1.0
+info:
+  title: Langflow Base Users API
+  version: 1.9.0
+tags:
+- name: Users
+paths:
+  /api/v1/users/:
+    get:
+      description: Retrieve a list of users from the database with pagination.
+      operationId: read_all_users_api_v1_users__get
+      parameters:
+      - in: query
+        name: skip
+        required: false
+        schema:
+          default: 0
+          title: Skip
+          type: integer
+      - in: query
+        name: limit
+        required: false
+        schema:
+          default: 10
+          title: Limit
+          type: integer
+      - in: query
+        name: search
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Read All Users
+      tags:
+      - Users
+    post:
+      description: Add a new user to the database.<br><br>This endpoint allows public user registration (sign up).<br>User activation is controlled by the NEW_USER_IS_ACTIVE setting.
+      operationId: add_user_api_v1_users__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Add User
+      tags:
+      - Users
+  /api/v1/users/whoami:
+    get:
+      description: Retrieve the current user's data.
+      operationId: read_current_user_api_v1_users_whoami_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+          description: Successful Response
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Read Current User
+      tags:
+      - Users
+  /api/v1/users/{user_id}:
+    delete:
+      description: Delete a user from the database.
+      operationId: delete_user_api_v1_users__user_id__delete
+      parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          format: uuid
+          title: User Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                title: Response Delete User Api V1 Users  User Id  Delete
+                type: object
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Delete User
+      tags:
+      - Users
+    patch:
+      description: Update an existing user's data.
+      operationId: patch_user_api_v1_users__user_id__patch
+      parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          format: uuid
+          title: User Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Patch User
+      tags:
+      - Users
+  /api/v1/users/{user_id}/reset-password:
+    patch:
+      description: Reset a user's password.
+      operationId: reset_password_api_v1_users__user_id__reset_password_patch
+      parameters:
+      - in: path
+        name: user_id
+        required: true
+        schema:
+          format: uuid
+          title: User Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserRead'
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      security:
+      - OAuth2PasswordBearerCookie: []
+      - API key query: []
+      - API key header: []
+      summary: Reset Password
+      tags:
+      - Users
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    UserRead:
+      properties:
+        create_at:
+          format: date-time
+          title: Create At
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+        is_active:
+          title: Is Active
+          type: boolean
+        is_superuser:
+          title: Is Superuser
+          type: boolean
+        last_login_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Last Login At
+        optins:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Optins
+        profile_image:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Image
+        store_api_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Store Api Key
+        updated_at:
+          format: date-time
+          title: Updated At
+          type: string
+        username:
+          title: Username
+          type: string
+      required:
+      - username
+      - profile_image
+      - store_api_key
+      - is_active
+      - is_superuser
+      - create_at
+      - updated_at
+      - last_login_at
+      title: UserRead
+      type: object
+    UserCreate:
+      properties:
+        optins:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          default:
+            dialog_dismissed: false
+            discord_clicked: false
+            github_starred: false
+          title: Optins
+        password:
+          title: Password
+          type: string
+        username:
+          title: Username
+          type: string
+      required:
+      - username
+      - password
+      title: UserCreate
+      type: object
+    UserUpdate:
+      properties:
+        is_active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Active
+        is_superuser:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Superuser
+        last_login_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Last Login At
+        optins:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Optins
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        profile_image:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Image
+        username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Username
+      title: UserUpdate
+      type: object
+    UsersResponse:
+      properties:
+        total_count:
+          title: Total Count
+          type: integer
+        users:
+          items:
+            $ref: '#/components/schemas/UserRead'
+          title: Users
+          type: array
+      required:
+      - total_count
+      - users
+      title: UsersResponse
+      type: object
+  securitySchemes:
+    API key header:
+      in: header
+      name: x-api-key
+      type: apiKey
+    API key query:
+      in: query
+      name: x-api-key
+      type: apiKey
+    OAuth2PasswordBearerCookie:
+      flows:
+        password:
+          scopes: {}
+          tokenUrl: api/v1/login
+      type: oauth2
