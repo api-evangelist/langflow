@@ -1,218 +1,546 @@
 aid: langflow
 url: https://raw.githubusercontent.com/api-evangelist/langflow/refs/heads/main/apis.yml
 apis:
-  - aid: langflow:langflow-api
-    name: Langflow API
-    tags:
-      - AI
-      - Agents
-      - Workflows
-      - Low-Code
-      - LangChain
-    humanURL: https://docs.langflow.org/api-reference-api-examples
-    baseURL: http://localhost:7860/api
-    properties:
-      - url: https://docs.langflow.org/api-reference-api-examples
-        type: Documentation
-      - url: https://docs.langflow.org/api-keys-and-authentication
-        type: Authentication
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-      - url: json-ld/langflow-context.jsonld
-        type: JSONLD
-      - url: vocabulary/langflow-vocabulary.yml
-        type: Vocabulary
-      - url: rules/langflow-rules.yml
-        type: SpectralRuleset
-    description: >-
-      Langflow's FastAPI-based REST API exposes every capability of a running Langflow server — running flows, building
-      flows, managing projects, files, users, API keys, MCP servers, messages and sessions, traces, starter projects,
-      and an OpenAI-compatible Responses endpoint. Authentication is via the `x-api-key` header or query parameter. An
-      interactive OpenAPI 3.1 spec is served at `/docs` and `/openapi.json` on every deployment.
-  - aid: langflow:langflow-flows-api
-    name: Langflow Flows API
-    tags:
-      - AI
-      - Flows
-      - Agents
-    humanURL: https://docs.langflow.org/concepts-flows
-    properties:
-      - url: https://docs.langflow.org/concepts-flows
-        type: Documentation
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-      - url: json-schema/langflow-flow-schema.json
-        type: JSONSchema
-    description: >-
-      Create, read, update, delete, upload, download, and list flows. A flow is the canonical Langflow unit — a directed
-      graph of components representing an AI agent or workflow. Includes endpoints for batch creation, basic examples,
-      public flows, and starter projects.
-  - aid: langflow:langflow-run-api
-    name: Langflow Run API
-    tags:
-      - AI
-      - Agents
-      - Execution
-    humanURL: https://docs.langflow.org/api-reference-api-examples
-    properties:
-      - url: https://docs.langflow.org/api-reference-api-examples
-        type: Documentation
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-    description: >-
-      Execute a flow by id or name via POST `/api/v1/run/{flow_id_or_name}` (simplified), POST
-      `/api/v1/run/advanced/{flow_id_or_name}` (experimental advanced), or POST `/api/v1/webhook/{flow_id_or_name}` for
-      webhook-triggered runs. Returns flow outputs and supports streaming via the `stream` query parameter.
-  - aid: langflow:langflow-build-api
-    name: Langflow Build API
-    tags:
-      - AI
-      - Build
-      - Streaming
-    humanURL: https://docs.langflow.org/api-reference-api-examples
-    properties:
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-    description: >-
-      Build endpoints run a flow with full vertex-level streaming. POST `/api/v1/build/{flow_id}/flow` kicks off a build
-      job and returns a job id; GET `/api/v1/build/{job_id}/events` streams vertex build events; POST
-      `/api/v1/build/{job_id}/cancel` cancels in-flight builds. Public-tmp variants exist for unauthenticated public
-      flow execution.
-  - aid: langflow:langflow-projects-api
-    name: Langflow Projects API
-    tags:
-      - AI
-      - Projects
-      - Organization
-    humanURL: https://docs.langflow.org/concepts-flows-import
-    properties:
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-      - url: json-schema/langflow-project-schema.json
-        type: JSONSchema
-    description: >-
-      Create, list, read, update, delete, upload, and download Langflow projects. Projects are containers that group
-      flows and provide MCP server installation context.
-  - aid: langflow:langflow-files-api
-    name: Langflow Files API
-    tags:
-      - AI
-      - Files
-      - Storage
-    humanURL: https://docs.langflow.org/concepts-file-management
-    properties:
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-    description: >-
-      Upload, download, list, and delete files attached to a flow (v1) or to the authenticated user (v2). The v2 Files
-      API supports batch upload/download, batch delete, and profile-picture management.
-  - aid: langflow:langflow-monitor-api
-    name: Langflow Monitor API
-    tags:
-      - AI
-      - Monitoring
-      - Messages
-      - Sessions
-    humanURL: https://docs.langflow.org/concepts-flows-monitor
-    properties:
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-      - url: json-schema/langflow-message-schema.json
-        type: JSONSchema
-    description: >-
-      Inspect and manage execution history — vertex builds, chat messages, sessions, and shared sessions. Supports
-      listing, updating, renaming, and deleting messages and entire sessions, plus shared-session sharing for read-only
-      collaboration.
-  - aid: langflow:langflow-traces-api
-    name: Langflow Traces API
-    tags:
-      - AI
-      - Tracing
-      - Observability
-    humanURL: https://docs.langflow.org/concepts-flows-monitor
-    properties:
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-    description: >-
-      Retrieve and delete execution traces. GET `/api/v1/monitor/traces` lists traces with flow-id filtering; GET
-      `/api/v1/monitor/traces/{trace_id}` returns a single trace. Integrates with external observability providers like
-      LangSmith and LangFuse.
-  - aid: langflow:langflow-users-api
-    name: Langflow Users API
-    tags:
-      - AI
-      - Users
-      - Administration
-    humanURL: https://docs.langflow.org/configuration-authentication
-    properties:
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-      - url: json-schema/langflow-user-schema.json
-        type: JSONSchema
-    description: >-
-      User management endpoints — create, read, patch, and delete users; `/api/v1/users/whoami` returns the current
-      authenticated user; reset-password endpoint for superuser-driven credential resets.
-  - aid: langflow:langflow-mcp-api
-    name: Langflow MCP API
-    tags:
-      - AI
-      - MCP
-      - Model Context Protocol
-      - Servers
-    humanURL: https://docs.langflow.org/mcp-server
-    properties:
-      - url: https://docs.langflow.org/mcp-server
-        type: Documentation
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-      - url: json-schema/langflow-mcp-server-schema.json
-        type: JSONSchema
-    description: >-
-      Manage MCP (Model Context Protocol) servers attached to Langflow projects and globally. Every Langflow project can
-      be exposed as an MCP server so its flows are callable as MCP tools. Endpoints list, register, update, and remove
-      MCP servers, and install MCP configurations into Claude Desktop and other MCP hosts.
-  - aid: langflow:langflow-workflow-api
-    name: Langflow Workflow API
-    tags:
-      - AI
-      - Workflows
-      - Execution
-    humanURL: https://docs.langflow.org/concepts-flows
-    properties:
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-    description: >-
-      v2 Workflow execution API — POST `/api/v2/workflows` executes a workflow; GET returns workflow status; POST
-      `/api/v2/workflows/stop` halts a running workflow. The v2 workflow surface is the forward-looking execution
-      interface for Langflow agents.
-  - aid: langflow:langflow-openai-responses-api
-    name: Langflow OpenAI Responses API
-    tags:
-      - AI
-      - OpenAI-Compatible
-      - Responses
-    humanURL: https://docs.langflow.org/api-reference-api-examples
-    properties:
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-    description: >-
-      OpenAI-compatible Responses endpoint at POST `/api/v1/responses`. Lets clients written against OpenAI's Responses
-      API point at a Langflow flow without code changes — the flow plays the role of the model and tool-calling layer.
-  - aid: langflow:langflow-api-keys-api
-    name: Langflow API Keys API
-    tags:
-      - AI
-      - Authentication
-      - Administration
-    humanURL: https://docs.langflow.org/api-keys-and-authentication
-    properties:
-      - url: https://docs.langflow.org/api-keys-and-authentication
-        type: Documentation
-      - url: openapi/langflow-openapi.yml
-        type: OpenAPI
-    description: >-
-      Create, list, rotate, and delete Langflow API keys. Keys authenticate requests against any of the Langflow REST
-      endpoints via the `x-api-key` header. Also creatable via the `langflow api-key` CLI when the frontend is disabled.
+- aid: langflow:langflow-base-api
+  name: Langflow Base API
+  description: The Base API from Langflow — 6 operation(s) for base.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Base
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-base-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-chat-api
+  name: Langflow Chat API
+  description: The Chat API from Langflow — 6 operation(s) for chat.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-chat-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-files-api
+  name: Langflow Files API
+  description: The Files API from Langflow — 11 operation(s) for files.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Files
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-files-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-flow-events-api
+  name: Langflow Flow Events API
+  description: The Flow Events API from Langflow — 1 operation(s) for flow events.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Flow Events
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-flow-events-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-flows-api
+  name: Langflow Flows API
+  description: The Flows API from Langflow — 8 operation(s) for flows.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Flows
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-flows-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-health-check-api
+  name: Langflow Health Check API
+  description: The Health Check API from Langflow — 2 operation(s) for health check.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-health-check-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-log-api
+  name: Langflow Log API
+  description: The Log API from Langflow — 2 operation(s) for log.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Log
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-log-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-mcp-api
+  name: Langflow MCP API
+  description: The MCP API from Langflow — 2 operation(s) for mcp.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - MCP
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-mcp-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-mcp-projects-api
+  name: Langflow mcp_projects API
+  description: The mcp_projects API from Langflow — 4 operation(s) for mcp_projects.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - mcp_projects
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-mcp-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-monitor-api
+  name: Langflow Monitor API
+  description: The Monitor API from Langflow — 12 operation(s) for monitor.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Monitor
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-monitor-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-openai-responses-api-api
+  name: Langflow OpenAI Responses API API
+  description: The OpenAI Responses API API from Langflow — 1 operation(s) for openai responses api.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - OpenAI Responses API
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-openai-responses-api-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-projects-api
+  name: Langflow Projects API
+  description: The Projects API from Langflow — 4 operation(s) for projects.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-traces-api
+  name: Langflow Traces API
+  description: The Traces API from Langflow — 2 operation(s) for traces.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Traces
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-traces-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-users-api
+  name: Langflow Users API
+  description: The Users API from Langflow — 4 operation(s) for users.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
+- aid: langflow:langflow-workflow-api
+  name: Langflow Workflow API
+  description: The Workflow API from Langflow — 2 operation(s) for workflow.
+  humanURL: https://docs.langflow.org/api-reference-api-examples
+  baseURL: http://localhost:7860/api
+  tags:
+  - Workflow
+  properties:
+  - type: OpenAPI
+    url: openapi/langflow-workflow-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langflow.org/api-reference-api-examples
+  - type: Authentication
+    url: https://docs.langflow.org/api-keys-and-authentication
+  - type: JSONLD
+    url: json-ld/langflow-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/langflow-vocabulary.yml
+  - type: SpectralRuleset
+    url: rules/langflow-rules.yml
+  - type: Documentation
+    url: https://docs.langflow.org/concepts-flows
+  - type: JSONSchema
+    url: json-schema/langflow-flow-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-project-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-message-schema.json
+  - type: JSONSchema
+    url: json-schema/langflow-user-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/mcp-server
+  - type: JSONSchema
+    url: json-schema/langflow-mcp-server-schema.json
+  - type: Documentation
+    url: https://docs.langflow.org/api-keys-and-authentication
 name: Langflow
 tags:
   - AI
@@ -227,7 +555,19 @@ tags:
   - Open Source
   - FastAPI
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/langflow.png
 access: 3rd-Party
 common:
   - type: AgenticAccess
