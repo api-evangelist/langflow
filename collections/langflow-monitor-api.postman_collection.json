@@ -1,0 +1,2741 @@
+{
+  "item": [
+    {
+      "id": "d510648c-b241-4a98-a84a-04451bad8d77",
+      "name": "Monitor",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1d22d94b-ceb0-455a-9e86-f87dd3f8d1ef",
+          "name": "Delete Vertex Builds",
+          "request": {
+            "name": "Delete Vertex Builds",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "builds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "flow_id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1b9829fc-d61b-4c01-afc8-15dda50ffb25",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c6b7b1a5-8d4c-49a3-8c62-cbd7a687c4b3",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52301335-e68c-446c-8695-47b8b1839166",
+          "name": "Get Vertex Builds",
+          "request": {
+            "name": "Get Vertex Builds",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "builds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "flow_id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4ba2f2ae-ee19-42a9-93b3-1a6e060fffeb",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vertex_builds\": {\n    \"key_0\": [\n      {\n        \"id\": \"string\",\n        \"valid\": false,\n        \"flow_id\": \"7c7d2d69-7bd8-5b05-ad15-1598e23652db\",\n        \"artifacts\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": 5418\n        },\n        \"build_id\": \"7d04fde0-8ff1-5638-22e7-2b61620e304e\",\n        \"data\": {\n          \"key_0\": \"string\",\n          \"key_1\": 2564\n        },\n        \"job_id\": \"15ff82ba-01b1-ae11-6a7c-8faf508682bd\",\n        \"params\": \"string\",\n        \"timestamp\": \"2019-07-13T12:05:56.159Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"valid\": false,\n        \"flow_id\": \"fb7ea728-9954-b942-28ff-ed18d173357c\",\n        \"artifacts\": {\n          \"key_0\": true,\n          \"key_1\": false,\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"build_id\": \"aecaad66-034d-a0cb-fd9a-2e65f8146b53\",\n        \"data\": {\n          \"key_0\": true,\n          \"key_1\": false,\n          \"key_2\": \"string\"\n        },\n        \"job_id\": \"d878c72f-2c2f-04b6-938f-fbb1f485ba4e\",\n        \"params\": \"string\",\n        \"timestamp\": \"1985-05-18T19:07:25.690Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "913c0fc3-1a4a-4480-a472-6bba5bbee86d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "builds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84e1073c-529b-494a-8108-7c13961011d2",
+          "name": "Delete Messages",
+          "request": {
+            "name": "Delete Messages",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<uuid>\",\n  \"<uuid>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5fa489cc-6c61-45f3-ba20-4abf71407b5f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<uuid>\",\n  \"<uuid>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "88fe1eca-b0b3-4c71-b7b8-957b0fb22d69",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<uuid>\",\n  \"<uuid>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f559730-8fac-41a7-aaf1-1d0ee497cf86",
+          "name": "Get Messages",
+          "request": {
+            "name": "Get Messages",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "flow_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "session_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sender",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sender_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6b07a367-ac5a-49de-89b0-145047173bf5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sender",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sender_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"sender\": \"string\",\n    \"sender_name\": \"string\",\n    \"session_id\": \"string\",\n    \"text\": \"string\",\n    \"edit\": false,\n    \"category\": \"string\",\n    \"content_blocks\": [\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": 9733.83561531333,\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          {\n            \"key_0\": true,\n            \"key_1\": 7184,\n            \"key_2\": 7761.142781264608\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": 1051.2015432972378,\n            \"key_1\": 1767,\n            \"key_2\": \"string\"\n          },\n          {\n            \"key_0\": false\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"context_id\": \"string\",\n    \"duration\": 8740.060252621492,\n    \"flow_id\": \"3b90e467-2a13-e1d7-87c6-99541db42662\",\n    \"id\": \"string\",\n    \"properties\": {\n      \"allow_markdown\": false,\n      \"background_color\": \"string\",\n      \"build_duration\": 8317.784019095368,\n      \"edited\": false,\n      \"icon\": \"string\",\n      \"positive_feedback\": false,\n      \"source\": {\n        \"display_name\": \"string\",\n        \"id\": \"string\",\n        \"source\": \"string\"\n      },\n      \"state\": \"complete\",\n      \"text_color\": \"string\",\n      \"usage\": {\n        \"input_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"total_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"session_metadata\": {\n      \"key_0\": 6589.95688418333,\n      \"key_1\": 4621\n    },\n    \"timestamp\": \"2008-06-30T21:45:18.509Z\"\n  },\n  {\n    \"sender\": \"string\",\n    \"sender_name\": \"string\",\n    \"session_id\": \"string\",\n    \"text\": \"string\",\n    \"edit\": false,\n    \"category\": \"string\",\n    \"content_blocks\": [\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": false\n          },\n          {\n            \"key_0\": 999\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": 6950.977643645194\n          },\n          {\n            \"key_0\": true\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"context_id\": \"string\",\n    \"duration\": 5924.022443044346,\n    \"flow_id\": \"e975c7b9-10ce-2cb6-d17a-ff0c7ef333c5\",\n    \"id\": \"string\",\n    \"properties\": {\n      \"allow_markdown\": false,\n      \"background_color\": \"string\",\n      \"build_duration\": 411.3834834942953,\n      \"edited\": false,\n      \"icon\": \"string\",\n      \"positive_feedback\": false,\n      \"source\": {\n        \"display_name\": \"string\",\n        \"id\": \"string\",\n        \"source\": \"string\"\n      },\n      \"state\": \"complete\",\n      \"text_color\": \"string\",\n      \"usage\": {\n        \"input_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"total_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"session_metadata\": {\n      \"key_0\": false\n    },\n    \"timestamp\": \"2002-11-01T15:54:37.107Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "343cd7d2-417e-4013-870a-d47dff046480",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sender",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sender_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e95a279-d044-43d5-87fc-96a942e35637",
+          "name": "Update Session Id",
+          "request": {
+            "name": "Update Session Id",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                "session",
+                ":old_session_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "new_session_id",
+                  "value": "<string>",
+                  "description": "(Required) The new session ID to update to"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "old_session_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6abd4617-81b7-47b5-830c-f42bd8fb0c94",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "session",
+                    ":old_session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "new_session_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "old_session_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"sender\": \"string\",\n    \"sender_name\": \"string\",\n    \"session_id\": \"string\",\n    \"text\": \"string\",\n    \"edit\": false,\n    \"category\": \"string\",\n    \"content_blocks\": [\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": true,\n            \"key_1\": true,\n            \"key_2\": 3766.4839798471708,\n            \"key_3\": 7611.799173049164\n          },\n          {\n            \"key_0\": 6254.558862562316,\n            \"key_1\": \"string\"\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": \"string\",\n            \"key_1\": 9490.145382361661,\n            \"key_2\": 555\n          },\n          {\n            \"key_0\": 6494,\n            \"key_1\": \"string\",\n            \"key_2\": 1429.0422258174328,\n            \"key_3\": 9933\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"context_id\": \"string\",\n    \"duration\": 7058.299502388914,\n    \"flow_id\": \"53a3dd26-cb36-f615-9e67-8a1ccb823d73\",\n    \"id\": \"string\",\n    \"properties\": {\n      \"allow_markdown\": false,\n      \"background_color\": \"string\",\n      \"build_duration\": 4250.629748434354,\n      \"edited\": false,\n      \"icon\": \"string\",\n      \"positive_feedback\": true,\n      \"source\": {\n        \"display_name\": \"string\",\n        \"id\": \"string\",\n        \"source\": \"string\"\n      },\n      \"state\": \"complete\",\n      \"text_color\": \"string\",\n      \"usage\": {\n        \"input_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"total_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"session_metadata\": {\n      \"key_0\": \"string\",\n      \"key_1\": 2425\n    },\n    \"timestamp\": \"1965-08-30T10:57:27.998Z\"\n  },\n  {\n    \"sender\": \"string\",\n    \"sender_name\": \"string\",\n    \"session_id\": \"string\",\n    \"text\": \"string\",\n    \"edit\": false,\n    \"category\": \"string\",\n    \"content_blocks\": [\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": true,\n            \"key_1\": false,\n            \"key_2\": \"string\"\n          },\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          {\n            \"key_0\": 6113.198677931495\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"context_id\": \"string\",\n    \"duration\": 9638.16329087353,\n    \"flow_id\": \"0696d4df-8ab5-8c64-1ad3-c4752b11e79d\",\n    \"id\": \"string\",\n    \"properties\": {\n      \"allow_markdown\": false,\n      \"background_color\": \"string\",\n      \"build_duration\": 3326.6117812810535,\n      \"edited\": false,\n      \"icon\": \"string\",\n      \"positive_feedback\": false,\n      \"source\": {\n        \"display_name\": \"string\",\n        \"id\": \"string\",\n        \"source\": \"string\"\n      },\n      \"state\": \"complete\",\n      \"text_color\": \"string\",\n      \"usage\": {\n        \"input_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"total_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"session_metadata\": {\n      \"key_0\": true\n    },\n    \"timestamp\": \"2020-08-18T07:02:21.505Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fbdfe7b-6f95-4d56-b05b-566d93f56930",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "session",
+                    ":old_session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "new_session_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "old_session_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89e3c759-7492-457a-a620-03af6c174cba",
+          "name": "Delete Messages Session",
+          "request": {
+            "name": "Delete Messages Session",
+            "description": {
+              "content": "Delete messages for a single session.<br><br>Only deletes messages from sessions belonging to flows owned by the current user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                "session",
+                ":session_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "session_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "29bd0695-f5e8-413d-a0c1-a1b6539e877b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "session",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "360695d8-6781-4518-9c85-374fffddb0e6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "session",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4fe3bee2-369f-48dc-affb-84245a192f82",
+          "name": "Delete Messages Sessions",
+          "request": {
+            "name": "Delete Messages Sessions",
+            "description": {
+              "content": "Bulk delete messages for multiple sessions at once.<br><br>Only deletes messages from sessions belonging to flows owned by the current user.<br><br>Args:<br>    session_ids: List of session IDs to delete (max 500)<br>    session: Database session<br>    current_user: Current authenticated user<br><br>Returns:<br>    Confirmation message with count of deleted sessions<br><br>Raises:<br>    HTTPException: 400 if session_ids list exceeds 500 items<br>    HTTPException: 500 if database operation fails",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                "sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "194b9fef-5964-4b2e-a8bd-9ffcf138dd36",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2cf951a5-848e-43dc-926f-bb6044629ff1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<string>\",\n  \"<string>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83b2293c-5578-49fe-a505-9f84d8fac005",
+          "name": "Get Message Sessions",
+          "request": {
+            "name": "Get Message Sessions",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                "sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "flow_id",
+                  "value": "<uuid>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "075abf57-db90-42a2-bdf8-4bd8ed6c4251",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "337e0e8b-d05c-4bec-bd1e-9791e0355510",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e90d468-de53-41de-89ab-371a1f0b94c7",
+          "name": "Get Shared Messages",
+          "request": {
+            "name": "Get Shared Messages",
+            "description": {
+              "content": "Get messages for a shared/public flow, scoped to the authenticated user.<br><br>Uses a deterministic virtual flow_id derived from the user's ID and the<br>original flow ID. Only messages stored under this virtual flow_id are returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                "shared"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source_flow_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The original public flow ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "session_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "83c2a98e-7ed2-46d5-8a49-c07e5733d95b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"sender\": \"string\",\n    \"sender_name\": \"string\",\n    \"session_id\": \"string\",\n    \"text\": \"string\",\n    \"edit\": false,\n    \"category\": \"string\",\n    \"content_blocks\": [\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": false\n          },\n          {\n            \"key_0\": true\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": 1712\n          },\n          {\n            \"key_0\": \"string\"\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"context_id\": \"string\",\n    \"duration\": 8337.09036285986,\n    \"flow_id\": \"62956352-3e8b-860a-ca8d-a79d087df21c\",\n    \"id\": \"string\",\n    \"properties\": {\n      \"allow_markdown\": false,\n      \"background_color\": \"string\",\n      \"build_duration\": 8846.684943611217,\n      \"edited\": false,\n      \"icon\": \"string\",\n      \"positive_feedback\": false,\n      \"source\": {\n        \"display_name\": \"string\",\n        \"id\": \"string\",\n        \"source\": \"string\"\n      },\n      \"state\": \"complete\",\n      \"text_color\": \"string\",\n      \"usage\": {\n        \"input_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"total_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"session_metadata\": {\n      \"key_0\": true,\n      \"key_1\": true\n    },\n    \"timestamp\": \"1975-05-19T08:26:31.681Z\"\n  },\n  {\n    \"sender\": \"string\",\n    \"sender_name\": \"string\",\n    \"session_id\": \"string\",\n    \"text\": \"string\",\n    \"edit\": false,\n    \"category\": \"string\",\n    \"content_blocks\": [\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": 4506.312356368339,\n            \"key_1\": 3357,\n            \"key_2\": 2263.467196050842\n          },\n          {\n            \"key_0\": 5322.002489832586\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": \"string\",\n            \"key_1\": 6275.913870990633,\n            \"key_2\": 5886\n          },\n          {\n            \"key_0\": 5541,\n            \"key_1\": 2310\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"context_id\": \"string\",\n    \"duration\": 8237.355524266783,\n    \"flow_id\": \"77177f80-14f0-490e-0fa6-c7b0cd22649a\",\n    \"id\": \"string\",\n    \"properties\": {\n      \"allow_markdown\": false,\n      \"background_color\": \"string\",\n      \"build_duration\": 7073.807800798426,\n      \"edited\": false,\n      \"icon\": \"string\",\n      \"positive_feedback\": true,\n      \"source\": {\n        \"display_name\": \"string\",\n        \"id\": \"string\",\n        \"source\": \"string\"\n      },\n      \"state\": \"complete\",\n      \"text_color\": \"string\",\n      \"usage\": {\n        \"input_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"total_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"session_metadata\": {\n      \"key_0\": true,\n      \"key_1\": 8724.610576909576\n    },\n    \"timestamp\": \"1981-11-19T23:22:27.722Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec35691e-d670-4dbf-9123-66d23c56110e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3b3e120-7363-4f2e-ade9-9b647847dbd4",
+          "name": "Rename Shared Session",
+          "request": {
+            "name": "Rename Shared Session",
+            "description": {
+              "content": "Rename a session on a shared/public flow, scoped to the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                "shared",
+                "session",
+                ":old_session_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "new_session_id",
+                  "value": "<string>",
+                  "description": "(Required) The new session ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "source_flow_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The original public flow ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "old_session_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "44b631e3-f7b2-4dce-bada-b111429dfc94",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared",
+                    "session",
+                    ":old_session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "new_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "old_session_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"sender\": \"string\",\n    \"sender_name\": \"string\",\n    \"session_id\": \"string\",\n    \"text\": \"string\",\n    \"edit\": false,\n    \"category\": \"string\",\n    \"content_blocks\": [\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": false\n          },\n          {\n            \"key_0\": 6088.851904396869,\n            \"key_1\": true\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": \"string\",\n            \"key_1\": 4935.884583424589\n          },\n          {\n            \"key_0\": 8759,\n            \"key_1\": \"string\"\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"context_id\": \"string\",\n    \"duration\": 8877.8244118148,\n    \"flow_id\": \"b55e187c-b452-3651-dee9-469175034740\",\n    \"id\": \"string\",\n    \"properties\": {\n      \"allow_markdown\": false,\n      \"background_color\": \"string\",\n      \"build_duration\": 9710.195630502167,\n      \"edited\": false,\n      \"icon\": \"string\",\n      \"positive_feedback\": false,\n      \"source\": {\n        \"display_name\": \"string\",\n        \"id\": \"string\",\n        \"source\": \"string\"\n      },\n      \"state\": \"complete\",\n      \"text_color\": \"string\",\n      \"usage\": {\n        \"input_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"total_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"session_metadata\": {\n      \"key_0\": true,\n      \"key_1\": true,\n      \"key_2\": \"string\",\n      \"key_3\": 5266\n    },\n    \"timestamp\": \"1986-10-17T10:19:27.634Z\"\n  },\n  {\n    \"sender\": \"string\",\n    \"sender_name\": \"string\",\n    \"session_id\": \"string\",\n    \"text\": \"string\",\n    \"edit\": false,\n    \"category\": \"string\",\n    \"content_blocks\": [\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": 3696.2895071764246\n          },\n          {\n            \"key_0\": false\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"title\": \"string\",\n        \"contents\": [\n          {\n            \"key_0\": true\n          },\n          {\n            \"key_0\": 2947,\n            \"key_1\": true\n          }\n        ],\n        \"allow_markdown\": true,\n        \"media_url\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"context_id\": \"string\",\n    \"duration\": 9042.39588354221,\n    \"flow_id\": \"5666c4f6-e3cc-d60e-f104-afa95cd4ec7b\",\n    \"id\": \"string\",\n    \"properties\": {\n      \"allow_markdown\": false,\n      \"background_color\": \"string\",\n      \"build_duration\": 2590.489415766757,\n      \"edited\": false,\n      \"icon\": \"string\",\n      \"positive_feedback\": false,\n      \"source\": {\n        \"display_name\": \"string\",\n        \"id\": \"string\",\n        \"source\": \"string\"\n      },\n      \"state\": \"complete\",\n      \"text_color\": \"string\",\n      \"usage\": {\n        \"input_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"output_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"total_tokens\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"session_metadata\": {\n      \"key_0\": 3535,\n      \"key_1\": 2540\n    },\n    \"timestamp\": \"2013-06-25T03:03:25.583Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ab5100d-0594-4ce0-9c19-fbc7cffe5dd8",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared",
+                    "session",
+                    ":old_session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "new_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "old_session_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e0749ba-a636-41ce-87f7-3f27f4a142dd",
+          "name": "Delete Shared Messages Session",
+          "request": {
+            "name": "Delete Shared Messages Session",
+            "description": {
+              "content": "Delete messages for a session on a shared/public flow, scoped to the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                "shared",
+                "session",
+                ":session_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source_flow_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The original public flow ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "session_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7d222f18-9e2d-4748-af72-15d82eb7b05b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared",
+                    "session",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a169b68-e31c-4857-b73e-03f02c508dcb",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared",
+                    "session",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abe2b3f1-c356-4462-a1e5-ff39266395b9",
+          "name": "Get Shared Message Sessions",
+          "request": {
+            "name": "Get Shared Message Sessions",
+            "description": {
+              "content": "Get session IDs for a shared/public flow, scoped to the authenticated user.<br><br>Uses a deterministic virtual flow_id derived from the user's ID and the<br>original flow ID. Only messages stored under this virtual flow_id are returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                "shared",
+                "sessions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source_flow_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The original public flow ID"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2fd0295a-b23b-49c6-8903-35246fb4e735",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  \"string\",\n  \"string\"\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf30a362-778f-4f08-aecd-ced38558e54e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared",
+                    "sessions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8fd854ec-b492-4248-b63b-b94dffcf8ebe",
+          "name": "Update Shared Message",
+          "request": {
+            "name": "Update Shared Message",
+            "description": {
+              "content": "Update a message on a shared/public flow, scoped to the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                "shared",
+                ":message_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source_flow_id",
+                  "value": "<uuid>",
+                  "description": "(Required) The original public flow ID"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "message_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"context_id\": \"<string>\",\n  \"edit\": \"<boolean>\",\n  \"error\": \"<boolean>\",\n  \"files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": {\n    \"allow_markdown\": false,\n    \"background_color\": \"<string>\",\n    \"build_duration\": \"<number>\",\n    \"edited\": false,\n    \"icon\": \"<string>\",\n    \"positive_feedback\": \"<boolean>\",\n    \"source\": {\n      \"display_name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"source\": \"<string>\"\n    },\n    \"state\": \"complete\",\n    \"text_color\": \"<string>\",\n    \"usage\": {\n      \"input_tokens\": \"<integer>\",\n      \"output_tokens\": \"<integer>\",\n      \"total_tokens\": \"<integer>\"\n    }\n  },\n  \"sender\": \"<string>\",\n  \"sender_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"session_metadata\": {\n    \"key_0\": 9299.540725908455\n  },\n  \"text\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a516651d-18f4-4f2f-9edb-625d41f07c65",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "message_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"context_id\": \"<string>\",\n  \"edit\": \"<boolean>\",\n  \"error\": \"<boolean>\",\n  \"files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": {\n    \"allow_markdown\": false,\n    \"background_color\": \"string\",\n    \"build_duration\": 3328.2841734003487,\n    \"edited\": false,\n    \"icon\": \"string\",\n    \"positive_feedback\": true,\n    \"source\": {\n      \"display_name\": \"string\",\n      \"id\": \"string\",\n      \"source\": \"string\"\n    },\n    \"state\": \"complete\",\n    \"text_color\": \"string\",\n    \"usage\": {\n      \"input_tokens\": 6318,\n      \"output_tokens\": 1389,\n      \"total_tokens\": 7529\n    }\n  },\n  \"sender\": \"<string>\",\n  \"sender_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"session_metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sender\": \"string\",\n  \"sender_name\": \"string\",\n  \"session_id\": \"string\",\n  \"text\": \"string\",\n  \"id\": \"30cf600b-07c6-1b60-42e7-42c774a2b1a0\",\n  \"flow_id\": \"2c740890-9176-5114-ef07-c59c3010cf25\",\n  \"category\": \"message\",\n  \"content_blocks\": [\n    {\n      \"title\": \"string\",\n      \"contents\": [\n        {\n          \"key_0\": false\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"allow_markdown\": true,\n      \"media_url\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"title\": \"string\",\n      \"contents\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"allow_markdown\": true,\n      \"media_url\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"context_id\": \"string\",\n  \"edit\": false,\n  \"error\": false,\n  \"files\": [\n    \"string\",\n    \"string\"\n  ],\n  \"properties\": {\n    \"allow_markdown\": false,\n    \"background_color\": \"string\",\n    \"build_duration\": 3076.285865476034,\n    \"edited\": false,\n    \"icon\": \"string\",\n    \"positive_feedback\": true,\n    \"source\": {\n      \"display_name\": \"string\",\n      \"id\": \"string\",\n      \"source\": \"string\"\n    },\n    \"state\": \"complete\",\n    \"text_color\": \"string\",\n    \"usage\": {\n      \"input_tokens\": 4844,\n      \"output_tokens\": 6945,\n      \"total_tokens\": 5892\n    }\n  },\n  \"session_metadata\": {\n    \"key_0\": 572,\n    \"key_1\": \"string\"\n  },\n  \"timestamp\": \"2005-11-18T22:45:48.145Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7e186a4-a7de-48be-a0be-faaf768da06f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    "shared",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source_flow_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "message_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"context_id\": \"<string>\",\n  \"edit\": \"<boolean>\",\n  \"error\": \"<boolean>\",\n  \"files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": {\n    \"allow_markdown\": false,\n    \"background_color\": \"string\",\n    \"build_duration\": 3328.2841734003487,\n    \"edited\": false,\n    \"icon\": \"string\",\n    \"positive_feedback\": true,\n    \"source\": {\n      \"display_name\": \"string\",\n      \"id\": \"string\",\n      \"source\": \"string\"\n    },\n    \"state\": \"complete\",\n    \"text_color\": \"string\",\n    \"usage\": {\n      \"input_tokens\": 6318,\n      \"output_tokens\": 1389,\n      \"total_tokens\": 7529\n    }\n  },\n  \"sender\": \"<string>\",\n  \"sender_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"session_metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c2cdef8-315c-454a-aea2-22039f7dd359",
+          "name": "Update Message",
+          "request": {
+            "name": "Update Message",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "messages",
+                ":message_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "message_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"context_id\": \"<string>\",\n  \"edit\": \"<boolean>\",\n  \"error\": \"<boolean>\",\n  \"files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": {\n    \"allow_markdown\": false,\n    \"background_color\": \"<string>\",\n    \"build_duration\": \"<number>\",\n    \"edited\": false,\n    \"icon\": \"<string>\",\n    \"positive_feedback\": \"<boolean>\",\n    \"source\": {\n      \"display_name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"source\": \"<string>\"\n    },\n    \"state\": \"complete\",\n    \"text_color\": \"<string>\",\n    \"usage\": {\n      \"input_tokens\": \"<integer>\",\n      \"output_tokens\": \"<integer>\",\n      \"total_tokens\": \"<integer>\"\n    }\n  },\n  \"sender\": \"<string>\",\n  \"sender_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"session_metadata\": {\n    \"key_0\": 9299.540725908455\n  },\n  \"text\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "03d512e7-bd85-4549-b196-5ec8ecce9de6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "message_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"context_id\": \"<string>\",\n  \"edit\": \"<boolean>\",\n  \"error\": \"<boolean>\",\n  \"files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": {\n    \"allow_markdown\": false,\n    \"background_color\": \"string\",\n    \"build_duration\": 3328.2841734003487,\n    \"edited\": false,\n    \"icon\": \"string\",\n    \"positive_feedback\": true,\n    \"source\": {\n      \"display_name\": \"string\",\n      \"id\": \"string\",\n      \"source\": \"string\"\n    },\n    \"state\": \"complete\",\n    \"text_color\": \"string\",\n    \"usage\": {\n      \"input_tokens\": 6318,\n      \"output_tokens\": 1389,\n      \"total_tokens\": 7529\n    }\n  },\n  \"sender\": \"<string>\",\n  \"sender_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"session_metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sender\": \"string\",\n  \"sender_name\": \"string\",\n  \"session_id\": \"string\",\n  \"text\": \"string\",\n  \"id\": \"30cf600b-07c6-1b60-42e7-42c774a2b1a0\",\n  \"flow_id\": \"2c740890-9176-5114-ef07-c59c3010cf25\",\n  \"category\": \"message\",\n  \"content_blocks\": [\n    {\n      \"title\": \"string\",\n      \"contents\": [\n        {\n          \"key_0\": false\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"allow_markdown\": true,\n      \"media_url\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"title\": \"string\",\n      \"contents\": [\n        {\n          \"key_0\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"allow_markdown\": true,\n      \"media_url\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"context_id\": \"string\",\n  \"edit\": false,\n  \"error\": false,\n  \"files\": [\n    \"string\",\n    \"string\"\n  ],\n  \"properties\": {\n    \"allow_markdown\": false,\n    \"background_color\": \"string\",\n    \"build_duration\": 3076.285865476034,\n    \"edited\": false,\n    \"icon\": \"string\",\n    \"positive_feedback\": true,\n    \"source\": {\n      \"display_name\": \"string\",\n      \"id\": \"string\",\n      \"source\": \"string\"\n    },\n    \"state\": \"complete\",\n    \"text_color\": \"string\",\n    \"usage\": {\n      \"input_tokens\": 4844,\n      \"output_tokens\": 6945,\n      \"total_tokens\": 5892\n    }\n  },\n  \"session_metadata\": {\n    \"key_0\": 572,\n    \"key_1\": \"string\"\n  },\n  \"timestamp\": \"2005-11-18T22:45:48.145Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea178310-952f-4fd7-982d-a4620dd4b2d3",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "messages",
+                    ":message_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "message_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"context_id\": \"<string>\",\n  \"edit\": \"<boolean>\",\n  \"error\": \"<boolean>\",\n  \"files\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"properties\": {\n    \"allow_markdown\": false,\n    \"background_color\": \"string\",\n    \"build_duration\": 3328.2841734003487,\n    \"edited\": false,\n    \"icon\": \"string\",\n    \"positive_feedback\": true,\n    \"source\": {\n      \"display_name\": \"string\",\n      \"id\": \"string\",\n      \"source\": \"string\"\n    },\n    \"state\": \"complete\",\n    \"text_color\": \"string\",\n    \"usage\": {\n      \"input_tokens\": 6318,\n      \"output_tokens\": 1389,\n      \"total_tokens\": 7529\n    }\n  },\n  \"sender\": \"<string>\",\n  \"sender_name\": \"<string>\",\n  \"session_id\": \"<string>\",\n  \"session_metadata\": {\n    \"key_0\": \"string\"\n  },\n  \"text\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e62f9edb-b265-460a-a4bf-2cb4ccd0dea0",
+          "name": "Get Transactions",
+          "request": {
+            "name": "Get Transactions",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "monitor",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "flow_id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50",
+                  "description": "Page size"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb5dccfc-6ab6-44c1-9789-7c1aee9e2804",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"532356f9-ab91-7abe-5efd-12ed2370c462\",\n      \"vertex_id\": \"string\",\n      \"status\": \"string\",\n      \"inputs\": {\n        \"key_0\": 5832.698747505434,\n        \"key_1\": 811\n      },\n      \"outputs\": {\n        \"key_0\": 4086,\n        \"key_1\": 6572\n      },\n      \"target_id\": \"string\",\n      \"timestamp\": \"2008-06-26T02:04:12.187Z\"\n    },\n    {\n      \"id\": \"e386d0c1-f85b-e9ba-53d3-da1e8e4d055c\",\n      \"vertex_id\": \"string\",\n      \"status\": \"string\",\n      \"inputs\": {\n        \"key_0\": 6627.525430168164,\n        \"key_1\": 8635.788578587375,\n        \"key_2\": 8906.48507875632,\n        \"key_3\": 4188\n      },\n      \"outputs\": {\n        \"key_0\": true,\n        \"key_1\": 7593.325420085996\n      },\n      \"target_id\": \"string\",\n      \"timestamp\": \"1963-05-31T01:51:36.217Z\"\n    }\n  ],\n  \"total\": 4152,\n  \"page\": 5410,\n  \"size\": 6450,\n  \"pages\": 8207\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40eb2b25-c586-4c64-ac69-d84f89e0a026",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "monitor",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "flow_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "6830ae97-de1d-48d8-b595-472db064cc86",
+    "name": "Langflow Base Monitor API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

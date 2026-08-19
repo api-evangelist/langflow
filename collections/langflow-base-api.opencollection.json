@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Langflow Base API",
+    "version": "1.9.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Base",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/all",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve all component types with compression for better performance.<br><br>Returns a compressed response containing all available component types."
+        },
+        {
+          "info": {
+            "name": "Get Config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/config",
+            "auth": {
+              "type": "oauth2",
+              "flow": "resource_owner_password_credentials",
+              "accessTokenUrl": "api/v1/login",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve application configuration settings.<br><br>Returns different configuration based on authentication status:<br>- Authenticated users: Full ConfigResponse with all settings<br>- Unauthenticated users: PublicConfigResponse with limited, safe-to-expose settings<br><br>Args:<br>    user: The authenticated user, or None if unauthenticated.<br><br>Returns:<br>    ConfigResponse | PublicConfigResponse: Configuration settings appropriate for the user's auth status.<br><br>Raises:<br>    HTTPExce"
+        },
+        {
+          "info": {
+            "name": "Experimental Run Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/run/advanced/:flow_id_or_name",
+            "params": [
+              {
+                "name": "flow_id_or_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Executes a specified flow by ID with optional input values, output selection, tweaks, and streaming capability.<br><br>This endpoint supports running flows with caching to enhance performance and efficiency.<br><br>### Parameters:<br>- `flow` (Flow): The flow object to be executed, resolved via dependency injection.<br>- `inputs` (List[InputValueRequest], optional): A list of inputs specifying the input values and components<br>  for the flow. Each input can target specific components and provid"
+        },
+        {
+          "info": {
+            "name": "Simplified Run Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/run/:flow_id_or_name",
+            "params": [
+              {
+                "name": "flow_id_or_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "stream",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "query"
+            }
+          },
+          "docs": "Executes a specified flow by ID with support for streaming and telemetry (API key auth).<br><br>This endpoint executes a flow identified by ID or name, with options for streaming the response<br>and tracking execution metrics. It handles both streaming and non-streaming execution modes.<br>This endpoint uses API key authentication (Bearer token).<br><br>Args:<br>    background_tasks (BackgroundTasks): FastAPI background task manager<br>    flow (FlowRead | None): The flow to execute, loaded via "
+        },
+        {
+          "info": {
+            "name": "Get Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/version"
+          },
+          "docs": "Get Version"
+        },
+        {
+          "info": {
+            "name": "Webhook Run Flow",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/v1/webhook/:flow_id_or_name",
+            "params": [
+              {
+                "name": "flow_id_or_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Run a flow using a webhook request.<br><br>Args:<br>    flow_id_or_name: The flow ID or endpoint name (used by dependency).<br>    flow: The flow to be executed.<br>    request: The incoming HTTP request.<br><br>Returns:<br>    A dictionary containing the status of the task.<br><br>Raises:<br>    HTTPException: If the flow is not found or if there is an error processing the request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

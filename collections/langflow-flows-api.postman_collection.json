@@ -1,0 +1,2194 @@
+{
+  "item": [
+    {
+      "id": "55d1c464-f671-4bda-b7b6-fca11eb09c53",
+      "name": "Flows",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a196b706-4044-4bf8-83a5-d94f3dad6a94",
+          "name": "Delete Multiple Flows",
+          "request": {
+            "name": "Delete Multiple Flows",
+            "description": {
+              "content": "Delete multiple flows by their IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<uuid>\",\n  \"<uuid>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f9aa04f5-2f68-4b11-aac3-bd5707afc55e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<uuid>\",\n  \"<uuid>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35cd63eb-e243-4a4a-bdb6-ed10a15a3fa1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<uuid>\",\n  \"<uuid>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a281f18a-d705-435e-8c8f-01f2086a1a74",
+          "name": "Read Flows",
+          "request": {
+            "name": "Read Flows",
+            "description": {
+              "content": "Retrieve a list of flows with optional pagination, filtering, and header-only mode.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "remove_example_flows",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "components_only",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "get_all",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "folder_id",
+                  "value": "<uuid>"
+                },
+                {
+                  "disabled": false,
+                  "key": "header_flows",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "size",
+                  "value": "50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2f324d54-13ea-44c5-b7c2-c14d07e45c10",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "remove_example_flows",
+                      "value": "false"
+                    },
+                    {
+                      "key": "components_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "get_all",
+                      "value": "true"
+                    },
+                    {
+                      "key": "folder_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "header_flows",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"id\": \"3aa001aa-84cb-f6a6-7bc5-77197b898ba5\",\n    \"user_id\": \"47f4335a-d78d-5c0b-8852-1dca8aa18bc8\",\n    \"folder_id\": \"1e886947-090c-7ab6-1579-f9ec0dca9fd7\",\n    \"access_type\": \"PRIVATE\",\n    \"action_description\": \"string\",\n    \"action_name\": \"string\",\n    \"data\": {\n      \"key_0\": 3936.316736184198,\n      \"key_1\": 903.0031615252266\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"gradient\": \"string\",\n    \"icon\": \"string\",\n    \"icon_bg_color\": \"string\",\n    \"is_component\": false,\n    \"locked\": true,\n    \"mcp_enabled\": false,\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"1982-01-31T17:51:42.668Z\",\n    \"webhook\": true\n  },\n  {\n    \"name\": \"string\",\n    \"id\": \"8df4570b-66a7-376e-71cc-fb7cac5335dd\",\n    \"user_id\": \"d33000fb-49f3-7b05-cb49-e6b67d78aeaf\",\n    \"folder_id\": \"f642d9d7-0a96-94af-269b-b6fadc6831ce\",\n    \"access_type\": \"PRIVATE\",\n    \"action_description\": \"string\",\n    \"action_name\": \"string\",\n    \"data\": {\n      \"key_0\": \"string\",\n      \"key_1\": 8941.233861801275,\n      \"key_2\": \"string\"\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"gradient\": \"string\",\n    \"icon\": \"string\",\n    \"icon_bg_color\": \"string\",\n    \"is_component\": false,\n    \"locked\": false,\n    \"mcp_enabled\": false,\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"1953-04-16T14:30:52.296Z\",\n    \"webhook\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4086967d-1d4a-485c-af78-a10c6f621dbf",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "remove_example_flows",
+                      "value": "false"
+                    },
+                    {
+                      "key": "components_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "get_all",
+                      "value": "true"
+                    },
+                    {
+                      "key": "folder_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "header_flows",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "size",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a657cf8-bad1-411c-be7f-158c116e1942",
+          "name": "Create Flow",
+          "request": {
+            "name": "Create Flow",
+            "description": {},
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"<string>\",\n  \"action_name\": \"<string>\",\n  \"data\": {\n    \"key_0\": 992.3275349693006,\n    \"key_1\": 5831,\n    \"key_2\": 270.7565955676317,\n    \"key_3\": 3575\n  },\n  \"description\": \"<string>\",\n  \"endpoint_name\": \"<string>\",\n  \"folder_id\": \"<uuid>\",\n  \"fs_path\": \"<string>\",\n  \"gradient\": \"<string>\",\n  \"icon\": \"<string>\",\n  \"icon_bg_color\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"is_component\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"mcp_enabled\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<uuid>\",\n  \"webhook\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c29baab8-e659-4178-9679-4e4ffd3b921f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"<string>\",\n  \"action_name\": \"<string>\",\n  \"data\": {\n    \"key_0\": true,\n    \"key_1\": 9175\n  },\n  \"description\": \"<string>\",\n  \"endpoint_name\": \"<string>\",\n  \"folder_id\": \"<uuid>\",\n  \"fs_path\": \"<string>\",\n  \"gradient\": \"<string>\",\n  \"icon\": \"<string>\",\n  \"icon_bg_color\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"is_component\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"mcp_enabled\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<uuid>\",\n  \"webhook\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"id\": \"d1a4b2d1-fad8-ff68-b88f-3541b8b0f9c3\",\n  \"user_id\": \"9632da7b-1fcc-ccef-a020-cc32b270063c\",\n  \"folder_id\": \"785a1d59-4ef1-4fbc-9a3d-276782844c32\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"string\",\n  \"action_name\": \"string\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"description\": \"string\",\n  \"endpoint_name\": \"string\",\n  \"gradient\": \"string\",\n  \"icon\": \"string\",\n  \"icon_bg_color\": \"string\",\n  \"is_component\": false,\n  \"locked\": true,\n  \"mcp_enabled\": true,\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"updated_at\": \"1957-04-10T03:20:59.499Z\",\n  \"webhook\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "24a4a9b8-75f5-4440-beb0-cdd26cdaa628",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"<string>\",\n  \"action_name\": \"<string>\",\n  \"data\": {\n    \"key_0\": true,\n    \"key_1\": 9175\n  },\n  \"description\": \"<string>\",\n  \"endpoint_name\": \"<string>\",\n  \"folder_id\": \"<uuid>\",\n  \"fs_path\": \"<string>\",\n  \"gradient\": \"<string>\",\n  \"icon\": \"<string>\",\n  \"icon_bg_color\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"is_component\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"mcp_enabled\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<uuid>\",\n  \"webhook\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db54ce78-a1a1-476c-9ba1-b8d12c15dd29",
+          "name": "Read Basic Examples",
+          "request": {
+            "name": "Read Basic Examples",
+            "description": {
+              "content": "Retrieve a list of basic example flows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                "basic_examples",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77f38759-e116-4119-92bc-c88c5b2fa78e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    "basic_examples",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"id\": \"3ab52d40-b5fa-ef8c-e7c3-e5da147f2d90\",\n    \"user_id\": \"333b91c1-1b0d-0e4d-1b97-176933ec1668\",\n    \"folder_id\": \"8ffaebe8-1808-0c9e-1e34-2b1da1f331bc\",\n    \"access_type\": \"PRIVATE\",\n    \"action_description\": \"string\",\n    \"action_name\": \"string\",\n    \"data\": {\n      \"key_0\": 9795.323345877225\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"gradient\": \"string\",\n    \"icon\": \"string\",\n    \"icon_bg_color\": \"string\",\n    \"is_component\": false,\n    \"locked\": true,\n    \"mcp_enabled\": false,\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"1948-01-25T23:30:04.077Z\",\n    \"webhook\": false\n  },\n  {\n    \"name\": \"string\",\n    \"id\": \"8281efbc-8661-62c4-c36f-f941c61b114d\",\n    \"user_id\": \"500d6895-46dc-012e-c276-4954a44079c5\",\n    \"folder_id\": \"7c5bada0-bbde-6603-623b-28636a9988c2\",\n    \"access_type\": \"PRIVATE\",\n    \"action_description\": \"string\",\n    \"action_name\": \"string\",\n    \"data\": {\n      \"key_0\": 4038\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"gradient\": \"string\",\n    \"icon\": \"string\",\n    \"icon_bg_color\": \"string\",\n    \"is_component\": true,\n    \"locked\": false,\n    \"mcp_enabled\": false,\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"2007-09-10T00:13:21.500Z\",\n    \"webhook\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "173d73b4-b7ad-4503-b803-7dc4c1c8a46b",
+          "name": "Create Flows",
+          "request": {
+            "name": "Create Flows",
+            "description": {
+              "content": "Create multiple new flows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                "batch",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"flows\": [\n    {\n      \"name\": \"<string>\",\n      \"access_type\": \"PRIVATE\",\n      \"action_description\": \"<string>\",\n      \"action_name\": \"<string>\",\n      \"data\": {\n        \"key_0\": \"string\"\n      },\n      \"description\": \"<string>\",\n      \"endpoint_name\": \"<string>\",\n      \"folder_id\": \"<uuid>\",\n      \"fs_path\": \"<string>\",\n      \"gradient\": \"<string>\",\n      \"icon\": \"<string>\",\n      \"icon_bg_color\": \"<string>\",\n      \"id\": \"<uuid>\",\n      \"is_component\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"mcp_enabled\": \"<boolean>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"updated_at\": \"<dateTime>\",\n      \"user_id\": \"<uuid>\",\n      \"webhook\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"access_type\": \"PRIVATE\",\n      \"action_description\": \"<string>\",\n      \"action_name\": \"<string>\",\n      \"data\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"description\": \"<string>\",\n      \"endpoint_name\": \"<string>\",\n      \"folder_id\": \"<uuid>\",\n      \"fs_path\": \"<string>\",\n      \"gradient\": \"<string>\",\n      \"icon\": \"<string>\",\n      \"icon_bg_color\": \"<string>\",\n      \"id\": \"<uuid>\",\n      \"is_component\": \"<boolean>\",\n      \"locked\": \"<boolean>\",\n      \"mcp_enabled\": \"<boolean>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"updated_at\": \"<dateTime>\",\n      \"user_id\": \"<uuid>\",\n      \"webhook\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6836d01c-d4c8-408f-a1a2-73b48137b150",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    "batch",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"flows\": [\n    {\n      \"name\": \"string\",\n      \"access_type\": \"PRIVATE\",\n      \"action_description\": \"string\",\n      \"action_name\": \"string\",\n      \"data\": {\n        \"key_0\": 8345.124449468389,\n        \"key_1\": 2199,\n        \"key_2\": \"string\"\n      },\n      \"description\": \"string\",\n      \"endpoint_name\": \"string\",\n      \"folder_id\": \"71f9138e-b9d5-8db8-ce03-b2355f13d8d5\",\n      \"fs_path\": \"string\",\n      \"gradient\": \"string\",\n      \"icon\": \"string\",\n      \"icon_bg_color\": \"string\",\n      \"id\": \"cf7546cc-3e08-adcd-f557-a1c6d59e8753\",\n      \"is_component\": true,\n      \"locked\": false,\n      \"mcp_enabled\": false,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"1977-11-29T17:59:40.740Z\",\n      \"user_id\": \"9dcf4c37-533e-694c-b8a2-528e13af5a26\",\n      \"webhook\": false\n    },\n    {\n      \"name\": \"string\",\n      \"access_type\": \"PRIVATE\",\n      \"action_description\": \"string\",\n      \"action_name\": \"string\",\n      \"data\": {\n        \"key_0\": 8619\n      },\n      \"description\": \"string\",\n      \"endpoint_name\": \"string\",\n      \"folder_id\": \"41a62662-914a-607b-193b-8e707be36b31\",\n      \"fs_path\": \"string\",\n      \"gradient\": \"string\",\n      \"icon\": \"string\",\n      \"icon_bg_color\": \"string\",\n      \"id\": \"7c3742c7-3ad3-92c7-f6b1-bb9c7e8d1351\",\n      \"is_component\": false,\n      \"locked\": true,\n      \"mcp_enabled\": false,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"2025-01-24T11:32:48.339Z\",\n      \"user_id\": \"7e9b2a35-771f-5101-b2df-d77e3f553c85\",\n      \"webhook\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"id\": \"185507b8-43a6-fc9a-4fda-586055f235c6\",\n    \"user_id\": \"b6f5bfb1-e8e3-3c8a-443f-28b1bd10a4aa\",\n    \"folder_id\": \"1afa6253-9c01-0fe0-7f72-41c90c8e287b\",\n    \"access_type\": \"PRIVATE\",\n    \"action_description\": \"string\",\n    \"action_name\": \"string\",\n    \"data\": {\n      \"key_0\": 4388,\n      \"key_1\": 2236.054549848299,\n      \"key_2\": 4855.226471289794\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"gradient\": \"string\",\n    \"icon\": \"string\",\n    \"icon_bg_color\": \"string\",\n    \"is_component\": true,\n    \"locked\": true,\n    \"mcp_enabled\": true,\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"2024-10-02T10:26:21.442Z\",\n    \"webhook\": true\n  },\n  {\n    \"name\": \"string\",\n    \"id\": \"add56240-6f99-8f77-1c4c-08da08112cc1\",\n    \"user_id\": \"22ba5978-bf13-b6e1-3817-4a55247b4938\",\n    \"folder_id\": \"b3906fc6-9e9d-baa3-d651-fb64bb3ab9bf\",\n    \"access_type\": \"PRIVATE\",\n    \"action_description\": \"string\",\n    \"action_name\": \"string\",\n    \"data\": {\n      \"key_0\": 1990.0407090418714,\n      \"key_1\": \"string\",\n      \"key_2\": false\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"gradient\": \"string\",\n    \"icon\": \"string\",\n    \"icon_bg_color\": \"string\",\n    \"is_component\": true,\n    \"locked\": false,\n    \"mcp_enabled\": false,\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"1983-03-03T08:03:03.987Z\",\n    \"webhook\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02f0206e-d09f-4aa5-a6b1-abf16c230913",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    "batch",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"flows\": [\n    {\n      \"name\": \"string\",\n      \"access_type\": \"PRIVATE\",\n      \"action_description\": \"string\",\n      \"action_name\": \"string\",\n      \"data\": {\n        \"key_0\": 8345.124449468389,\n        \"key_1\": 2199,\n        \"key_2\": \"string\"\n      },\n      \"description\": \"string\",\n      \"endpoint_name\": \"string\",\n      \"folder_id\": \"71f9138e-b9d5-8db8-ce03-b2355f13d8d5\",\n      \"fs_path\": \"string\",\n      \"gradient\": \"string\",\n      \"icon\": \"string\",\n      \"icon_bg_color\": \"string\",\n      \"id\": \"cf7546cc-3e08-adcd-f557-a1c6d59e8753\",\n      \"is_component\": true,\n      \"locked\": false,\n      \"mcp_enabled\": false,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"1977-11-29T17:59:40.740Z\",\n      \"user_id\": \"9dcf4c37-533e-694c-b8a2-528e13af5a26\",\n      \"webhook\": false\n    },\n    {\n      \"name\": \"string\",\n      \"access_type\": \"PRIVATE\",\n      \"action_description\": \"string\",\n      \"action_name\": \"string\",\n      \"data\": {\n        \"key_0\": 8619\n      },\n      \"description\": \"string\",\n      \"endpoint_name\": \"string\",\n      \"folder_id\": \"41a62662-914a-607b-193b-8e707be36b31\",\n      \"fs_path\": \"string\",\n      \"gradient\": \"string\",\n      \"icon\": \"string\",\n      \"icon_bg_color\": \"string\",\n      \"id\": \"7c3742c7-3ad3-92c7-f6b1-bb9c7e8d1351\",\n      \"is_component\": false,\n      \"locked\": true,\n      \"mcp_enabled\": false,\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updated_at\": \"2025-01-24T11:32:48.339Z\",\n      \"user_id\": \"7e9b2a35-771f-5101-b2df-d77e3f553c85\",\n      \"webhook\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b96826b3-f465-4145-a5b5-92354d29e349",
+          "name": "Download Multiple File",
+          "request": {
+            "name": "Download Multiple File",
+            "description": {
+              "content": "Download all flows as a zip file.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                "download",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  \"<uuid>\",\n  \"<uuid>\"\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "79409ed8-54da-4900-ac5f-734a5321d755",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    "download",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<uuid>\",\n  \"<uuid>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eea20ca4-b3cb-4176-a754-15373ef30687",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    "download",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  \"<uuid>\",\n  \"<uuid>\"\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f47cf6c8-7d83-45da-a557-a2144edf34fa",
+          "name": "Read Public Flow",
+          "request": {
+            "name": "Read Public Flow",
+            "description": {
+              "content": "Read a public flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                "public_flow",
+                ":flow_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "flow_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "76908486-46b5-4bd4-a413-9c18a5f78675",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    "public_flow",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"id\": \"d1a4b2d1-fad8-ff68-b88f-3541b8b0f9c3\",\n  \"user_id\": \"9632da7b-1fcc-ccef-a020-cc32b270063c\",\n  \"folder_id\": \"785a1d59-4ef1-4fbc-9a3d-276782844c32\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"string\",\n  \"action_name\": \"string\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"description\": \"string\",\n  \"endpoint_name\": \"string\",\n  \"gradient\": \"string\",\n  \"icon\": \"string\",\n  \"icon_bg_color\": \"string\",\n  \"is_component\": false,\n  \"locked\": true,\n  \"mcp_enabled\": true,\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"updated_at\": \"1957-04-10T03:20:59.499Z\",\n  \"webhook\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a42b0cd0-cef3-4d46-a548-aae90ea915d1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    "public_flow",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53db0c80-eec0-466d-964a-415b854134ed",
+          "name": "Upload File",
+          "request": {
+            "name": "Upload File",
+            "description": {
+              "content": "Upload flows from a JSON or ZIP file (upsert semantics for flows with stable IDs).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                "upload",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "folder_id",
+                  "value": "<uuid>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "12216317-b25e-416c-8405-0e81c5696a0b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    "upload",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "folder_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"id\": \"9d536a4f-f79a-f60c-c3a4-fc993d01a9de\",\n    \"user_id\": \"a563cb77-65dc-98ae-6b27-2398b9f723dc\",\n    \"folder_id\": \"b7462ba8-39a8-f0dd-f03d-3415b0df9bf3\",\n    \"access_type\": \"PRIVATE\",\n    \"action_description\": \"string\",\n    \"action_name\": \"string\",\n    \"data\": {\n      \"key_0\": false,\n      \"key_1\": 8009,\n      \"key_2\": false,\n      \"key_3\": \"string\"\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"gradient\": \"string\",\n    \"icon\": \"string\",\n    \"icon_bg_color\": \"string\",\n    \"is_component\": false,\n    \"locked\": false,\n    \"mcp_enabled\": false,\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"2001-06-28T23:24:26.678Z\",\n    \"webhook\": false\n  },\n  {\n    \"name\": \"string\",\n    \"id\": \"f913371a-01cf-c2cf-6e87-19974bc83c6f\",\n    \"user_id\": \"a453bb97-e0af-e523-0462-3ba3a429893d\",\n    \"folder_id\": \"6ac5ef0d-3f9c-c939-1195-57dccd46b49d\",\n    \"access_type\": \"PRIVATE\",\n    \"action_description\": \"string\",\n    \"action_name\": \"string\",\n    \"data\": {\n      \"key_0\": \"string\"\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"gradient\": \"string\",\n    \"icon\": \"string\",\n    \"icon_bg_color\": \"string\",\n    \"is_component\": false,\n    \"locked\": true,\n    \"mcp_enabled\": true,\n    \"tags\": [\n      \"string\",\n      \"string\"\n    ],\n    \"updated_at\": \"1966-05-24T23:50:29.715Z\",\n    \"webhook\": false\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0f9d234-7037-481c-bdf8-b52d66df4a12",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    "upload",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "folder_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "56b05101-d8c0-4028-8970-c2a5e3003260",
+          "name": "Delete Flow",
+          "request": {
+            "name": "Delete Flow",
+            "description": {
+              "content": "Delete a flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                ":flow_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "flow_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8cf8488e-2696-475a-97d6-31375688101b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a74c708-3c5f-418b-b50c-f12eb91a03f9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8ff51fcc-2483-44b5-a2cc-5bb6bf79b065",
+          "name": "Read Flow",
+          "request": {
+            "name": "Read Flow",
+            "description": {
+              "content": "Read a flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                ":flow_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "flow_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2b150ac7-0e8d-4f4e-bd8b-ff228407a2d3",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"id\": \"d1a4b2d1-fad8-ff68-b88f-3541b8b0f9c3\",\n  \"user_id\": \"9632da7b-1fcc-ccef-a020-cc32b270063c\",\n  \"folder_id\": \"785a1d59-4ef1-4fbc-9a3d-276782844c32\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"string\",\n  \"action_name\": \"string\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"description\": \"string\",\n  \"endpoint_name\": \"string\",\n  \"gradient\": \"string\",\n  \"icon\": \"string\",\n  \"icon_bg_color\": \"string\",\n  \"is_component\": false,\n  \"locked\": true,\n  \"mcp_enabled\": true,\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"updated_at\": \"1957-04-10T03:20:59.499Z\",\n  \"webhook\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "520493f1-978c-4f7a-bea4-debca3aeeb97",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "819889da-24f4-414a-8818-60b4d4528880",
+          "name": "Update Flow",
+          "request": {
+            "name": "Update Flow",
+            "description": {
+              "content": "Update a flow.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                ":flow_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "flow_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"access_type\": \"<string>\",\n  \"action_description\": \"<string>\",\n  \"action_name\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"description\": \"<string>\",\n  \"endpoint_name\": \"<string>\",\n  \"folder_id\": \"<uuid>\",\n  \"fs_path\": \"<string>\",\n  \"locked\": \"<boolean>\",\n  \"mcp_enabled\": \"<boolean>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3e4c5d66-0bf9-477a-8469-fc2546e3fe6c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"<string>\",\n  \"action_name\": \"<string>\",\n  \"data\": {\n    \"key_0\": 905,\n    \"key_1\": \"string\",\n    \"key_2\": true\n  },\n  \"description\": \"<string>\",\n  \"endpoint_name\": \"<string>\",\n  \"folder_id\": \"<uuid>\",\n  \"fs_path\": \"<string>\",\n  \"locked\": \"<boolean>\",\n  \"mcp_enabled\": \"<boolean>\",\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"id\": \"d1a4b2d1-fad8-ff68-b88f-3541b8b0f9c3\",\n  \"user_id\": \"9632da7b-1fcc-ccef-a020-cc32b270063c\",\n  \"folder_id\": \"785a1d59-4ef1-4fbc-9a3d-276782844c32\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"string\",\n  \"action_name\": \"string\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"description\": \"string\",\n  \"endpoint_name\": \"string\",\n  \"gradient\": \"string\",\n  \"icon\": \"string\",\n  \"icon_bg_color\": \"string\",\n  \"is_component\": false,\n  \"locked\": true,\n  \"mcp_enabled\": true,\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"updated_at\": \"1957-04-10T03:20:59.499Z\",\n  \"webhook\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c394063-b46d-4cfe-9421-56aab9299a6a",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"<string>\",\n  \"action_name\": \"<string>\",\n  \"data\": {\n    \"key_0\": 905,\n    \"key_1\": \"string\",\n    \"key_2\": true\n  },\n  \"description\": \"<string>\",\n  \"endpoint_name\": \"<string>\",\n  \"folder_id\": \"<uuid>\",\n  \"fs_path\": \"<string>\",\n  \"locked\": \"<boolean>\",\n  \"mcp_enabled\": \"<boolean>\",\n  \"name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88f524bc-130f-40af-a7d8-35d02a79cb09",
+          "name": "Upsert Flow",
+          "request": {
+            "name": "Upsert Flow",
+            "description": {
+              "content": "Create or update a flow with a specific ID (upsert).<br><br>Returns 201 for creation, 200 for update.  Returns 404 if owned by another user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "flows",
+                ":flow_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "flow_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"<string>\",\n  \"action_name\": \"<string>\",\n  \"data\": {\n    \"key_0\": 992.3275349693006,\n    \"key_1\": 5831,\n    \"key_2\": 270.7565955676317,\n    \"key_3\": 3575\n  },\n  \"description\": \"<string>\",\n  \"endpoint_name\": \"<string>\",\n  \"folder_id\": \"<uuid>\",\n  \"fs_path\": \"<string>\",\n  \"gradient\": \"<string>\",\n  \"icon\": \"<string>\",\n  \"icon_bg_color\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"is_component\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"mcp_enabled\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<uuid>\",\n  \"webhook\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "24fb4d89-ddc9-4256-a115-20aa1561cf22",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"<string>\",\n  \"action_name\": \"<string>\",\n  \"data\": {\n    \"key_0\": true,\n    \"key_1\": 9175\n  },\n  \"description\": \"<string>\",\n  \"endpoint_name\": \"<string>\",\n  \"folder_id\": \"<uuid>\",\n  \"fs_path\": \"<string>\",\n  \"gradient\": \"<string>\",\n  \"icon\": \"<string>\",\n  \"icon_bg_color\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"is_component\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"mcp_enabled\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<uuid>\",\n  \"webhook\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"id\": \"d1a4b2d1-fad8-ff68-b88f-3541b8b0f9c3\",\n  \"user_id\": \"9632da7b-1fcc-ccef-a020-cc32b270063c\",\n  \"folder_id\": \"785a1d59-4ef1-4fbc-9a3d-276782844c32\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"string\",\n  \"action_name\": \"string\",\n  \"data\": {\n    \"key_0\": \"string\"\n  },\n  \"description\": \"string\",\n  \"endpoint_name\": \"string\",\n  \"gradient\": \"string\",\n  \"icon\": \"string\",\n  \"icon_bg_color\": \"string\",\n  \"is_component\": false,\n  \"locked\": true,\n  \"mcp_enabled\": true,\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"updated_at\": \"1957-04-10T03:20:59.499Z\",\n  \"webhook\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5084b227-cbb2-473c-a797-326bbb28f109",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "flows",
+                    ":flow_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "flow_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"access_type\": \"PRIVATE\",\n  \"action_description\": \"<string>\",\n  \"action_name\": \"<string>\",\n  \"data\": {\n    \"key_0\": true,\n    \"key_1\": 9175\n  },\n  \"description\": \"<string>\",\n  \"endpoint_name\": \"<string>\",\n  \"folder_id\": \"<uuid>\",\n  \"fs_path\": \"<string>\",\n  \"gradient\": \"<string>\",\n  \"icon\": \"<string>\",\n  \"icon_bg_color\": \"<string>\",\n  \"id\": \"<uuid>\",\n  \"is_component\": \"<boolean>\",\n  \"locked\": \"<boolean>\",\n  \"mcp_enabled\": \"<boolean>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<uuid>\",\n  \"webhook\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"ctx\": {},\n      \"input\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7635c0c6-2c64-4629-859c-b279401d891e",
+          "name": "Get Starter Projects",
+          "request": {
+            "name": "Get Starter Projects",
+            "description": {
+              "content": "Get a list of starter projects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "starter-projects",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "api/v1/login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4eeab25d-442e-4beb-a24c-4b963e679f36",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "starter-projects",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"data\": {\n      \"nodes\": [\n        {\n          \"key_0\": 8453.574790398576,\n          \"key_1\": \"string\",\n          \"key_2\": true,\n          \"key_3\": 7057\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"edges\": [\n        {\n          \"key_0\": 5737.055435990209\n        },\n        {\n          \"key_0\": 3727.204664922803\n        }\n      ],\n      \"viewport\": {\n        \"x\": 4400.886432860076,\n        \"y\": 6638.132013856944,\n        \"zoom\": 6465.024783954783\n      }\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"is_component\": false,\n    \"name\": \"string\"\n  },\n  {\n    \"data\": {\n      \"nodes\": [\n        {\n          \"key_0\": true,\n          \"key_1\": true\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"edges\": [\n        {\n          \"key_0\": 9595,\n          \"key_1\": 7440.083876892696\n        },\n        {\n          \"key_0\": 668,\n          \"key_1\": 6584.074212739287,\n          \"key_2\": 5503\n        }\n      ],\n      \"viewport\": {\n        \"x\": 2225.6142113056153,\n        \"y\": 2567.1603130870426,\n        \"zoom\": 4075.395476595771\n      }\n    },\n    \"description\": \"string\",\n    \"endpoint_name\": \"string\",\n    \"is_component\": true,\n    \"name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ea5c5735-a993-4679-a697-f16e661757a2",
+    "name": "Langflow Base Flows API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}
