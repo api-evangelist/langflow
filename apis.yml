@@ -79,6 +79,8 @@ apis:
   humanURL: https://docs.langflow.org/api-reference-api-examples
   baseURL: http://localhost:7860/api
   tags:
+  - File
+  tags_raw:
   - Files
   properties:
   - type: OpenAPI
@@ -294,7 +296,8 @@ apis:
   description: The mcp_projects API from Langflow — 4 operation(s) for mcp_projects.
   humanURL: https://docs.langflow.org/api-reference-api-examples
   baseURL: http://localhost:7860/api
-  tags:
+  tags: []
+  tags_raw:
   - mcp_projects
   properties:
   - type: OpenAPI
@@ -331,6 +334,8 @@ apis:
   humanURL: https://docs.langflow.org/api-reference-api-examples
   baseURL: http://localhost:7860/api
   tags:
+  - Monitors
+  tags_raw:
   - Monitor
   properties:
   - type: OpenAPI
@@ -403,6 +408,8 @@ apis:
   humanURL: https://docs.langflow.org/api-reference-api-examples
   baseURL: http://localhost:7860/api
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -475,6 +482,8 @@ apis:
   humanURL: https://docs.langflow.org/api-reference-api-examples
   baseURL: http://localhost:7860/api
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -511,6 +520,8 @@ apis:
   humanURL: https://docs.langflow.org/api-reference-api-examples
   baseURL: http://localhost:7860/api
   tags:
+  - Workflows
+  tags_raw:
   - Workflow
   properties:
   - type: OpenAPI
@@ -543,6 +554,17 @@ apis:
     url: https://docs.langflow.org/api-keys-and-authentication
 name: Langflow
 tags:
+  - Artificial Intelligence
+  - Agents
+  - Workflows
+  - Low-Code
+  - Visual Builder
+  - LangChain
+  - RAG
+  - MCP
+  - Open-Source
+  - FastAPI
+tags_raw:
   - AI
   - Artificial Intelligence
   - Agents
