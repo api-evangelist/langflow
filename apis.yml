@@ -577,6 +577,19 @@ tags_raw:
   - Open Source
   - FastAPI
 kind: contract
+deliveryModel:
+  model: library
+  license: MIT License
+  open_source: false
+  commercial: false
+  callable_host: false
+  label: Library · distributed through package registries, no callable service
+  confidence: low
+  source:
+  - license
+  - openapi
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
