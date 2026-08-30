@@ -605,6 +605,11 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/langflow.png
 access: 3rd-Party
 common:
+  - type: ParentCompany
+    url: https://apis.io/providers/datastax/
+    name: DataStax
+    x-relationship: acquired
+    x-evidence: "Langflow was acquired by DataStax in 2025; DataStax itself was acquired by IBM and the deal closed on May 28, 2025, making Langflow an IBM property while remaining MIT-licensed open source."
   - type: AgenticAccess
     url: agentic-access/langflow-agentic-access.yml
   - type: DomainSecurity
