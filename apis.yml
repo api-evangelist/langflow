@@ -367,7 +367,7 @@ apis:
   - type: Documentation
     url: https://docs.langflow.org/api-keys-and-authentication
 - aid: langflow:langflow-openai-responses-api-api
-  name: Langflow OpenAI Responses API API
+  name: Langflow OpenAI Responses API
   description: The OpenAI Responses API API from Langflow — 1 operation(s) for openai responses api.
   humanURL: https://docs.langflow.org/api-reference-api-examples
   baseURL: http://localhost:7860/api
@@ -554,28 +554,28 @@ apis:
     url: https://docs.langflow.org/api-keys-and-authentication
 name: Langflow
 tags:
-  - Artificial Intelligence
-  - Agents
-  - Workflows
-  - Low-Code
-  - Visual Builder
-  - LangChain
-  - RAG
-  - MCP
-  - Open-Source
-  - FastAPI
+- Artificial Intelligence
+- Agents
+- Workflows
+- Low-Code
+- Visual Builder
+- LangChain
+- RAG
+- MCP
+- Open-Source
+- FastAPI
 tags_raw:
-  - AI
-  - Artificial Intelligence
-  - Agents
-  - Workflows
-  - Low-Code
-  - Visual Builder
-  - LangChain
-  - RAG
-  - MCP
-  - Open Source
-  - FastAPI
+- AI
+- Artificial Intelligence
+- Agents
+- Workflows
+- Low-Code
+- Visual Builder
+- LangChain
+- RAG
+- MCP
+- Open Source
+- FastAPI
 kind: contract
 deliveryModel:
   model: library
@@ -605,207 +605,207 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/langflow.png
 access: 3rd-Party
 common:
-  - type: Website
-    url: https://www.langflow.org/
-  - type: ParentCompany
-    url: https://apis.io/providers/datastax/
-    name: DataStax
-    x-relationship: acquired
-    x-evidence: "Langflow was acquired by DataStax in 2025; DataStax itself was acquired by IBM and the deal closed on May 28, 2025, making Langflow an IBM property while remaining MIT-licensed open source."
-  - type: AgenticAccess
-    url: agentic-access/langflow-agentic-access.yml
-  - type: DomainSecurity
-    url: security/langflow-domain-security.yml
-  - type: Authentication
-    url: authentication/langflow-authentication.yml
-  - type: OAuthScopes
-    url: scopes/langflow-scopes.yml
-  - url: https://www.langflow.org
-    type: Portal
-  - url: https://docs.langflow.org
-    name: Langflow Documentation
-    type: Documentation
-  - url: https://docs.langflow.org/get-started-installation
-    name: Installation
-    type: GettingStarted
-  - url: https://docs.langflow.org/get-started-quickstart
-    name: Quickstart
-    type: GettingStarted
-  - url: https://docs.langflow.org/api-reference-api-examples
-    name: API Reference
-    type: Documentation
-  - url: https://docs.langflow.org/api-keys-and-authentication
-    name: API Keys and Authentication
-    type: Authentication
-  - url: https://docs.langflow.org/concepts-flows
-    name: Flows Concepts
-    type: Documentation
-  - url: https://docs.langflow.org/concepts-components
-    name: Components Reference
-    type: Documentation
-  - url: https://docs.langflow.org/configuration-authentication
-    name: Authentication Configuration
-    type: Documentation
-  - url: https://docs.langflow.org/deployment-overview
-    name: Deployment Overview
-    type: Documentation
-  - url: https://docs.langflow.org/deployment-docker
-    name: Docker Deployment
-    type: Documentation
-  - url: https://docs.langflow.org/deployment-kubernetes
-    name: Kubernetes Deployment
-    type: Documentation
-  - url: https://docs.langflow.org/release-notes
-    name: Release Notes
-    type: ChangeLog
-  - url: https://github.com/langflow-ai/langflow
-    name: Langflow GitHub
-    type: SourceCode
-  - url: https://github.com/langflow-ai
-    name: Langflow GitHub Organization
-    type: GitHubOrganization
-  - url: https://github.com/langflow-ai/langflow/blob/main/LICENSE
-    name: MIT License
-    type: License
-  - url: https://github.com/langflow-ai/langflow/releases
-    name: Releases
-    type: ChangeLog
-  - url: https://github.com/langflow-ai/langflow/issues
-    name: Issues
-    type: IssueTracker
-  - url: https://github.com/langflow-ai/langflow/blob/main/CONTRIBUTING.md
-    name: Contributing
-    type: Documentation
-  - url: https://github.com/langflow-ai/langflow-helm-charts
-    name: Langflow Helm Charts
-    type: HelmChart
-  - url: https://github.com/langflow-ai/langflow-embedded-chat
-    name: Langflow Embedded Chat
-    type: Tools
-  - url: https://github.com/langflow-ai/langflow-client-ts
-    name: TypeScript Client
-    type: SDKs
-  - url: https://github.com/langflow-ai/langflow-railway
-    name: Railway Template
-    type: Deployment
-  - url: https://github.com/langflow-ai/openrag
-    name: OpenRAG
-    type: Tools
-  - url: https://github.com/langflow-ai/langflow-bundles
-    name: Langflow Bundles
-    type: Tools
-  - url: https://github.com/langflow-ai/langflow-twilio-voice
-    name: Twilio Voice Example
-    type: CodeExamples
-  - url: https://github.com/langflow-ai/mcp-sse-shim
-    name: MCP SSE Shim
-    type: Tools
-  - url: https://pypi.org/project/langflow/
-    name: PyPI Package
-    type: Package
-  - url: https://hub.docker.com/r/langflowai/langflow
-    name: Docker Image
-    type: Container
-  - url: https://docs.langflow.org/develop-application
-    name: Develop with Langflow
-    type: Documentation
-  - url: https://docs.langflow.org/concepts-flows-import
-    name: Import and Export Flows
-    type: Documentation
-  - url: https://docs.langflow.org/concepts-file-management
-    name: File Management
-    type: Documentation
-  - url: https://docs.langflow.org/concepts-flows-monitor
-    name: Monitor Flows
-    type: Documentation
-  - url: https://docs.langflow.org/concepts-publish
-    name: Publish Flows
-    type: Documentation
-  - url: https://docs.langflow.org/concepts-playground
-    name: Playground
-    type: Documentation
-  - url: https://docs.langflow.org/agents-overview
-    name: Agents Overview
-    type: Documentation
-  - url: https://docs.langflow.org/mcp-server
-    name: MCP Server
-    type: Documentation
-  - url: https://docs.langflow.org/mcp-client
-    name: MCP Client
-    type: Documentation
-  - url: https://docs.langflow.org/typescript-client
-    name: TypeScript Client Docs
-    type: Documentation
-  - url: https://discord.com/invite/EqksyE2EX9
-    name: Discord Community
-    type: Forums
-  - url: https://www.youtube.com/@Langflow
-    name: YouTube Channel
-    type: Video
-  - url: https://twitter.com/langflow_ai
-    name: Twitter
-    type: Twitter
-  - url: https://www.linkedin.com/company/langflow-ai/
-    name: LinkedIn
-    type: LinkedIn
-  - url: https://www.langflow.org/blog
-    type: Blog
-  - url: https://www.langflow.org/use-cases
-    type: UseCases
-  - url: https://www.langflow.org/newsletter
-    type: Newsletter
-  - url: https://www.ibm.com/products/datastax
-    name: IBM DataStax (Owner)
-    type: Owner
-  - type: Features
-    data:
-      - Visual drag-and-drop builder for AI agents, RAG pipelines, and LangChain workflows
-      - FastAPI-based REST API with OpenAPI 3.1 spec served at /docs and /openapi.json on every deployment
-      - 67 REST endpoints covering flows, builds, projects, files, users, API keys, MCP servers, monitoring, and traces
-      - OpenAI-compatible Responses endpoint (/api/v1/responses) so OpenAI clients can target a Langflow flow
-      - Webhook execution endpoint per flow for event-driven invocation
-      - Streaming flow execution via SSE on the build endpoints
-      - Native MCP (Model Context Protocol) server — every Langflow project is exposable as an MCP server
-      - MCP client support for consuming external MCP servers as Langflow components
-      - Project / flow / component hierarchy with import-export, batch operations, and public-flow sharing
-      - Session-aware chat with shared sessions for read-only collaboration
-      - Built-in trace explorer plus integrations with LangSmith and LangFuse for observability
-      - Pluggable Python components — every component's source is editable in the UI
-      - Multi-agent orchestration with conditional routing and tool calls
-      - Vector-store integrations including Astra DB, Chroma, Pinecone, Milvus, Weaviate, Qdrant, and pgvector
-      - >-
-        LLM integrations including OpenAI, Anthropic, Google, Azure, Bedrock, Mistral, Cohere, Hugging Face, Ollama, and
-        Groq
-      - File upload and per-user file management with batch operations (v2 Files API)
-      - API key authentication via `x-api-key` header or query parameter
-      - Auto-login mode for local dev and superuser mode for production
-      - >-
-        Distributed by Python package on PyPI (`pip install langflow`), Docker image (`langflowai/langflow:latest`),
-        Helm chart, and Desktop app for macOS and Windows
-      - MIT-licensed, written in Python (FastAPI backend) and TypeScript (React Flow frontend)
-      - 149k+ GitHub stars, v1.9.3 (May 2026) — actively maintained by langflow-ai with 800+ contributors
-      - Hosted Langflow Cloud offering operated by IBM DataStax (post-acquisition)
-    sources:
-      - https://www.langflow.org
-      - https://docs.langflow.org
-      - https://github.com/langflow-ai/langflow
-      - https://docs.langflow.org/api-reference-api-examples
-      - https://docs.langflow.org/api-keys-and-authentication
-    updated: '2026-05-24'
+- type: Website
+  url: https://www.langflow.org/
+- type: ParentCompany
+  url: https://apis.io/providers/datastax/
+  name: DataStax
+  x-relationship: acquired
+  x-evidence: Langflow was acquired by DataStax in 2025; DataStax itself was acquired by IBM and the deal
+    closed on May 28, 2025, making Langflow an IBM property while remaining MIT-licensed open source.
+- type: AgenticAccess
+  url: agentic-access/langflow-agentic-access.yml
+- type: DomainSecurity
+  url: security/langflow-domain-security.yml
+- type: Authentication
+  url: authentication/langflow-authentication.yml
+- type: OAuthScopes
+  url: scopes/langflow-scopes.yml
+- url: https://www.langflow.org
+  type: Portal
+- url: https://docs.langflow.org
+  name: Langflow Documentation
+  type: Documentation
+- url: https://docs.langflow.org/get-started-installation
+  name: Installation
+  type: GettingStarted
+- url: https://docs.langflow.org/get-started-quickstart
+  name: Quickstart
+  type: GettingStarted
+- url: https://docs.langflow.org/api-reference-api-examples
+  name: API Reference
+  type: Documentation
+- url: https://docs.langflow.org/api-keys-and-authentication
+  name: API Keys and Authentication
+  type: Authentication
+- url: https://docs.langflow.org/concepts-flows
+  name: Flows Concepts
+  type: Documentation
+- url: https://docs.langflow.org/concepts-components
+  name: Components Reference
+  type: Documentation
+- url: https://docs.langflow.org/configuration-authentication
+  name: Authentication Configuration
+  type: Documentation
+- url: https://docs.langflow.org/deployment-overview
+  name: Deployment Overview
+  type: Documentation
+- url: https://docs.langflow.org/deployment-docker
+  name: Docker Deployment
+  type: Documentation
+- url: https://docs.langflow.org/deployment-kubernetes
+  name: Kubernetes Deployment
+  type: Documentation
+- url: https://docs.langflow.org/release-notes
+  name: Release Notes
+  type: ChangeLog
+- url: https://github.com/langflow-ai/langflow
+  name: Langflow GitHub
+  type: SourceCode
+- url: https://github.com/langflow-ai
+  name: Langflow GitHub Organization
+  type: GitHubOrganization
+- url: https://github.com/langflow-ai/langflow/blob/main/LICENSE
+  name: MIT License
+  type: License
+- url: https://github.com/langflow-ai/langflow/releases
+  name: Releases
+  type: ChangeLog
+- url: https://github.com/langflow-ai/langflow/issues
+  name: Issues
+  type: IssueTracker
+- url: https://github.com/langflow-ai/langflow/blob/main/CONTRIBUTING.md
+  name: Contributing
+  type: Documentation
+- url: https://github.com/langflow-ai/langflow-helm-charts
+  name: Langflow Helm Charts
+  type: HelmChart
+- url: https://github.com/langflow-ai/langflow-embedded-chat
+  name: Langflow Embedded Chat
+  type: Tools
+- url: https://github.com/langflow-ai/langflow-client-ts
+  name: TypeScript Client
+  type: SDKs
+- url: https://github.com/langflow-ai/langflow-railway
+  name: Railway Template
+  type: Deployment
+- url: https://github.com/langflow-ai/openrag
+  name: OpenRAG
+  type: Tools
+- url: https://github.com/langflow-ai/langflow-bundles
+  name: Langflow Bundles
+  type: Tools
+- url: https://github.com/langflow-ai/langflow-twilio-voice
+  name: Twilio Voice Example
+  type: CodeExamples
+- url: https://github.com/langflow-ai/mcp-sse-shim
+  name: MCP SSE Shim
+  type: Tools
+- url: https://pypi.org/project/langflow/
+  name: PyPI Package
+  type: Package
+- url: https://hub.docker.com/r/langflowai/langflow
+  name: Docker Image
+  type: Container
+- url: https://docs.langflow.org/develop-application
+  name: Develop with Langflow
+  type: Documentation
+- url: https://docs.langflow.org/concepts-flows-import
+  name: Import and Export Flows
+  type: Documentation
+- url: https://docs.langflow.org/concepts-file-management
+  name: File Management
+  type: Documentation
+- url: https://docs.langflow.org/concepts-flows-monitor
+  name: Monitor Flows
+  type: Documentation
+- url: https://docs.langflow.org/concepts-publish
+  name: Publish Flows
+  type: Documentation
+- url: https://docs.langflow.org/concepts-playground
+  name: Playground
+  type: Documentation
+- url: https://docs.langflow.org/agents-overview
+  name: Agents Overview
+  type: Documentation
+- url: https://docs.langflow.org/mcp-server
+  name: MCP Server
+  type: Documentation
+- url: https://docs.langflow.org/mcp-client
+  name: MCP Client
+  type: Documentation
+- url: https://docs.langflow.org/typescript-client
+  name: TypeScript Client Docs
+  type: Documentation
+- url: https://discord.com/invite/EqksyE2EX9
+  name: Discord Community
+  type: Forums
+- url: https://www.youtube.com/@Langflow
+  name: YouTube Channel
+  type: Video
+- url: https://twitter.com/langflow_ai
+  name: Twitter
+  type: Twitter
+- url: https://www.linkedin.com/company/langflow-ai/
+  name: LinkedIn
+  type: LinkedIn
+- url: https://www.langflow.org/blog
+  type: Blog
+- url: https://www.langflow.org/use-cases
+  type: UseCases
+- url: https://www.langflow.org/newsletter
+  type: Newsletter
+- url: https://www.ibm.com/products/datastax
+  name: IBM DataStax (Owner)
+  type: Owner
+- type: Features
+  data:
+  - Visual drag-and-drop builder for AI agents, RAG pipelines, and LangChain workflows
+  - FastAPI-based REST API with OpenAPI 3.1 spec served at /docs and /openapi.json on every deployment
+  - 67 REST endpoints covering flows, builds, projects, files, users, API keys, MCP servers, monitoring,
+    and traces
+  - OpenAI-compatible Responses endpoint (/api/v1/responses) so OpenAI clients can target a Langflow flow
+  - Webhook execution endpoint per flow for event-driven invocation
+  - Streaming flow execution via SSE on the build endpoints
+  - Native MCP (Model Context Protocol) server — every Langflow project is exposable as an MCP server
+  - MCP client support for consuming external MCP servers as Langflow components
+  - Project / flow / component hierarchy with import-export, batch operations, and public-flow sharing
+  - Session-aware chat with shared sessions for read-only collaboration
+  - Built-in trace explorer plus integrations with LangSmith and LangFuse for observability
+  - Pluggable Python components — every component's source is editable in the UI
+  - Multi-agent orchestration with conditional routing and tool calls
+  - Vector-store integrations including Astra DB, Chroma, Pinecone, Milvus, Weaviate, Qdrant, and pgvector
+  - LLM integrations including OpenAI, Anthropic, Google, Azure, Bedrock, Mistral, Cohere, Hugging Face,
+    Ollama, and Groq
+  - File upload and per-user file management with batch operations (v2 Files API)
+  - API key authentication via `x-api-key` header or query parameter
+  - Auto-login mode for local dev and superuser mode for production
+  - Distributed by Python package on PyPI (`pip install langflow`), Docker image (`langflowai/langflow:latest`),
+    Helm chart, and Desktop app for macOS and Windows
+  - MIT-licensed, written in Python (FastAPI backend) and TypeScript (React Flow frontend)
+  - 149k+ GitHub stars, v1.9.3 (May 2026) — actively maintained by langflow-ai with 800+ contributors
+  - Hosted Langflow Cloud offering operated by IBM DataStax (post-acquisition)
+  sources:
+  - https://www.langflow.org
+  - https://docs.langflow.org
+  - https://github.com/langflow-ai/langflow
+  - https://docs.langflow.org/api-reference-api-examples
+  - https://docs.langflow.org/api-keys-and-authentication
+  updated: '2026-05-24'
 created: '2026-05-24T00:00:00.000Z'
-modified: '2026-05-24'
+modified: '2026-09-16'
 position: Producing
-description: >-
-  Langflow is an open-source low-code visual builder for AI agents, RAG pipelines, and LangChain-based workflows. It
-  pairs a drag-and-drop React Flow frontend with a FastAPI backend that exposes every flow as a REST API, an MCP server,
-  and an OpenAI-compatible Responses endpoint. Components are editable Python and ship with integrations across most
-  major LLMs, vector stores, and observability platforms. Langflow was acquired by DataStax in 2025; DataStax itself was
-  acquired by IBM and the deal closed on May 28, 2025, making Langflow an IBM property while remaining MIT-licensed open
-  source. The project is the canonical reference implementation for visually composing LangChain agents — 149k+ GitHub
-  stars, distributed via PyPI, Docker, Helm, and native Desktop apps, with a hosted cloud option run by DataStax.
+description: Langflow is an open-source low-code visual builder for AI agents, RAG pipelines, and LangChain-based
+  workflows. It pairs a drag-and-drop React Flow frontend with a FastAPI backend that exposes every flow
+  as a REST API, an MCP server, and an OpenAI-compatible Responses endpoint. Components are editable Python
+  and ship with integrations across most major LLMs, vector stores, and observability platforms. Langflow
+  was acquired by DataStax in 2025; DataStax itself was acquired by IBM and the deal closed on May 28,
+  2025, making Langflow an IBM property while remaining MIT-licensed open source. The project is the canonical
+  reference implementation for visually composing LangChain agents — 149k+ GitHub stars, distributed via
+  PyPI, Docker, Helm, and native Desktop apps, with a hosted cloud option run by DataStax.
 maintainers:
-  - FN: Kin Lane
-    email: info@apievangelist.com
-    X: apievangelist
-    url: https://apievangelist.com
+- FN: Kin Lane
+  email: info@apievangelist.com
+  X: apievangelist
+  url: https://apievangelist.com
 specificationVersion: '0.23'
