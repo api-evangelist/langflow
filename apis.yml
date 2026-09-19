@@ -153,6 +153,8 @@ apis:
   humanURL: https://docs.langflow.org/api-reference-api-examples
   baseURL: http://localhost:7860/api
   tags:
+  - Flow
+  tags_raw:
   - Flows
   properties:
   - type: OpenAPI
