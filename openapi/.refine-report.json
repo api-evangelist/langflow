@@ -1,21 +1,7 @@
 {
   "provider": "langflow",
   "sources": [
-    "langflow-base-api-openapi.yml",
-    "langflow-chat-api-openapi.yml",
-    "langflow-files-api-openapi.yml",
-    "langflow-flow-events-api-openapi.yml",
-    "langflow-flows-api-openapi.yml",
-    "langflow-health-check-api-openapi.yml",
-    "langflow-log-api-openapi.yml",
-    "langflow-mcp-api-openapi.yml",
-    "langflow-mcp-projects-api-openapi.yml",
-    "langflow-monitor-api-openapi.yml",
-    "langflow-openai-responses-api-api-openapi.yml",
-    "langflow-projects-api-openapi.yml",
-    "langflow-traces-api-openapi.yml",
-    "langflow-users-api-openapi.yml",
-    "langflow-workflow-api-openapi.yml"
+    "_original/langflow-openapi.yml"
   ],
   "outputs": [
     "langflow-base-api-openapi.yml",
@@ -26,19 +12,54 @@
     "langflow-health-check-api-openapi.yml",
     "langflow-log-api-openapi.yml",
     "langflow-mcp-api-openapi.yml",
-    "langflow-mcp-projects-api-openapi.yml",
     "langflow-monitor-api-openapi.yml",
     "langflow-openai-responses-api-api-openapi.yml",
     "langflow-projects-api-openapi.yml",
     "langflow-traces-api-openapi.yml",
     "langflow-users-api-openapi.yml",
-    "langflow-workflow-api-openapi.yml"
+    "langflow-workflow-api-openapi.yml",
+    "langflow-mcp-projects-api-openapi.yml"
   ],
   "archived": [],
   "errors": [
-    "langflow-workflow-api-openapi.yml: dangling $ref: #/$defs/JobStatus"
+    "langflow-openapi.yml: dangling $ref: #/$defs/JobStatus"
   ],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "langflow-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0; renamed 2 component key(s) illegal in 3.x (e.g. API key header)",
+    "langflow-openapi.yml: declared missing tag: Base",
+    "langflow-openapi.yml: declared missing tag: Chat",
+    "langflow-openapi.yml: declared missing tag: Files",
+    "langflow-openapi.yml: declared missing tag: Flow Events",
+    "langflow-openapi.yml: declared missing tag: Flows",
+    "langflow-openapi.yml: declared missing tag: Health Check",
+    "langflow-openapi.yml: declared missing tag: Log",
+    "langflow-openapi.yml: declared missing tag: MCP",
+    "langflow-openapi.yml: declared missing tag: Monitor",
+    "langflow-openapi.yml: declared missing tag: OpenAI Responses API",
+    "langflow-openapi.yml: declared missing tag: Projects",
+    "langflow-openapi.yml: declared missing tag: Traces",
+    "langflow-openapi.yml: declared missing tag: Users",
+    "langflow-openapi.yml: declared missing tag: Workflow",
+    "langflow-openapi.yml: declared missing tag: mcp_projects",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "langflow-base-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-chat-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-files-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-flow-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-flows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-health-check-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-log-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-mcp-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-mcp-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-monitor-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-openai-responses-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-traces-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langflow-workflow-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

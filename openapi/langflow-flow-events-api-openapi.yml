@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Langflow Base Flow Events API
+  title: Langflow Flow Events API
   version: 1.9.0
 tags:
 - name: Flow Events
@@ -84,15 +84,6 @@ paths:
       - Flow Events
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     ValidationError:
       properties:
         ctx:
@@ -119,6 +110,15 @@ components:
       - type
       title: ValidationError
       type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     FlowEventResponse:
       properties:
         summary:
@@ -135,6 +135,21 @@ components:
       - timestamp
       - summary
       title: FlowEventResponse
+      type: object
+    FlowEventsResponse:
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/FlowEventResponse'
+          title: Events
+          type: array
+        settled:
+          title: Settled
+          type: boolean
+      required:
+      - events
+      - settled
+      title: FlowEventsResponse
       type: object
     FlowEventCreate:
       properties:
@@ -158,27 +173,12 @@ components:
       - type
       title: FlowEventCreate
       type: object
-    FlowEventsResponse:
-      properties:
-        events:
-          items:
-            $ref: '#/components/schemas/FlowEventResponse'
-          title: Events
-          type: array
-        settled:
-          title: Settled
-          type: boolean
-      required:
-      - events
-      - settled
-      title: FlowEventsResponse
-      type: object
   securitySchemes:
-    API key header:
+    API_key_header:
       in: header
       name: x-api-key
       type: apiKey
-    API key query:
+    API_key_query:
       in: query
       name: x-api-key
       type: apiKey

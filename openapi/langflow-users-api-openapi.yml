@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Langflow Base Users API
+  title: Langflow Users API
   version: 1.9.0
 tags:
 - name: Users
@@ -53,7 +53,12 @@ paths:
       tags:
       - Users
     post:
-      description: Add a new user to the database.<br><br>This endpoint allows public user registration (sign up).<br>User activation is controlled by the NEW_USER_IS_ACTIVE setting.
+      description: 'Add a new user to the database.
+
+
+        This endpoint allows public user registration (sign up).
+
+        User activation is controlled by the NEW_USER_IS_ACTIVE setting.'
       operationId: add_user_api_v1_users__post
       requestBody:
         content:
@@ -206,14 +211,28 @@ paths:
       - Users
 components:
   schemas:
-    HTTPValidationError:
+    UserCreate:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
+        optins:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          default:
+            dialog_dismissed: false
+            discord_clicked: false
+            github_starred: false
+          title: Optins
+        password:
+          title: Password
+          type: string
+        username:
+          title: Username
+          type: string
+      required:
+      - username
+      - password
+      title: UserCreate
       type: object
     ValidationError:
       properties:
@@ -241,84 +260,14 @@ components:
       - type
       title: ValidationError
       type: object
-    UserRead:
+    HTTPValidationError:
       properties:
-        create_at:
-          format: date-time
-          title: Create At
-          type: string
-        id:
-          format: uuid
-          title: Id
-          type: string
-        is_active:
-          title: Is Active
-          type: boolean
-        is_superuser:
-          title: Is Superuser
-          type: boolean
-        last_login_at:
-          anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
-          title: Last Login At
-        optins:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Optins
-        profile_image:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Profile Image
-        store_api_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Store Api Key
-        updated_at:
-          format: date-time
-          title: Updated At
-          type: string
-        username:
-          title: Username
-          type: string
-      required:
-      - username
-      - profile_image
-      - store_api_key
-      - is_active
-      - is_superuser
-      - create_at
-      - updated_at
-      - last_login_at
-      title: UserRead
-      type: object
-    UserCreate:
-      properties:
-        optins:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          default:
-            dialog_dismissed: false
-            discord_clicked: false
-            github_starred: false
-          title: Optins
-        password:
-          title: Password
-          type: string
-        username:
-          title: Username
-          type: string
-      required:
-      - username
-      - password
-      title: UserCreate
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     UserUpdate:
       properties:
@@ -376,12 +325,68 @@ components:
       - users
       title: UsersResponse
       type: object
+    UserRead:
+      properties:
+        create_at:
+          format: date-time
+          title: Create At
+          type: string
+        id:
+          format: uuid
+          title: Id
+          type: string
+        is_active:
+          title: Is Active
+          type: boolean
+        is_superuser:
+          title: Is Superuser
+          type: boolean
+        last_login_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Last Login At
+        optins:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Optins
+        profile_image:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Image
+        store_api_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Store Api Key
+        updated_at:
+          format: date-time
+          title: Updated At
+          type: string
+        username:
+          title: Username
+          type: string
+      required:
+      - username
+      - profile_image
+      - store_api_key
+      - is_active
+      - is_superuser
+      - create_at
+      - updated_at
+      - last_login_at
+      title: UserRead
+      type: object
   securitySchemes:
-    API key header:
+    API_key_header:
       in: header
       name: x-api-key
       type: apiKey
-    API key query:
+    API_key_query:
       in: query
       name: x-api-key
       type: apiKey

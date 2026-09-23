@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Langflow Base Files API
+  title: Langflow Files API
   version: 1.9.0
 tags:
 - name: Files
@@ -146,7 +146,12 @@ paths:
       - Files
   /api/v1/files/profile_pictures/list:
     get:
-      description: List profile pictures from local filesystem.<br><br>Profile pictures are first looked up in config_dir/profile_pictures/,<br>then fallback to the package's bundled profile_pictures directory.
+      description: 'List profile pictures from local filesystem.
+
+
+        Profile pictures are first looked up in config_dir/profile_pictures/,
+
+        then fallback to the package''s bundled profile_pictures directory.'
       operationId: list_profile_pictures_api_v1_files_profile_pictures_list_get
       responses:
         '200':
@@ -159,7 +164,12 @@ paths:
       - Files
   /api/v1/files/profile_pictures/{folder_name}/{file_name}:
     get:
-      description: Download profile picture from local filesystem.<br><br>Profile pictures are first looked up in config_dir/profile_pictures/,<br>then fallback to the package's bundled profile_pictures directory.
+      description: 'Download profile picture from local filesystem.
+
+
+        Profile pictures are first looked up in config_dir/profile_pictures/,
+
+        then fallback to the package''s bundled profile_pictures directory.'
       operationId: download_profile_picture_api_v1_files_profile_pictures__folder_name___file_name__get
       parameters:
       - in: path
@@ -485,7 +495,25 @@ paths:
       tags:
       - Files
     get:
-      description: 'Download a file by its ID or return its content as a string/bytes.<br><br>Args:<br>    file_id: UUID of the file.<br>    current_user: Authenticated user.<br>    session: Database session.<br>    storage_service: File storage service.<br>    return_content: If True, return raw content (str) instead of StreamingResponse.<br><br>Returns:<br>    StreamingResponse for client downloads or str for internal use.'
+      description: 'Download a file by its ID or return its content as a string/bytes.
+
+
+        Args:
+
+        file_id: UUID of the file.
+
+        current_user: Authenticated user.
+
+        session: Database session.
+
+        storage_service: File storage service.
+
+        return_content: If True, return raw content (str) instead of StreamingResponse.
+
+
+        Returns:
+
+        StreamingResponse for client downloads or str for internal use.'
       operationId: download_file_api_v2_files__file_id__get
       parameters:
       - in: path
@@ -560,14 +588,31 @@ paths:
       - Files
 components:
   schemas:
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
           type: array
-      title: HTTPValidationError
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
       type: object
     langflow__api__schemas__UploadFileResponse:
       description: File upload response schema.
@@ -597,32 +642,6 @@ components:
       - size
       title: UploadFileResponse
       type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
     langflow__api__v1__schemas__UploadFileResponse:
       description: Upload file response schema.
       properties:
@@ -637,25 +656,14 @@ components:
       - file_path
       title: UploadFileResponse
       type: object
-    Body_upload_file_api_v1_files_upload__flow_id__post:
+    HTTPValidationError:
       properties:
-        file:
-          contentMediaType: application/octet-stream
-          title: File
-          type: string
-      required:
-      - file
-      title: Body_upload_file_api_v1_files_upload__flow_id__post
-      type: object
-    Body_upload_user_file_api_v2_files_post:
-      properties:
-        file:
-          contentMediaType: application/octet-stream
-          title: File
-          type: string
-      required:
-      - file
-      title: Body_upload_user_file_api_v2_files_post
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     Body_upload_user_file_api_v2_files__post:
       properties:
@@ -666,6 +674,16 @@ components:
       required:
       - file
       title: Body_upload_user_file_api_v2_files__post
+      type: object
+    Body_upload_user_file_api_v2_files_post:
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_user_file_api_v2_files_post
       type: object
     langflow__services__database__models__file__model__File:
       properties:
@@ -706,12 +724,22 @@ components:
       - size
       title: File
       type: object
+    Body_upload_file_api_v1_files_upload__flow_id__post:
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_file_api_v1_files_upload__flow_id__post
+      type: object
   securitySchemes:
-    API key header:
+    API_key_header:
       in: header
       name: x-api-key
       type: apiKey
-    API key query:
+    API_key_query:
       in: query
       name: x-api-key
       type: apiKey

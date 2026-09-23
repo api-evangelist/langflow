@@ -1,13 +1,16 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Langflow Base Log API
+  title: Langflow Log API
   version: 1.9.0
 tags:
 - name: Log
 paths:
   /logs:
     get:
-      description: 'Retrieve application logs with authentication required.<br><br>SECURITY: Logs may contain sensitive information and require authentication.'
+      description: 'Retrieve application logs with authentication required.
+
+
+        SECURITY: Logs may contain sensitive information and require authentication.'
       operationId: logs_logs_get
       parameters:
       - description: The number of logs before the timestamp or the last log
@@ -58,7 +61,14 @@ paths:
       - Log
   /logs-stream:
     get:
-      description: 'HTTP/2 Server-Sent-Event (SSE) endpoint for streaming logs.<br><br>Requires authentication to prevent exposure of sensitive log data.<br>It establishes a long-lived connection to the server and receives log messages in real-time.<br>The client should use the header "Accept: text/event-stream".'
+      description: 'HTTP/2 Server-Sent-Event (SSE) endpoint for streaming logs.
+
+
+        Requires authentication to prevent exposure of sensitive log data.
+
+        It establishes a long-lived connection to the server and receives log messages in real-time.
+
+        The client should use the header "Accept: text/event-stream".'
       operationId: stream_logs_logs_stream_get
       responses:
         '200':
@@ -75,6 +85,15 @@ paths:
       - Log
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -101,21 +120,12 @@ components:
       - type
       title: ValidationError
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
   securitySchemes:
-    API key header:
+    API_key_header:
       in: header
       name: x-api-key
       type: apiKey
-    API key query:
+    API_key_query:
       in: query
       name: x-api-key
       type: apiKey

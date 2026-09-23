@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Langflow Base mcp_projects API
+  title: Langflow MCP Projects API
   version: 1.9.0
 tags:
 - name: mcp_projects
@@ -44,7 +44,12 @@ paths:
       tags:
       - mcp_projects
     patch:
-      description: Update the MCP settings of all flows in a project and project-level auth settings.<br><br>On MCP Composer failure, this endpoint should return with a 200 status code and an error message in<br>the body of the response to display to the user.
+      description: 'Update the MCP settings of all flows in a project and project-level auth settings.
+
+
+        On MCP Composer failure, this endpoint should return with a 200 status code and an error message in
+
+        the body of the response to display to the user.'
       operationId: update_project_mcp_settings_api_v1_mcp_project__project_id__patch
       parameters:
       - in: path
@@ -81,7 +86,12 @@ paths:
       - mcp_projects
   /api/v1/mcp/project/{project_id}/composer-url:
     get:
-      description: Get the MCP Composer URL for a specific project.<br><br>On failure, this endpoint should return with a 200 status code and an error message in<br>the body of the response to display to the user.
+      description: 'Get the MCP Composer URL for a specific project.
+
+
+        On failure, this endpoint should return with a 200 status code and an error message in
+
+        the body of the response to display to the user.'
       operationId: get_project_composer_url_api_v1_mcp_project__project_id__composer_url_get
       parameters:
       - in: path
@@ -181,15 +191,6 @@ paths:
       - mcp_projects
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     MCPSettings:
       description: Model representing MCP settings for a flow.
       properties:
@@ -226,6 +227,78 @@ components:
       - id
       title: MCPSettings
       type: object
+    ComposerUrlResponse:
+      description: Response model for MCP Composer connection details.
+      properties:
+        error_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error Message
+        legacy_sse_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Legacy Sse Url
+        project_id:
+          title: Project Id
+          type: string
+        streamable_http_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Streamable Http Url
+        uses_composer:
+          title: Uses Composer
+          type: boolean
+      required:
+      - project_id
+      - uses_composer
+      title: ComposerUrlResponse
+      type: object
+    MCPInstallRequest:
+      properties:
+        client:
+          title: Client
+          type: string
+        transport:
+          anyOf:
+          - enum:
+            - sse
+            - streamablehttp
+            type: string
+          - type: 'null'
+          title: Transport
+      required:
+      - client
+      title: MCPInstallRequest
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
     MCPProjectUpdateRequest:
       description: Request model for updating MCP project settings including auth.
       properties:
@@ -241,6 +314,15 @@ components:
       required:
       - settings
       title: MCPProjectUpdateRequest
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     AuthSettings:
       description: Model representing authentication settings for MCP.
@@ -312,84 +394,12 @@ components:
           title: Oauth Token Url
       title: AuthSettings
       type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    MCPInstallRequest:
-      properties:
-        client:
-          title: Client
-          type: string
-        transport:
-          anyOf:
-          - enum:
-            - sse
-            - streamablehttp
-            type: string
-          - type: 'null'
-          title: Transport
-      required:
-      - client
-      title: MCPInstallRequest
-      type: object
-    ComposerUrlResponse:
-      description: Response model for MCP Composer connection details.
-      properties:
-        error_message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Error Message
-        legacy_sse_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Legacy Sse Url
-        project_id:
-          title: Project Id
-          type: string
-        streamable_http_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Streamable Http Url
-        uses_composer:
-          title: Uses Composer
-          type: boolean
-      required:
-      - project_id
-      - uses_composer
-      title: ComposerUrlResponse
-      type: object
   securitySchemes:
-    API key header:
+    API_key_header:
       in: header
       name: x-api-key
       type: apiKey
-    API key query:
+    API_key_query:
       in: query
       name: x-api-key
       type: apiKey

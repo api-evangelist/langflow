@@ -1,13 +1,20 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Langflow Base Traces API
+  title: Langflow Traces API
   version: 1.9.0
 tags:
 - name: Traces
 paths:
   /api/v1/monitor/traces:
     delete:
-      description: 'Delete all traces for a flow.<br><br>Args:<br>    flow_id: The ID of the flow whose traces should be deleted.<br>    current_user: The authenticated user (required for authorization).'
+      description: 'Delete all traces for a flow.
+
+
+        Args:
+
+        flow_id: The ID of the flow whose traces should be deleted.
+
+        current_user: The authenticated user (required for authorization).'
       operationId: delete_traces_by_flow_api_v1_monitor_traces_delete
       parameters:
       - in: query
@@ -34,7 +41,33 @@ paths:
       tags:
       - Traces
     get:
-      description: 'Get list of traces for a flow.<br><br>Args:<br>    current_user: Authenticated user (required for authorization)<br>    flow_id: Filter by flow ID<br>    session_id: Filter by session ID<br>    status: Filter by trace status<br>    query: Search query for trace name/id/session id<br>    start_time: Filter traces starting on/after this time (ISO)<br>    end_time: Filter traces starting on/before this time (ISO)<br>    page: Page number (1-based)<br>    size: Page size<br><br>Returns:<br>    List of traces'
+      description: 'Get list of traces for a flow.
+
+
+        Args:
+
+        current_user: Authenticated user (required for authorization)
+
+        flow_id: Filter by flow ID
+
+        session_id: Filter by session ID
+
+        status: Filter by trace status
+
+        query: Search query for trace name/id/session id
+
+        start_time: Filter traces starting on/after this time (ISO)
+
+        end_time: Filter traces starting on/before this time (ISO)
+
+        page: Page number (1-based)
+
+        size: Page size
+
+
+        Returns:
+
+        List of traces'
       operationId: get_traces_api_v1_monitor_traces_get
       parameters:
       - in: query
@@ -127,7 +160,14 @@ paths:
       - Traces
   /api/v1/monitor/traces/{trace_id}:
     delete:
-      description: 'Delete a trace and all its spans.<br><br>Args:<br>    trace_id: The ID of the trace to delete.<br>    current_user: The authenticated user (required for authorization).'
+      description: 'Delete a trace and all its spans.
+
+
+        Args:
+
+        trace_id: The ID of the trace to delete.
+
+        current_user: The authenticated user (required for authorization).'
       operationId: delete_trace_api_v1_monitor_traces__trace_id__delete
       parameters:
       - in: path
@@ -154,7 +194,19 @@ paths:
       tags:
       - Traces
     get:
-      description: 'Get a single trace with its hierarchical span tree.<br><br>Args:<br>    trace_id: The ID of the trace to retrieve.<br>    current_user: The authenticated user (required for authorization).<br><br>Returns:<br>    TraceRead containing the trace and its hierarchical span tree.'
+      description: 'Get a single trace with its hierarchical span tree.
+
+
+        Args:
+
+        trace_id: The ID of the trace to retrieve.
+
+        current_user: The authenticated user (required for authorization).
+
+
+        Returns:
+
+        TraceRead containing the trace and its hierarchical span tree.'
       operationId: get_trace_api_v1_monitor_traces__trace_id__get
       parameters:
       - in: path
@@ -186,42 +238,6 @@ paths:
       - Traces
 components:
   schemas:
-    SpanType:
-      description: Types of spans that can be recorded.
-      enum:
-      - chain
-      - llm
-      - tool
-      - retriever
-      - embedding
-      - parser
-      - agent
-      title: SpanType
-      type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    SpanStatus:
-      description: 'OpenTelemetry status codes.
-
-
-        - UNSET: Default status, span has not ended yet
-
-        - OK: Span completed successfully
-
-        - ERROR: Span completed with an error'
-      enum:
-      - unset
-      - ok
-      - error
-      title: SpanStatus
-      type: string
     ValidationError:
       properties:
         ctx:
@@ -305,26 +321,27 @@ components:
       - sessionId
       title: TraceSummaryRead
       type: object
-    TraceListResponse:
-      description: Paginated list response for traces.
+    HTTPValidationError:
       properties:
-        pages:
-          title: Pages
-          type: integer
-        total:
-          title: Total
-          type: integer
-        traces:
+        detail:
           items:
-            $ref: '#/components/schemas/TraceSummaryRead'
-          title: Traces
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
           type: array
-      required:
-      - traces
-      - total
-      - pages
-      title: TraceListResponse
+      title: HTTPValidationError
       type: object
+    SpanType:
+      description: Types of spans that can be recorded.
+      enum:
+      - chain
+      - llm
+      - tool
+      - retriever
+      - embedding
+      - parser
+      - agent
+      title: SpanType
+      type: string
     TraceRead:
       description: 'Response model for a single trace with its hierarchical span tree.
 
@@ -393,6 +410,41 @@ components:
       - flowId
       - sessionId
       title: TraceRead
+      type: object
+    SpanStatus:
+      description: 'OpenTelemetry status codes.
+
+
+        - UNSET: Default status, span has not ended yet
+
+        - OK: Span completed successfully
+
+        - ERROR: Span completed with an error'
+      enum:
+      - unset
+      - ok
+      - error
+      title: SpanStatus
+      type: string
+    TraceListResponse:
+      description: Paginated list response for traces.
+      properties:
+        pages:
+          title: Pages
+          type: integer
+        total:
+          title: Total
+          type: integer
+        traces:
+          items:
+            $ref: '#/components/schemas/TraceSummaryRead'
+          title: Traces
+          type: array
+      required:
+      - traces
+      - total
+      - pages
+      title: TraceListResponse
       type: object
     SpanReadResponse:
       description: 'Response model for a single span, with nested children.
@@ -475,11 +527,11 @@ components:
       title: SpanReadResponse
       type: object
   securitySchemes:
-    API key header:
+    API_key_header:
       in: header
       name: x-api-key
       type: apiKey
-    API key query:
+    API_key_query:
       in: query
       name: x-api-key
       type: apiKey

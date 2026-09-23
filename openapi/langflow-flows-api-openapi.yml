@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Langflow Base Flows API
+  title: Langflow Flows API
   version: 1.9.0
 tags:
 - name: Flows
@@ -405,7 +405,10 @@ paths:
       tags:
       - Flows
     put:
-      description: Create or update a flow with a specific ID (upsert).<br><br>Returns 201 for creation, 200 for update.  Returns 404 if owned by another user.
+      description: 'Create or update a flow with a specific ID (upsert).
+
+
+        Returns 201 for creation, 200 for update. Returns 404 if owned by another user.'
       operationId: upsert_flow_api_v1_flows__flow_id__put
       parameters:
       - in: path
@@ -464,100 +467,65 @@ paths:
       - Flows
 components:
   schemas:
-    FlowHeader:
-      description: Model representing a header for a flow - Without the data.
+    FlowUpdate:
       properties:
         access_type:
           anyOf:
           - $ref: '#/components/schemas/AccessTypeEnum'
           - type: 'null'
-          description: The access type of the flow
         action_description:
           anyOf:
           - type: string
           - type: 'null'
-          description: The description of the action associated with the flow
           title: Action Description
         action_name:
           anyOf:
           - type: string
           - type: 'null'
-          description: The name of the action associated with the flow
           title: Action Name
         data:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
-          description: The data of the component, if is_component is True
           title: Data
         description:
           anyOf:
           - type: string
           - type: 'null'
-          description: A description of the flow
           title: Description
         endpoint_name:
           anyOf:
           - type: string
           - type: 'null'
-          description: The name of the endpoint associated with this flow
           title: Endpoint Name
         folder_id:
           anyOf:
           - format: uuid
             type: string
           - type: 'null'
-          description: The ID of the folder containing the flow. None if not associated with a folder
           title: Folder Id
-        id:
-          description: Unique identifier for the flow
-          format: uuid
-          title: Id
-          type: string
-        is_component:
+        fs_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Fs Path
+        locked:
           anyOf:
           - type: boolean
           - type: 'null'
-          description: Flag indicating whether the flow is a component
-          title: Is Component
+          title: Locked
         mcp_enabled:
           anyOf:
           - type: boolean
           - type: 'null'
-          description: Flag indicating whether the flow is exposed in the MCP server
           title: Mcp Enabled
         name:
-          description: The name of the flow
-          title: Name
-          type: string
-        tags:
           anyOf:
-          - items:
-              type: string
-            type: array
+          - type: string
           - type: 'null'
-          description: The tags of the flow
-          title: Tags
-      required:
-      - id
-      - name
-      title: FlowHeader
-      type: object
-    AccessTypeEnum:
-      enum:
-      - PRIVATE
-      - PUBLIC
-      title: AccessTypeEnum
-      type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
+          title: Name
+      title: FlowUpdate
       type: object
     FlowCreate:
       properties:
@@ -676,16 +644,22 @@ components:
       - name
       title: FlowCreate
       type: object
-    FlowListCreate:
+    ViewPort:
       properties:
-        flows:
-          items:
-            $ref: '#/components/schemas/FlowCreate'
-          title: Flows
-          type: array
+        x:
+          title: X
+          type: number
+        y:
+          title: Y
+          type: number
+        zoom:
+          title: Zoom
+          type: number
       required:
-      - flows
-      title: FlowListCreate
+      - x
+      - y
+      - zoom
+      title: ViewPort
       type: object
     ValidationError:
       properties:
@@ -713,66 +687,6 @@ components:
       - type
       title: ValidationError
       type: object
-    FlowUpdate:
-      properties:
-        access_type:
-          anyOf:
-          - $ref: '#/components/schemas/AccessTypeEnum'
-          - type: 'null'
-        action_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Action Description
-        action_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Action Name
-        data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Data
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        endpoint_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Endpoint Name
-        folder_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Folder Id
-        fs_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Fs Path
-        locked:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Locked
-        mcp_enabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Mcp Enabled
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-      title: FlowUpdate
-      type: object
     GraphData:
       properties:
         edges:
@@ -796,22 +710,14 @@ components:
       - edges
       title: GraphData
       type: object
-    ViewPort:
+    HTTPValidationError:
       properties:
-        x:
-          title: X
-          type: number
-        y:
-          title: Y
-          type: number
-        zoom:
-          title: Zoom
-          type: number
-      required:
-      - x
-      - y
-      - zoom
-      title: ViewPort
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     FlowRead:
       properties:
@@ -927,16 +833,92 @@ components:
       - folder_id
       title: FlowRead
       type: object
-    Body_upload_file_api_v1_flows_upload__post:
+    FlowHeader:
+      description: Model representing a header for a flow - Without the data.
       properties:
-        file:
+        access_type:
           anyOf:
-          - contentMediaType: application/octet-stream
+          - $ref: '#/components/schemas/AccessTypeEnum'
+          - type: 'null'
+          description: The access type of the flow
+        action_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The description of the action associated with the flow
+          title: Action Description
+        action_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The name of the action associated with the flow
+          title: Action Name
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: The data of the component, if is_component is True
+          title: Data
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: A description of the flow
+          title: Description
+        endpoint_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The name of the endpoint associated with this flow
+          title: Endpoint Name
+        folder_id:
+          anyOf:
+          - format: uuid
             type: string
           - type: 'null'
-          title: File
-      title: Body_upload_file_api_v1_flows_upload__post
+          description: The ID of the folder containing the flow. None if not associated with a folder
+          title: Folder Id
+        id:
+          description: Unique identifier for the flow
+          format: uuid
+          title: Id
+          type: string
+        is_component:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Flag indicating whether the flow is a component
+          title: Is Component
+        mcp_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Flag indicating whether the flow is exposed in the MCP server
+          title: Mcp Enabled
+        name:
+          description: The name of the flow
+          title: Name
+          type: string
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          description: The tags of the flow
+          title: Tags
+      required:
+      - id
+      - name
+      title: FlowHeader
       type: object
+    AccessTypeEnum:
+      enum:
+      - PRIVATE
+      - PUBLIC
+      title: AccessTypeEnum
+      type: string
     Page_FlowRead_:
       properties:
         items:
@@ -996,12 +978,33 @@ components:
       - data
       title: GraphDumpResponse
       type: object
+    Body_upload_file_api_v1_flows_upload__post:
+      properties:
+        file:
+          anyOf:
+          - contentMediaType: application/octet-stream
+            type: string
+          - type: 'null'
+          title: File
+      title: Body_upload_file_api_v1_flows_upload__post
+      type: object
+    FlowListCreate:
+      properties:
+        flows:
+          items:
+            $ref: '#/components/schemas/FlowCreate'
+          title: Flows
+          type: array
+      required:
+      - flows
+      title: FlowListCreate
+      type: object
   securitySchemes:
-    API key header:
+    API_key_header:
       in: header
       name: x-api-key
       type: apiKey
-    API key query:
+    API_key_query:
       in: query
       name: x-api-key
       type: apiKey
