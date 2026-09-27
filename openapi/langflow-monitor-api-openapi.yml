@@ -647,6 +647,26 @@ paths:
       - Monitor
 components:
   schemas:
+    Usage:
+      description: Token usage information from LLM responses.
+      properties:
+        input_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Input Tokens
+        output_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Output Tokens
+        total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Tokens
+      title: Usage
+      type: object
     VertexBuildTable:
       properties:
         artifacts:
@@ -691,254 +711,6 @@ components:
       - valid
       - flow_id
       title: VertexBuildTable
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    Source:
-      properties:
-        display_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: The display name of the source component.
-          title: Display Name
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: The id of the source component.
-          title: Id
-        source:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: The source of the message. Normally used to display the model name (e.g. 'gpt-4o')
-          title: Source
-      title: Source
-      type: object
-    ContentBlock:
-      description: A block of content that can contain different types of content.
-      properties:
-        allow_markdown:
-          default: true
-          title: Allow Markdown
-          type: boolean
-        contents:
-          items:
-            additionalProperties: true
-            type: object
-          title: Contents
-          type: array
-        media_url:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Media Url
-        title:
-          title: Title
-          type: string
-      required:
-      - title
-      - contents
-      title: ContentBlock
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Properties:
-      properties:
-        allow_markdown:
-          default: false
-          title: Allow Markdown
-          type: boolean
-        background_color:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Background Color
-        build_duration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Build Duration
-        edited:
-          default: false
-          title: Edited
-          type: boolean
-        icon:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Icon
-        positive_feedback:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Positive Feedback
-        source:
-          $ref: '#/components/schemas/Source'
-        state:
-          default: complete
-          enum:
-          - partial
-          - complete
-          title: State
-          type: string
-        targets:
-          default: []
-          items: {}
-          title: Targets
-          type: array
-        text_color:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Text Color
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-      title: Properties
-      type: object
-    MessageRead:
-      properties:
-        category:
-          default: message
-          title: Category
-          type: string
-        content_blocks:
-          items:
-            $ref: '#/components/schemas/ContentBlock'
-          title: Content Blocks
-          type: array
-        context_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Context Id
-        edit:
-          default: false
-          title: Edit
-          type: boolean
-        error:
-          default: false
-          title: Error
-          type: boolean
-        files:
-          items:
-            type: string
-          title: Files
-          type: array
-        flow_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Flow Id
-        id:
-          format: uuid
-          title: Id
-          type: string
-        properties:
-          $ref: '#/components/schemas/Properties'
-        sender:
-          title: Sender
-          type: string
-        sender_name:
-          title: Sender Name
-          type: string
-        session_id:
-          title: Session Id
-          type: string
-        session_metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Session Metadata
-        text:
-          title: Text
-          type: string
-        timestamp:
-          format: date-time
-          title: Timestamp
-          type: string
-      required:
-      - sender
-      - sender_name
-      - session_id
-      - text
-      - id
-      - flow_id
-      title: MessageRead
-      type: object
-    TransactionLogsResponse:
-      description: Transaction response model for logs view - excludes error and flow_id fields.
-      properties:
-        id:
-          format: uuid
-          title: Id
-          type: string
-        inputs:
-          additionalProperties: true
-          title: Inputs
-          type: object
-        outputs:
-          additionalProperties: true
-          title: Outputs
-          type: object
-        status:
-          title: Status
-          type: string
-        target_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Target Id
-        timestamp:
-          format: date-time
-          title: Timestamp
-          type: string
-        vertex_id:
-          title: Vertex Id
-          type: string
-      required:
-      - id
-      - vertex_id
-      - status
-      title: TransactionLogsResponse
       type: object
     MessageResponse:
       properties:
@@ -1020,25 +792,103 @@ components:
       - edit
       title: MessageResponse
       type: object
-    Usage:
-      description: Token usage information from LLM responses.
+    ValidationError:
       properties:
-        input_tokens:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    MessageRead:
+      properties:
+        category:
+          default: message
+          title: Category
+          type: string
+        content_blocks:
+          items:
+            $ref: '#/components/schemas/ContentBlock'
+          title: Content Blocks
+          type: array
+        context_id:
           anyOf:
-          - type: integer
+          - type: string
           - type: 'null'
-          title: Input Tokens
-        output_tokens:
+          title: Context Id
+        edit:
+          default: false
+          title: Edit
+          type: boolean
+        error:
+          default: false
+          title: Error
+          type: boolean
+        files:
+          items:
+            type: string
+          title: Files
+          type: array
+        flow_id:
           anyOf:
-          - type: integer
+          - format: uuid
+            type: string
           - type: 'null'
-          title: Output Tokens
-        total_tokens:
+          title: Flow Id
+        id:
+          format: uuid
+          title: Id
+          type: string
+        properties:
+          $ref: '#/components/schemas/Properties'
+        sender:
+          title: Sender
+          type: string
+        sender_name:
+          title: Sender Name
+          type: string
+        session_id:
+          title: Session Id
+          type: string
+        session_metadata:
           anyOf:
-          - type: integer
+          - additionalProperties: true
+            type: object
           - type: 'null'
-          title: Total Tokens
-      title: Usage
+          title: Session Metadata
+        text:
+          title: Text
+          type: string
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - sender
+      - sender_name
+      - session_id
+      - text
+      - id
+      - flow_id
+      title: MessageRead
       type: object
     VertexBuildMapModel:
       properties:
@@ -1052,6 +902,187 @@ components:
       required:
       - vertex_builds
       title: VertexBuildMapModel
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Properties:
+      properties:
+        allow_markdown:
+          default: false
+          title: Allow Markdown
+          type: boolean
+        background_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Background Color
+        build_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Build Duration
+        edited:
+          default: false
+          title: Edited
+          type: boolean
+        icon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon
+        positive_feedback:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Positive Feedback
+        source:
+          $ref: '#/components/schemas/Source'
+        state:
+          default: complete
+          enum:
+          - partial
+          - complete
+          title: State
+          type: string
+        targets:
+          default: []
+          items: {}
+          title: Targets
+          type: array
+        text_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Text Color
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+      title: Properties
+      type: object
+    Page_TransactionLogsResponse_:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/TransactionLogsResponse'
+          title: Items
+          type: array
+        page:
+          minimum: 1.0
+          title: Page
+          type: integer
+        pages:
+          minimum: 0.0
+          title: Pages
+          type: integer
+        size:
+          minimum: 1.0
+          title: Size
+          type: integer
+        total:
+          minimum: 0.0
+          title: Total
+          type: integer
+      required:
+      - items
+      - total
+      - page
+      - size
+      - pages
+      title: Page[TransactionLogsResponse]
+      type: object
+    TransactionLogsResponse:
+      description: Transaction response model for logs view - excludes error and flow_id fields.
+      properties:
+        id:
+          format: uuid
+          title: Id
+          type: string
+        inputs:
+          additionalProperties: true
+          title: Inputs
+          type: object
+        outputs:
+          additionalProperties: true
+          title: Outputs
+          type: object
+        status:
+          title: Status
+          type: string
+        target_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Id
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+        vertex_id:
+          title: Vertex Id
+          type: string
+      required:
+      - id
+      - vertex_id
+      - status
+      title: TransactionLogsResponse
+      type: object
+    Source:
+      properties:
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The display name of the source component.
+          title: Display Name
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The id of the source component.
+          title: Id
+        source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The source of the message. Normally used to display the model name (e.g. 'gpt-4o')
+          title: Source
+      title: Source
+      type: object
+    ContentBlock:
+      description: A block of content that can contain different types of content.
+      properties:
+        allow_markdown:
+          default: true
+          title: Allow Markdown
+          type: boolean
+        contents:
+          items:
+            additionalProperties: true
+            type: object
+          title: Contents
+          type: array
+        media_url:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Media Url
+        title:
+          title: Title
+          type: string
+      required:
+      - title
+      - contents
+      title: ContentBlock
       type: object
     MessageUpdate:
       properties:
@@ -1108,37 +1139,6 @@ components:
           - type: 'null'
           title: Text
       title: MessageUpdate
-      type: object
-    Page_TransactionLogsResponse_:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/TransactionLogsResponse'
-          title: Items
-          type: array
-        page:
-          minimum: 1.0
-          title: Page
-          type: integer
-        pages:
-          minimum: 0.0
-          title: Pages
-          type: integer
-        size:
-          minimum: 1.0
-          title: Size
-          type: integer
-        total:
-          minimum: 0.0
-          title: Total
-          type: integer
-      required:
-      - items
-      - total
-      - page
-      - size
-      - pages
-      title: Page[TransactionLogsResponse]
       type: object
   securitySchemes:
     API_key_header:

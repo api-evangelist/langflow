@@ -211,29 +211,6 @@ paths:
       - Users
 components:
   schemas:
-    UserCreate:
-      properties:
-        optins:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          default:
-            dialog_dismissed: false
-            discord_clicked: false
-            github_starred: false
-          title: Optins
-        password:
-          title: Password
-          type: string
-        username:
-          title: Username
-          type: string
-      required:
-      - username
-      - password
-      title: UserCreate
-      type: object
     ValidationError:
       properties:
         ctx:
@@ -259,15 +236,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
       type: object
     UserUpdate:
       properties:
@@ -310,20 +278,14 @@ components:
           title: Username
       title: UserUpdate
       type: object
-    UsersResponse:
+    HTTPValidationError:
       properties:
-        total_count:
-          title: Total Count
-          type: integer
-        users:
+        detail:
           items:
-            $ref: '#/components/schemas/UserRead'
-          title: Users
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
           type: array
-      required:
-      - total_count
-      - users
-      title: UsersResponse
+      title: HTTPValidationError
       type: object
     UserRead:
       properties:
@@ -380,6 +342,44 @@ components:
       - updated_at
       - last_login_at
       title: UserRead
+      type: object
+    UsersResponse:
+      properties:
+        total_count:
+          title: Total Count
+          type: integer
+        users:
+          items:
+            $ref: '#/components/schemas/UserRead'
+          title: Users
+          type: array
+      required:
+      - total_count
+      - users
+      title: UsersResponse
+      type: object
+    UserCreate:
+      properties:
+        optins:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          default:
+            dialog_dismissed: false
+            discord_clicked: false
+            github_starred: false
+          title: Optins
+        password:
+          title: Password
+          type: string
+        username:
+          title: Username
+          type: string
+      required:
+      - username
+      - password
+      title: UserCreate
       type: object
   securitySchemes:
     API_key_header:

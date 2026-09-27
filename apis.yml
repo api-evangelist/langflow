@@ -294,7 +294,7 @@ apis:
   - type: Documentation
     url: https://docs.langflow.org/api-keys-and-authentication
 - aid: langflow:langflow-mcp-projects-api
-  name: Langflow mcp_projects API
+  name: Langflow MCP Projects API
   description: The mcp_projects API from Langflow — 4 operation(s) for mcp_projects.
   humanURL: https://docs.langflow.org/api-reference-api-examples
   baseURL: http://localhost:7860/api
@@ -564,7 +564,7 @@ tags:
 - LangChain
 - RAG
 - MCP
-- Open-Source
+- Open Source
 - FastAPI
 tags_raw:
 - AI
@@ -578,6 +578,7 @@ tags_raw:
 - MCP
 - Open Source
 - FastAPI
+- Open-Source
 kind: contract
 deliveryModel:
   model: library

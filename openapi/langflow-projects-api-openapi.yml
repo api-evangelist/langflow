@@ -256,41 +256,6 @@ paths:
       - Projects
 components:
   schemas:
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     FlowRead:
       properties:
         access_type:
@@ -405,6 +370,126 @@ components:
       - folder_id
       title: FlowRead
       type: object
+    FolderWithPaginatedFlows:
+      properties:
+        flows:
+          $ref: '#/components/schemas/Page_FlowRead_'
+        folder:
+          $ref: '#/components/schemas/FolderRead'
+      required:
+      - folder
+      - flows
+      title: FolderWithPaginatedFlows
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    AccessTypeEnum:
+      enum:
+      - PRIVATE
+      - PUBLIC
+      title: AccessTypeEnum
+      type: string
+    Page_FlowRead_:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/FlowRead'
+          title: Items
+          type: array
+        page:
+          minimum: 1.0
+          title: Page
+          type: integer
+        pages:
+          minimum: 0.0
+          title: Pages
+          type: integer
+        size:
+          minimum: 1.0
+          title: Size
+          type: integer
+        total:
+          minimum: 0.0
+          title: Total
+          type: integer
+      required:
+      - items
+      - total
+      - page
+      - size
+      - pages
+      title: Page[FlowRead]
+      type: object
+    FolderCreate:
+      properties:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: Authentication settings for the folder/project
+          title: Auth Settings
+        components_list:
+          anyOf:
+          - items:
+              format: uuid
+              type: string
+            type: array
+          - type: 'null'
+          title: Components List
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        flows_list:
+          anyOf:
+          - items:
+              format: uuid
+              type: string
+            type: array
+          - type: 'null'
+          title: Flows List
+        name:
+          title: Name
+          type: string
+      required:
+      - name
+      title: FolderCreate
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     FolderUpdate:
       properties:
         auth_settings:
@@ -482,80 +567,6 @@ components:
       - parent_id
       title: FolderReadWithFlows
       type: object
-    AccessTypeEnum:
-      enum:
-      - PRIVATE
-      - PUBLIC
-      title: AccessTypeEnum
-      type: string
-    Page_FlowRead_:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/FlowRead'
-          title: Items
-          type: array
-        page:
-          minimum: 1.0
-          title: Page
-          type: integer
-        pages:
-          minimum: 0.0
-          title: Pages
-          type: integer
-        size:
-          minimum: 1.0
-          title: Size
-          type: integer
-        total:
-          minimum: 0.0
-          title: Total
-          type: integer
-      required:
-      - items
-      - total
-      - page
-      - size
-      - pages
-      title: Page[FlowRead]
-      type: object
-    FolderCreate:
-      properties:
-        auth_settings:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: Authentication settings for the folder/project
-          title: Auth Settings
-        components_list:
-          anyOf:
-          - items:
-              format: uuid
-              type: string
-            type: array
-          - type: 'null'
-          title: Components List
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        flows_list:
-          anyOf:
-          - items:
-              format: uuid
-              type: string
-            type: array
-          - type: 'null'
-          title: Flows List
-        name:
-          title: Name
-          type: string
-      required:
-      - name
-      title: FolderCreate
-      type: object
     Body_upload_file_api_v1_projects_upload__post:
       properties:
         file:
@@ -598,17 +609,6 @@ components:
       - id
       - parent_id
       title: FolderRead
-      type: object
-    FolderWithPaginatedFlows:
-      properties:
-        flows:
-          $ref: '#/components/schemas/Page_FlowRead_'
-        folder:
-          $ref: '#/components/schemas/FolderRead'
-      required:
-      - folder
-      - flows
-      title: FolderWithPaginatedFlows
       type: object
   securitySchemes:
     API_key_header:

@@ -468,6 +468,25 @@ components:
           title: Type
       title: InputValueRequest
       type: object
+    Body_build_flow_api_v1_build__flow_id__flow_post:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/FlowDataRequest'
+          - type: 'null'
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        inputs:
+          anyOf:
+          - $ref: '#/components/schemas/InputValueRequest'
+          - type: 'null'
+      title: Body_build_flow_api_v1_build__flow_id__flow_post
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -517,40 +536,13 @@ components:
       - message
       title: CancelFlowResponse
       type: object
-    Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post:
-      properties:
-        files:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Files
-        inputs:
-          anyOf:
-          - $ref: '#/components/schemas/InputValueRequest'
-          - type: 'null'
-      title: Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
-      type: object
-    Body_build_flow_api_v1_build__flow_id__flow_post:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/FlowDataRequest'
-          - type: 'null'
-        files:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Files
-        inputs:
-          anyOf:
-          - $ref: '#/components/schemas/InputValueRequest'
-          - type: 'null'
-      title: Body_build_flow_api_v1_build__flow_id__flow_post
-      type: object
+    EventDeliveryType:
+      enum:
+      - streaming
+      - direct
+      - polling
+      title: EventDeliveryType
+      type: string
     FlowDataRequest:
       properties:
         edges:
@@ -576,13 +568,21 @@ components:
       - edges
       title: FlowDataRequest
       type: object
-    EventDeliveryType:
-      enum:
-      - streaming
-      - direct
-      - polling
-      title: EventDeliveryType
-      type: string
+    Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post:
+      properties:
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        inputs:
+          anyOf:
+          - $ref: '#/components/schemas/InputValueRequest'
+          - type: 'null'
+      title: Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
+      type: object
   securitySchemes:
     API_key_header:
       in: header

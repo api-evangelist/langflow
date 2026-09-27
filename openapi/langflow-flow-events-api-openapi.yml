@@ -110,15 +110,6 @@ components:
       - type
       title: ValidationError
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     FlowEventResponse:
       properties:
         summary:
@@ -135,21 +126,6 @@ components:
       - timestamp
       - summary
       title: FlowEventResponse
-      type: object
-    FlowEventsResponse:
-      properties:
-        events:
-          items:
-            $ref: '#/components/schemas/FlowEventResponse'
-          title: Events
-          type: array
-        settled:
-          title: Settled
-          type: boolean
-      required:
-      - events
-      - settled
-      title: FlowEventsResponse
       type: object
     FlowEventCreate:
       properties:
@@ -172,6 +148,30 @@ components:
       required:
       - type
       title: FlowEventCreate
+      type: object
+    FlowEventsResponse:
+      properties:
+        events:
+          items:
+            $ref: '#/components/schemas/FlowEventResponse'
+          title: Events
+          type: array
+        settled:
+          title: Settled
+          type: boolean
+      required:
+      - events
+      - settled
+      title: FlowEventsResponse
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
   securitySchemes:
     API_key_header:
