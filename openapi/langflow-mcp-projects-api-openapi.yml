@@ -191,6 +191,22 @@ paths:
       - mcp_projects
 components:
   schemas:
+    MCPProjectUpdateRequest:
+      description: Request model for updating MCP project settings including auth.
+      properties:
+        auth_settings:
+          anyOf:
+          - $ref: '#/components/schemas/AuthSettings'
+          - type: 'null'
+        settings:
+          items:
+            $ref: '#/components/schemas/MCPSettings'
+          title: Settings
+          type: array
+      required:
+      - settings
+      title: MCPProjectUpdateRequest
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -216,6 +232,68 @@ components:
       - msg
       - type
       title: ValidationError
+      type: object
+    MCPSettings:
+      description: Model representing MCP settings for a flow.
+      properties:
+        action_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Action Description
+        action_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Action Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          format: uuid
+          title: Id
+          type: string
+        mcp_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Mcp Enabled
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      required:
+      - id
+      title: MCPSettings
+      type: object
+    MCPInstallRequest:
+      properties:
+        client:
+          title: Client
+          type: string
+        transport:
+          anyOf:
+          - enum:
+            - sse
+            - streamablehttp
+            type: string
+          - type: 'null'
+          title: Transport
+      required:
+      - client
+      title: MCPInstallRequest
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     AuthSettings:
       description: Model representing authentication settings for MCP.
@@ -286,84 +364,6 @@ components:
           - type: 'null'
           title: Oauth Token Url
       title: AuthSettings
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    MCPSettings:
-      description: Model representing MCP settings for a flow.
-      properties:
-        action_description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Action Description
-        action_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Action Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        id:
-          format: uuid
-          title: Id
-          type: string
-        mcp_enabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Mcp Enabled
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-      required:
-      - id
-      title: MCPSettings
-      type: object
-    MCPProjectUpdateRequest:
-      description: Request model for updating MCP project settings including auth.
-      properties:
-        auth_settings:
-          anyOf:
-          - $ref: '#/components/schemas/AuthSettings'
-          - type: 'null'
-        settings:
-          items:
-            $ref: '#/components/schemas/MCPSettings'
-          title: Settings
-          type: array
-      required:
-      - settings
-      title: MCPProjectUpdateRequest
-      type: object
-    MCPInstallRequest:
-      properties:
-        client:
-          title: Client
-          type: string
-        transport:
-          anyOf:
-          - enum:
-            - sse
-            - streamablehttp
-            type: string
-          - type: 'null'
-          title: Transport
-      required:
-      - client
-      title: MCPInstallRequest
       type: object
     ComposerUrlResponse:
       description: Response model for MCP Composer connection details.

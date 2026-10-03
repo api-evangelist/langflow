@@ -381,86 +381,6 @@ paths:
       - Base
 components:
   schemas:
-    Usage:
-      description: Token usage information from LLM responses.
-      properties:
-        input_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Input Tokens
-        output_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Output Tokens
-        total_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Total Tokens
-      title: Usage
-      type: object
-    InputValueRequest:
-      additionalProperties: false
-      examples:
-      - components:
-        - components_id
-        - Component Name
-        input_value: input_value
-        session: session_id
-      - components:
-        - Component Name
-        input_value: input_value
-      - input_value: input_value
-      - components:
-        - Component Name
-        input_value: input_value
-        session: session_id
-      - input_value: input_value
-        session: session_id
-      - input_value: input_value
-        type: chat
-      - input_value: '{"key": "value"}'
-        type: json
-      properties:
-        client_request_time:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          description: Client-side timestamp in milliseconds when the request was initiated. Used to calculate accurate end-to-end duration.
-          title: Client Request Time
-        components:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          default: []
-          title: Components
-        input_value:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Input Value
-        session:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Session
-        type:
-          anyOf:
-          - enum:
-            - chat
-            - text
-            - any
-            type: string
-          - type: 'null'
-          default: any
-          description: Defines on which components the input value should be applied. 'any' applies to all input components.
-          title: Type
-      title: InputValueRequest
-      type: object
     Body_simplified_run_flow_api_v1_run__flow_id_or_name__post:
       properties:
         context:
@@ -500,6 +420,151 @@ components:
       - msg
       - type
       title: ValidationError
+      type: object
+    RunResponse:
+      description: Run response schema.
+      properties:
+        outputs:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/RunOutputs'
+            type: array
+          - type: 'null'
+          default: []
+          title: Outputs
+        session_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Id
+      title: RunResponse
+      type: object
+    PublicConfigResponse:
+      description: 'Configuration response for public/unauthenticated endpoints like the public playground.
+
+
+        Contains only the configuration values needed for public features, without sensitive data.
+
+        The ''type'' field is a discriminator to distinguish from full ConfigResponse.'
+      properties:
+        allow_custom_components:
+          title: Allow Custom Components
+          type: boolean
+        event_delivery:
+          enum:
+          - polling
+          - streaming
+          - direct
+          title: Event Delivery
+          type: string
+        feature_flags:
+          $ref: '#/components/schemas/FeatureFlags'
+        frontend_timeout:
+          title: Frontend Timeout
+          type: integer
+        max_file_size_upload:
+          title: Max File Size Upload
+          type: integer
+        mcp_base_url:
+          title: Mcp Base Url
+          type: string
+        type:
+          const: public
+          default: public
+          title: Type
+          type: string
+        voice_mode_available:
+          title: Voice Mode Available
+          type: boolean
+      required:
+      - feature_flags
+      - max_file_size_upload
+      - event_delivery
+      - voice_mode_available
+      - frontend_timeout
+      - mcp_base_url
+      - allow_custom_components
+      title: PublicConfigResponse
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Usage:
+      description: Token usage information from LLM responses.
+      properties:
+        input_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Input Tokens
+        output_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Output Tokens
+        total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Tokens
+      title: Usage
+      type: object
+    SimplifiedAPIRequest:
+      properties:
+        input_type:
+          anyOf:
+          - enum:
+            - chat
+            - text
+            - any
+            type: string
+          - type: 'null'
+          default: chat
+          description: The input type
+          title: Input Type
+        input_value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The input value
+          title: Input Value
+        output_component:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: ''
+          description: If there are multiple output components, you can specify the component to get the output from.
+          title: Output Component
+        output_type:
+          anyOf:
+          - enum:
+            - chat
+            - text
+            - any
+            - debug
+            type: string
+          - type: 'null'
+          default: chat
+          description: The output type
+          title: Output Type
+        session_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The session id
+          title: Session Id
+        tweaks:
+          anyOf:
+          - $ref: '#/components/schemas/Tweaks'
+          - type: 'null'
+          description: The tweaks
+      title: SimplifiedAPIRequest
       type: object
     ConfigResponse:
       description: 'Full configuration response for authenticated users.
@@ -644,23 +709,54 @@ components:
       - type
       title: ChatOutputResponse
       type: object
-    RunResponse:
-      description: Run response schema.
+    Body_experimental_run_flow_api_v1_run_advanced__flow_id_or_name__post:
       properties:
+        inputs:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InputValueRequest'
+            type: array
+          - type: 'null'
+          title: Inputs
         outputs:
           anyOf:
           - items:
-              $ref: '#/components/schemas/RunOutputs'
+              type: string
             type: array
           - type: 'null'
-          default: []
           title: Outputs
         session_id:
           anyOf:
           - type: string
           - type: 'null'
           title: Session Id
-      title: RunResponse
+        stream:
+          default: false
+          title: Stream
+          type: boolean
+        tweaks:
+          anyOf:
+          - $ref: '#/components/schemas/Tweaks'
+          - type: 'null'
+      title: Body_experimental_run_flow_api_v1_run_advanced__flow_id_or_name__post
+      type: object
+    lfx__utils__schemas__File:
+      description: File schema.
+      properties:
+        name:
+          title: Name
+          type: string
+        path:
+          title: Path
+          type: string
+        type:
+          title: Type
+          type: string
+      required:
+      - path
+      - name
+      - type
+      title: File
       type: object
     ResultData:
       properties:
@@ -725,92 +821,20 @@ components:
           title: Used Frozen Result
       title: ResultData
       type: object
-    FeatureFlags:
-      additionalProperties: false
+    RunOutputs:
       properties:
-        mvp_components:
-          default: false
-          title: Mvp Components
-          type: boolean
-        wxo_deployments:
-          default: false
-          title: Wxo Deployments
-          type: boolean
-      title: FeatureFlags
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
+        inputs:
+          additionalProperties: true
+          title: Inputs
+          type: object
+        outputs:
           items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
+            anyOf:
+            - $ref: '#/components/schemas/ResultData'
+            - type: 'null'
+          title: Outputs
           type: array
-      title: HTTPValidationError
-      type: object
-    lfx__utils__schemas__File:
-      description: File schema.
-      properties:
-        name:
-          title: Name
-          type: string
-        path:
-          title: Path
-          type: string
-        type:
-          title: Type
-          type: string
-      required:
-      - path
-      - name
-      - type
-      title: File
-      type: object
-    PublicConfigResponse:
-      description: 'Configuration response for public/unauthenticated endpoints like the public playground.
-
-
-        Contains only the configuration values needed for public features, without sensitive data.
-
-        The ''type'' field is a discriminator to distinguish from full ConfigResponse.'
-      properties:
-        allow_custom_components:
-          title: Allow Custom Components
-          type: boolean
-        event_delivery:
-          enum:
-          - polling
-          - streaming
-          - direct
-          title: Event Delivery
-          type: string
-        feature_flags:
-          $ref: '#/components/schemas/FeatureFlags'
-        frontend_timeout:
-          title: Frontend Timeout
-          type: integer
-        max_file_size_upload:
-          title: Max File Size Upload
-          type: integer
-        mcp_base_url:
-          title: Mcp Base Url
-          type: string
-        type:
-          const: public
-          default: public
-          title: Type
-          type: string
-        voice_mode_available:
-          title: Voice Mode Available
-          type: boolean
-      required:
-      - feature_flags
-      - max_file_size_upload
-      - event_delivery
-      - voice_mode_available
-      - frontend_timeout
-      - mcp_base_url
-      - allow_custom_components
-      title: PublicConfigResponse
+      title: RunOutputs
       type: object
     Tweaks:
       additionalProperties:
@@ -827,102 +851,78 @@ components:
         parameter_name: value
       title: Tweaks
       type: object
-    RunOutputs:
+    FeatureFlags:
+      additionalProperties: false
       properties:
-        inputs:
-          additionalProperties: true
-          title: Inputs
-          type: object
-        outputs:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/ResultData'
-            - type: 'null'
-          title: Outputs
-          type: array
-      title: RunOutputs
+        mvp_components:
+          default: false
+          title: Mvp Components
+          type: boolean
+        wxo_deployments:
+          default: false
+          title: Wxo Deployments
+          type: boolean
+      title: FeatureFlags
       type: object
-    Body_experimental_run_flow_api_v1_run_advanced__flow_id_or_name__post:
+    InputValueRequest:
+      additionalProperties: false
+      examples:
+      - components:
+        - components_id
+        - Component Name
+        input_value: input_value
+        session: session_id
+      - components:
+        - Component Name
+        input_value: input_value
+      - input_value: input_value
+      - components:
+        - Component Name
+        input_value: input_value
+        session: session_id
+      - input_value: input_value
+        session: session_id
+      - input_value: input_value
+        type: chat
+      - input_value: '{"key": "value"}'
+        type: json
       properties:
-        inputs:
+        client_request_time:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/InputValueRequest'
-            type: array
+          - type: integer
           - type: 'null'
-          title: Inputs
-        outputs:
+          description: Client-side timestamp in milliseconds when the request was initiated. Used to calculate accurate end-to-end duration.
+          title: Client Request Time
+        components:
           anyOf:
           - items:
               type: string
             type: array
           - type: 'null'
-          title: Outputs
-        session_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Session Id
-        stream:
-          default: false
-          title: Stream
-          type: boolean
-        tweaks:
-          anyOf:
-          - $ref: '#/components/schemas/Tweaks'
-          - type: 'null'
-      title: Body_experimental_run_flow_api_v1_run_advanced__flow_id_or_name__post
-      type: object
-    SimplifiedAPIRequest:
-      properties:
-        input_type:
-          anyOf:
-          - enum:
-            - chat
-            - text
-            - any
-            type: string
-          - type: 'null'
-          default: chat
-          description: The input type
-          title: Input Type
+          default: []
+          title: Components
         input_value:
           anyOf:
           - type: string
           - type: 'null'
-          description: The input value
           title: Input Value
-        output_component:
+        session:
           anyOf:
           - type: string
           - type: 'null'
-          default: ''
-          description: If there are multiple output components, you can specify the component to get the output from.
-          title: Output Component
-        output_type:
+          title: Session
+        type:
           anyOf:
           - enum:
             - chat
             - text
             - any
-            - debug
             type: string
           - type: 'null'
-          default: chat
-          description: The output type
-          title: Output Type
-        session_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: The session id
-          title: Session Id
-        tweaks:
-          anyOf:
-          - $ref: '#/components/schemas/Tweaks'
-          - type: 'null'
-          description: The tweaks
-      title: SimplifiedAPIRequest
+          default: any
+          description: Defines on which components the input value should be applied. 'any' applies to all input components.
+          title: Type
+      title: InputValueRequest
       type: object
   securitySchemes:
     API_key_header:

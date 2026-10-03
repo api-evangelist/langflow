@@ -345,6 +345,15 @@ components:
       - job_id
       title: WorkflowStopResponse
       type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     WorkflowExecutionRequest:
       additionalProperties: false
       description: Request schema for workflow execution.
@@ -391,14 +400,29 @@ components:
       - flow_id
       title: WorkflowExecutionRequest
       type: object
-    HTTPValidationError:
+    JobStatus:
+      description: Job execution status.
+      enum:
+      - queued
+      - in_progress
+      - completed
+      - failed
+      - cancelled
+      - timed_out
+      title: JobStatus
+      type: string
+    WorkflowStopRequest:
+      description: Request schema for stopping workflow.
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
+        job_id:
+          anyOf:
+          - type: string
+          - format: uuid
+            type: string
+          title: Job Id
+      required:
+      - job_id
+      title: WorkflowStopRequest
       type: object
     ComponentOutput:
       description: Component output schema.
@@ -425,30 +449,6 @@ components:
       - status
       title: ComponentOutput
       type: object
-    WorkflowStopRequest:
-      description: Request schema for stopping workflow.
-      properties:
-        job_id:
-          anyOf:
-          - type: string
-          - format: uuid
-            type: string
-          title: Job Id
-      required:
-      - job_id
-      title: WorkflowStopRequest
-      type: object
-    JobStatus:
-      description: Job execution status.
-      enum:
-      - queued
-      - in_progress
-      - completed
-      - failed
-      - cancelled
-      - timed_out
-      title: JobStatus
-      type: string
   securitySchemes:
     API_key_header:
       in: header

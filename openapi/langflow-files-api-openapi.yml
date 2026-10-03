@@ -614,30 +614,6 @@ components:
       - type
       title: ValidationError
       type: object
-    Body_upload_user_file_api_v2_files_post:
-      properties:
-        file:
-          contentMediaType: application/octet-stream
-          title: File
-          type: string
-      required:
-      - file
-      title: Body_upload_user_file_api_v2_files_post
-      type: object
-    langflow__api__v1__schemas__UploadFileResponse:
-      description: Upload file response schema.
-      properties:
-        file_path:
-          title: File Path
-          type: string
-        flowId:
-          title: Flowid
-          type: string
-      required:
-      - flowId
-      - file_path
-      title: UploadFileResponse
-      type: object
     langflow__services__database__models__file__model__File:
       properties:
         created_at:
@@ -696,6 +672,40 @@ components:
           type: array
       title: HTTPValidationError
       type: object
+    langflow__api__v1__schemas__UploadFileResponse:
+      description: Upload file response schema.
+      properties:
+        file_path:
+          title: File Path
+          type: string
+        flowId:
+          title: Flowid
+          type: string
+      required:
+      - flowId
+      - file_path
+      title: UploadFileResponse
+      type: object
+    Body_upload_user_file_api_v2_files_post:
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_user_file_api_v2_files_post
+      type: object
+    Body_upload_user_file_api_v2_files__post:
+      properties:
+        file:
+          contentMediaType: application/octet-stream
+          title: File
+          type: string
+      required:
+      - file
+      title: Body_upload_user_file_api_v2_files__post
+      type: object
     langflow__api__schemas__UploadFileResponse:
       description: File upload response schema.
       properties:
@@ -723,16 +733,6 @@ components:
       - path
       - size
       title: UploadFileResponse
-      type: object
-    Body_upload_user_file_api_v2_files__post:
-      properties:
-        file:
-          contentMediaType: application/octet-stream
-          title: File
-          type: string
-      required:
-      - file
-      title: Body_upload_user_file_api_v2_files__post
       type: object
   securitySchemes:
     API_key_header:

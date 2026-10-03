@@ -408,6 +408,121 @@ paths:
       - Chat
 components:
   schemas:
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post:
+      properties:
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        inputs:
+          anyOf:
+          - $ref: '#/components/schemas/InputValueRequest'
+          - type: 'null'
+      title: Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    EventDeliveryType:
+      enum:
+      - streaming
+      - direct
+      - polling
+      title: EventDeliveryType
+      type: string
+    CancelFlowResponse:
+      description: Response model for flow build cancellation.
+      properties:
+        message:
+          title: Message
+          type: string
+        success:
+          title: Success
+          type: boolean
+      required:
+      - success
+      - message
+      title: CancelFlowResponse
+      type: object
+    Body_build_flow_api_v1_build__flow_id__flow_post:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/FlowDataRequest'
+          - type: 'null'
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        inputs:
+          anyOf:
+          - $ref: '#/components/schemas/InputValueRequest'
+          - type: 'null'
+      title: Body_build_flow_api_v1_build__flow_id__flow_post
+      type: object
+    FlowDataRequest:
+      properties:
+        edges:
+          items:
+            additionalProperties: true
+            type: object
+          title: Edges
+          type: array
+        nodes:
+          items:
+            additionalProperties: true
+            type: object
+          title: Nodes
+          type: array
+        viewport:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Viewport
+      required:
+      - nodes
+      - edges
+      title: FlowDataRequest
+      type: object
     InputValueRequest:
       additionalProperties: false
       examples:
@@ -467,121 +582,6 @@ components:
           description: Defines on which components the input value should be applied. 'any' applies to all input components.
           title: Type
       title: InputValueRequest
-      type: object
-    Body_build_flow_api_v1_build__flow_id__flow_post:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/FlowDataRequest'
-          - type: 'null'
-        files:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Files
-        inputs:
-          anyOf:
-          - $ref: '#/components/schemas/InputValueRequest'
-          - type: 'null'
-      title: Body_build_flow_api_v1_build__flow_id__flow_post
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    CancelFlowResponse:
-      description: Response model for flow build cancellation.
-      properties:
-        message:
-          title: Message
-          type: string
-        success:
-          title: Success
-          type: boolean
-      required:
-      - success
-      - message
-      title: CancelFlowResponse
-      type: object
-    EventDeliveryType:
-      enum:
-      - streaming
-      - direct
-      - polling
-      title: EventDeliveryType
-      type: string
-    FlowDataRequest:
-      properties:
-        edges:
-          items:
-            additionalProperties: true
-            type: object
-          title: Edges
-          type: array
-        nodes:
-          items:
-            additionalProperties: true
-            type: object
-          title: Nodes
-          type: array
-        viewport:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Viewport
-      required:
-      - nodes
-      - edges
-      title: FlowDataRequest
-      type: object
-    Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post:
-      properties:
-        files:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Files
-        inputs:
-          anyOf:
-          - $ref: '#/components/schemas/InputValueRequest'
-          - type: 'null'
-      title: Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
       type: object
   securitySchemes:
     API_key_header:

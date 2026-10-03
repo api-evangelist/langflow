@@ -84,6 +84,28 @@ paths:
       - Flow Events
 components:
   schemas:
+    FlowEventCreate:
+      properties:
+        summary:
+          default: ''
+          maxLength: 500
+          title: Summary
+          type: string
+        type:
+          enum:
+          - component_added
+          - component_removed
+          - component_configured
+          - connection_added
+          - connection_removed
+          - flow_updated
+          - flow_settled
+          title: Type
+          type: string
+      required:
+      - type
+      title: FlowEventCreate
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -110,44 +132,14 @@ components:
       - type
       title: ValidationError
       type: object
-    FlowEventResponse:
+    HTTPValidationError:
       properties:
-        summary:
-          title: Summary
-          type: string
-        timestamp:
-          title: Timestamp
-          type: number
-        type:
-          title: Type
-          type: string
-      required:
-      - type
-      - timestamp
-      - summary
-      title: FlowEventResponse
-      type: object
-    FlowEventCreate:
-      properties:
-        summary:
-          default: ''
-          maxLength: 500
-          title: Summary
-          type: string
-        type:
-          enum:
-          - component_added
-          - component_removed
-          - component_configured
-          - connection_added
-          - connection_removed
-          - flow_updated
-          - flow_settled
-          title: Type
-          type: string
-      required:
-      - type
-      title: FlowEventCreate
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
       type: object
     FlowEventsResponse:
       properties:
@@ -164,14 +156,22 @@ components:
       - settled
       title: FlowEventsResponse
       type: object
-    HTTPValidationError:
+    FlowEventResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
+        summary:
+          title: Summary
+          type: string
+        timestamp:
+          title: Timestamp
+          type: number
+        type:
+          title: Type
+          type: string
+      required:
+      - type
+      - timestamp
+      - summary
+      title: FlowEventResponse
       type: object
   securitySchemes:
     API_key_header:

@@ -647,6 +647,118 @@ paths:
       - Monitor
 components:
   schemas:
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Properties:
+      properties:
+        allow_markdown:
+          default: false
+          title: Allow Markdown
+          type: boolean
+        background_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Background Color
+        build_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Build Duration
+        edited:
+          default: false
+          title: Edited
+          type: boolean
+        icon:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Icon
+        positive_feedback:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Positive Feedback
+        source:
+          $ref: '#/components/schemas/Source'
+        state:
+          default: complete
+          enum:
+          - partial
+          - complete
+          title: State
+          type: string
+        targets:
+          default: []
+          items: {}
+          title: Targets
+          type: array
+        text_color:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Text Color
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/Usage'
+          - type: 'null'
+      title: Properties
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Source:
+      properties:
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The display name of the source component.
+          title: Display Name
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The id of the source component.
+          title: Id
+        source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The source of the message. Normally used to display the model name (e.g. 'gpt-4o')
+          title: Source
+      title: Source
+      type: object
     Usage:
       description: Token usage information from LLM responses.
       properties:
@@ -667,50 +779,46 @@ components:
           title: Total Tokens
       title: Usage
       type: object
-    VertexBuildTable:
+    VertexBuildMapModel:
       properties:
-        artifacts:
-          additionalProperties: true
-          title: Artifacts
+        vertex_builds:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/VertexBuildTable'
+            type: array
+          title: Vertex Builds
           type: object
-        build_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Build Id
-        data:
-          additionalProperties: true
-          title: Data
-          type: object
-        flow_id:
-          format: uuid
-          title: Flow Id
-          type: string
-        id:
-          title: Id
-          type: string
-        job_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Job Id
-        params:
-          title: Params
-          type: string
-        timestamp:
-          format: date-time
-          title: Timestamp
-          type: string
-        valid:
-          title: Valid
-          type: boolean
       required:
-      - id
-      - valid
-      - flow_id
-      title: VertexBuildTable
+      - vertex_builds
+      title: VertexBuildMapModel
+      type: object
+    ContentBlock:
+      description: A block of content that can contain different types of content.
+      properties:
+        allow_markdown:
+          default: true
+          title: Allow Markdown
+          type: boolean
+        contents:
+          items:
+            additionalProperties: true
+            type: object
+          title: Contents
+          type: array
+        media_url:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Media Url
+        title:
+          title: Title
+          type: string
+      required:
+      - title
+      - contents
+      title: ContentBlock
       type: object
     MessageResponse:
       properties:
@@ -792,32 +900,6 @@ components:
       - edit
       title: MessageResponse
       type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
     MessageRead:
       properties:
         category:
@@ -890,82 +972,50 @@ components:
       - flow_id
       title: MessageRead
       type: object
-    VertexBuildMapModel:
+    VertexBuildTable:
       properties:
-        vertex_builds:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/VertexBuildTable'
-            type: array
-          title: Vertex Builds
+        artifacts:
+          additionalProperties: true
+          title: Artifacts
           type: object
-      required:
-      - vertex_builds
-      title: VertexBuildMapModel
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    Properties:
-      properties:
-        allow_markdown:
-          default: false
-          title: Allow Markdown
-          type: boolean
-        background_color:
+        build_id:
           anyOf:
-          - type: string
+          - format: uuid
+            type: string
           - type: 'null'
-          title: Background Color
-        build_duration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Build Duration
-        edited:
-          default: false
-          title: Edited
-          type: boolean
-        icon:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Icon
-        positive_feedback:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Positive Feedback
-        source:
-          $ref: '#/components/schemas/Source'
-        state:
-          default: complete
-          enum:
-          - partial
-          - complete
-          title: State
+          title: Build Id
+        data:
+          additionalProperties: true
+          title: Data
+          type: object
+        flow_id:
+          format: uuid
+          title: Flow Id
           type: string
-        targets:
-          default: []
-          items: {}
-          title: Targets
-          type: array
-        text_color:
+        id:
+          title: Id
+          type: string
+        job_id:
           anyOf:
-          - type: string
+          - format: uuid
+            type: string
           - type: 'null'
-          title: Text Color
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/Usage'
-          - type: 'null'
-      title: Properties
+          title: Job Id
+        params:
+          title: Params
+          type: string
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+        valid:
+          title: Valid
+          type: boolean
+      required:
+      - id
+      - valid
+      - flow_id
+      title: VertexBuildTable
       type: object
     Page_TransactionLogsResponse_:
       properties:
@@ -1033,56 +1083,6 @@ components:
       - vertex_id
       - status
       title: TransactionLogsResponse
-      type: object
-    Source:
-      properties:
-        display_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: The display name of the source component.
-          title: Display Name
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: The id of the source component.
-          title: Id
-        source:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: The source of the message. Normally used to display the model name (e.g. 'gpt-4o')
-          title: Source
-      title: Source
-      type: object
-    ContentBlock:
-      description: A block of content that can contain different types of content.
-      properties:
-        allow_markdown:
-          default: true
-          title: Allow Markdown
-          type: boolean
-        contents:
-          items:
-            additionalProperties: true
-            type: object
-          title: Contents
-          type: array
-        media_url:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Media Url
-        title:
-          title: Title
-          type: string
-      required:
-      - title
-      - contents
-      title: ContentBlock
       type: object
     MessageUpdate:
       properties:

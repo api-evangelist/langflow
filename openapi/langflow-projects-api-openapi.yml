@@ -256,6 +256,70 @@ paths:
       - Projects
 components:
   schemas:
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    FolderUpdate:
+      properties:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Auth Settings
+        components:
+          items:
+            format: uuid
+            type: string
+          title: Components
+          type: array
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        flows:
+          items:
+            format: uuid
+            type: string
+          title: Flows
+          type: array
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        parent_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Parent Id
+      title: FolderUpdate
+      type: object
     FlowRead:
       properties:
         access_type:
@@ -370,6 +434,25 @@ components:
       - folder_id
       title: FlowRead
       type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    Body_upload_file_api_v1_projects_upload__post:
+      properties:
+        file:
+          anyOf:
+          - contentMediaType: application/octet-stream
+            type: string
+          - type: 'null'
+          title: File
+      title: Body_upload_file_api_v1_projects_upload__post
+      type: object
     FolderWithPaginatedFlows:
       properties:
         flows:
@@ -381,31 +464,77 @@ components:
       - flows
       title: FolderWithPaginatedFlows
       type: object
-    ValidationError:
+    FolderReadWithFlows:
       properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: Authentication settings for the folder/project
+          title: Auth Settings
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        flows:
+          default: []
           items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
+            $ref: '#/components/schemas/FlowRead'
+          title: Flows
           type: array
-        msg:
-          title: Message
+        id:
+          format: uuid
+          title: Id
           type: string
-        type:
-          title: Error Type
+        name:
+          title: Name
           type: string
+        parent_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Parent Id
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - name
+      - id
+      - parent_id
+      title: FolderReadWithFlows
+      type: object
+    FolderRead:
+      properties:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: Authentication settings for the folder/project
+          title: Auth Settings
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          format: uuid
+          title: Id
+          type: string
+        name:
+          title: Name
+          type: string
+        parent_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Parent Id
+      required:
+      - name
+      - id
+      - parent_id
+      title: FolderRead
       type: object
     AccessTypeEnum:
       enum:
@@ -480,135 +609,6 @@ components:
       required:
       - name
       title: FolderCreate
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    FolderUpdate:
-      properties:
-        auth_settings:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Auth Settings
-        components:
-          items:
-            format: uuid
-            type: string
-          title: Components
-          type: array
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        flows:
-          items:
-            format: uuid
-            type: string
-          title: Flows
-          type: array
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        parent_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Parent Id
-      title: FolderUpdate
-      type: object
-    FolderReadWithFlows:
-      properties:
-        auth_settings:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: Authentication settings for the folder/project
-          title: Auth Settings
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        flows:
-          default: []
-          items:
-            $ref: '#/components/schemas/FlowRead'
-          title: Flows
-          type: array
-        id:
-          format: uuid
-          title: Id
-          type: string
-        name:
-          title: Name
-          type: string
-        parent_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Parent Id
-      required:
-      - name
-      - id
-      - parent_id
-      title: FolderReadWithFlows
-      type: object
-    Body_upload_file_api_v1_projects_upload__post:
-      properties:
-        file:
-          anyOf:
-          - contentMediaType: application/octet-stream
-            type: string
-          - type: 'null'
-          title: File
-      title: Body_upload_file_api_v1_projects_upload__post
-      type: object
-    FolderRead:
-      properties:
-        auth_settings:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: Authentication settings for the folder/project
-          title: Auth Settings
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        id:
-          format: uuid
-          title: Id
-          type: string
-        name:
-          title: Name
-          type: string
-        parent_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Parent Id
-      required:
-      - name
-      - id
-      - parent_id
-      title: FolderRead
       type: object
   securitySchemes:
     API_key_header:
