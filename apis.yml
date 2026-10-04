@@ -1,5 +1,9 @@
 aid: langflow
 url: https://raw.githubusercontent.com/api-evangelist/langflow/refs/heads/main/apis.yml
+x-docs-platform: docusaurus
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-10-03
+x-docs-hosting: github-pages
 apis:
 - aid: langflow:langflow-base-api
   name: Langflow Base API
@@ -608,6 +612,9 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/langflow.png
 access: 3rd-Party
 common:
+- type: CapabilityMap
+  url: capabilities/langflow-capability-edges.yml
+  name: Langflow Business Capability Map
 - type: Website
   url: https://www.langflow.org/
 - type: ParentCompany
