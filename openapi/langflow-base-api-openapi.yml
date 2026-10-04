@@ -381,120 +381,6 @@ paths:
       - Base
 components:
   schemas:
-    Body_simplified_run_flow_api_v1_run__flow_id_or_name__post:
-      properties:
-        context:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Context
-        input_request:
-          anyOf:
-          - $ref: '#/components/schemas/SimplifiedAPIRequest'
-          - type: 'null'
-      title: Body_simplified_run_flow_api_v1_run__flow_id_or_name__post
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    RunResponse:
-      description: Run response schema.
-      properties:
-        outputs:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/RunOutputs'
-            type: array
-          - type: 'null'
-          default: []
-          title: Outputs
-        session_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Session Id
-      title: RunResponse
-      type: object
-    PublicConfigResponse:
-      description: 'Configuration response for public/unauthenticated endpoints like the public playground.
-
-
-        Contains only the configuration values needed for public features, without sensitive data.
-
-        The ''type'' field is a discriminator to distinguish from full ConfigResponse.'
-      properties:
-        allow_custom_components:
-          title: Allow Custom Components
-          type: boolean
-        event_delivery:
-          enum:
-          - polling
-          - streaming
-          - direct
-          title: Event Delivery
-          type: string
-        feature_flags:
-          $ref: '#/components/schemas/FeatureFlags'
-        frontend_timeout:
-          title: Frontend Timeout
-          type: integer
-        max_file_size_upload:
-          title: Max File Size Upload
-          type: integer
-        mcp_base_url:
-          title: Mcp Base Url
-          type: string
-        type:
-          const: public
-          default: public
-          title: Type
-          type: string
-        voice_mode_available:
-          title: Voice Mode Available
-          type: boolean
-      required:
-      - feature_flags
-      - max_file_size_upload
-      - event_delivery
-      - voice_mode_available
-      - frontend_timeout
-      - mcp_base_url
-      - allow_custom_components
-      title: PublicConfigResponse
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     Usage:
       description: Token usage information from LLM responses.
       properties:
@@ -655,109 +541,6 @@ components:
       - allow_custom_components
       title: ConfigResponse
       type: object
-    ChatOutputResponse:
-      description: Chat output response schema.
-      properties:
-        component_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Component Id
-        files:
-          default: []
-          items:
-            $ref: '#/components/schemas/lfx__utils__schemas__File'
-          title: Files
-          type: array
-        message:
-          anyOf:
-          - type: string
-          - items:
-              anyOf:
-              - type: string
-              - additionalProperties: true
-                type: object
-            type: array
-          title: Message
-        sender:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: Machine
-          title: Sender
-        sender_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          default: AI
-          title: Sender Name
-        session_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Session Id
-        stream_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Stream Url
-        type:
-          title: Type
-          type: string
-      required:
-      - message
-      - type
-      title: ChatOutputResponse
-      type: object
-    Body_experimental_run_flow_api_v1_run_advanced__flow_id_or_name__post:
-      properties:
-        inputs:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/InputValueRequest'
-            type: array
-          - type: 'null'
-          title: Inputs
-        outputs:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Outputs
-        session_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Session Id
-        stream:
-          default: false
-          title: Stream
-          type: boolean
-        tweaks:
-          anyOf:
-          - $ref: '#/components/schemas/Tweaks'
-          - type: 'null'
-      title: Body_experimental_run_flow_api_v1_run_advanced__flow_id_or_name__post
-      type: object
-    lfx__utils__schemas__File:
-      description: File schema.
-      properties:
-        name:
-          title: Name
-          type: string
-        path:
-          title: Path
-          type: string
-        type:
-          title: Type
-          type: string
-      required:
-      - path
-      - name
-      - type
-      title: File
-      type: object
     ResultData:
       properties:
         artifacts:
@@ -821,6 +604,134 @@ components:
           title: Used Frozen Result
       title: ResultData
       type: object
+    ChatOutputResponse:
+      description: Chat output response schema.
+      properties:
+        component_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Component Id
+        files:
+          default: []
+          items:
+            $ref: '#/components/schemas/lfx__utils__schemas__File'
+          title: Files
+          type: array
+        message:
+          anyOf:
+          - type: string
+          - items:
+              anyOf:
+              - type: string
+              - additionalProperties: true
+                type: object
+            type: array
+          title: Message
+        sender:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: Machine
+          title: Sender
+        sender_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: AI
+          title: Sender Name
+        session_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Id
+        stream_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stream Url
+        type:
+          title: Type
+          type: string
+      required:
+      - message
+      - type
+      title: ChatOutputResponse
+      type: object
+    Body_simplified_run_flow_api_v1_run__flow_id_or_name__post:
+      properties:
+        context:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Context
+        input_request:
+          anyOf:
+          - $ref: '#/components/schemas/SimplifiedAPIRequest'
+          - type: 'null'
+      title: Body_simplified_run_flow_api_v1_run__flow_id_or_name__post
+      type: object
+    FeatureFlags:
+      additionalProperties: false
+      properties:
+        mvp_components:
+          default: false
+          title: Mvp Components
+          type: boolean
+        wxo_deployments:
+          default: false
+          title: Wxo Deployments
+          type: boolean
+      title: FeatureFlags
+      type: object
+    PublicConfigResponse:
+      description: 'Configuration response for public/unauthenticated endpoints like the public playground.
+
+
+        Contains only the configuration values needed for public features, without sensitive data.
+
+        The ''type'' field is a discriminator to distinguish from full ConfigResponse.'
+      properties:
+        allow_custom_components:
+          title: Allow Custom Components
+          type: boolean
+        event_delivery:
+          enum:
+          - polling
+          - streaming
+          - direct
+          title: Event Delivery
+          type: string
+        feature_flags:
+          $ref: '#/components/schemas/FeatureFlags'
+        frontend_timeout:
+          title: Frontend Timeout
+          type: integer
+        max_file_size_upload:
+          title: Max File Size Upload
+          type: integer
+        mcp_base_url:
+          title: Mcp Base Url
+          type: string
+        type:
+          const: public
+          default: public
+          title: Type
+          type: string
+        voice_mode_available:
+          title: Voice Mode Available
+          type: boolean
+      required:
+      - feature_flags
+      - max_file_size_upload
+      - event_delivery
+      - voice_mode_available
+      - frontend_timeout
+      - mcp_base_url
+      - allow_custom_components
+      title: PublicConfigResponse
+      type: object
     RunOutputs:
       properties:
         inputs:
@@ -836,33 +747,50 @@ components:
           type: array
       title: RunOutputs
       type: object
-    Tweaks:
-      additionalProperties:
-        anyOf:
-        - type: string
-        - additionalProperties: true
-          type: object
-      description: A dictionary of tweaks to adjust the flow's execution. Allows customizing flow behavior dynamically. All tweaks are overridden by the input values.
-      examples:
-      - Component Name:
-          parameter_name: value
-        component_id:
-          parameter_name: value
-        parameter_name: value
-      title: Tweaks
-      type: object
-    FeatureFlags:
-      additionalProperties: false
+    HTTPValidationError:
       properties:
-        mvp_components:
-          default: false
-          title: Mvp Components
-          type: boolean
-        wxo_deployments:
-          default: false
-          title: Wxo Deployments
-          type: boolean
-      title: FeatureFlags
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    lfx__utils__schemas__File:
+      description: File schema.
+      properties:
+        name:
+          title: Name
+          type: string
+        path:
+          title: Path
+          type: string
+        type:
+          title: Type
+          type: string
+      required:
+      - path
+      - name
+      - type
+      title: File
+      type: object
+    RunResponse:
+      description: Run response schema.
+      properties:
+        outputs:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/RunOutputs'
+            type: array
+          - type: 'null'
+          default: []
+          title: Outputs
+        session_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Id
+      title: RunResponse
       type: object
     InputValueRequest:
       additionalProperties: false
@@ -923,6 +851,78 @@ components:
           description: Defines on which components the input value should be applied. 'any' applies to all input components.
           title: Type
       title: InputValueRequest
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Body_experimental_run_flow_api_v1_run_advanced__flow_id_or_name__post:
+      properties:
+        inputs:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/InputValueRequest'
+            type: array
+          - type: 'null'
+          title: Inputs
+        outputs:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Outputs
+        session_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Id
+        stream:
+          default: false
+          title: Stream
+          type: boolean
+        tweaks:
+          anyOf:
+          - $ref: '#/components/schemas/Tweaks'
+          - type: 'null'
+      title: Body_experimental_run_flow_api_v1_run_advanced__flow_id_or_name__post
+      type: object
+    Tweaks:
+      additionalProperties:
+        anyOf:
+        - type: string
+        - additionalProperties: true
+          type: object
+      description: A dictionary of tweaks to adjust the flow's execution. Allows customizing flow behavior dynamically. All tweaks are overridden by the input values.
+      examples:
+      - Component Name:
+          parameter_name: value
+        component_id:
+          parameter_name: value
+        parameter_name: value
+      title: Tweaks
       type: object
   securitySchemes:
     API_key_header:

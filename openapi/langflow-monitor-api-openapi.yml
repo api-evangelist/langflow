@@ -647,6 +647,107 @@ paths:
       - Monitor
 components:
   schemas:
+    Usage:
+      description: Token usage information from LLM responses.
+      properties:
+        input_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Input Tokens
+        output_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Output Tokens
+        total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Tokens
+      title: Usage
+      type: object
+    MessageRead:
+      properties:
+        category:
+          default: message
+          title: Category
+          type: string
+        content_blocks:
+          items:
+            $ref: '#/components/schemas/ContentBlock'
+          title: Content Blocks
+          type: array
+        context_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Context Id
+        edit:
+          default: false
+          title: Edit
+          type: boolean
+        error:
+          default: false
+          title: Error
+          type: boolean
+        files:
+          items:
+            type: string
+          title: Files
+          type: array
+        flow_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Flow Id
+        id:
+          format: uuid
+          title: Id
+          type: string
+        properties:
+          $ref: '#/components/schemas/Properties'
+        sender:
+          title: Sender
+          type: string
+        sender_name:
+          title: Sender Name
+          type: string
+        session_id:
+          title: Session Id
+          type: string
+        session_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Session Metadata
+        text:
+          title: Text
+          type: string
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+      required:
+      - sender
+      - sender_name
+      - session_id
+      - text
+      - id
+      - flow_id
+      title: MessageRead
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -672,6 +773,51 @@ components:
       - msg
       - type
       title: ValidationError
+      type: object
+    VertexBuildTable:
+      properties:
+        artifacts:
+          additionalProperties: true
+          title: Artifacts
+          type: object
+        build_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Build Id
+        data:
+          additionalProperties: true
+          title: Data
+          type: object
+        flow_id:
+          format: uuid
+          title: Flow Id
+          type: string
+        id:
+          title: Id
+          type: string
+        job_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Job Id
+        params:
+          title: Params
+          type: string
+        timestamp:
+          format: date-time
+          title: Timestamp
+          type: string
+        valid:
+          title: Valid
+          type: boolean
+      required:
+      - id
+      - valid
+      - flow_id
+      title: VertexBuildTable
       type: object
     Properties:
       properties:
@@ -728,15 +874,6 @@ components:
           - type: 'null'
       title: Properties
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
     Source:
       properties:
         display_name:
@@ -758,67 +895,6 @@ components:
           description: The source of the message. Normally used to display the model name (e.g. 'gpt-4o')
           title: Source
       title: Source
-      type: object
-    Usage:
-      description: Token usage information from LLM responses.
-      properties:
-        input_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Input Tokens
-        output_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Output Tokens
-        total_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Total Tokens
-      title: Usage
-      type: object
-    VertexBuildMapModel:
-      properties:
-        vertex_builds:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/VertexBuildTable'
-            type: array
-          title: Vertex Builds
-          type: object
-      required:
-      - vertex_builds
-      title: VertexBuildMapModel
-      type: object
-    ContentBlock:
-      description: A block of content that can contain different types of content.
-      properties:
-        allow_markdown:
-          default: true
-          title: Allow Markdown
-          type: boolean
-        contents:
-          items:
-            additionalProperties: true
-            type: object
-          title: Contents
-          type: array
-        media_url:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Media Url
-        title:
-          title: Title
-          type: string
-      required:
-      - title
-      - contents
-      title: ContentBlock
       type: object
     MessageResponse:
       properties:
@@ -900,153 +976,18 @@ components:
       - edit
       title: MessageResponse
       type: object
-    MessageRead:
+    VertexBuildMapModel:
       properties:
-        category:
-          default: message
-          title: Category
-          type: string
-        content_blocks:
-          items:
-            $ref: '#/components/schemas/ContentBlock'
-          title: Content Blocks
-          type: array
-        context_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Context Id
-        edit:
-          default: false
-          title: Edit
-          type: boolean
-        error:
-          default: false
-          title: Error
-          type: boolean
-        files:
-          items:
-            type: string
-          title: Files
-          type: array
-        flow_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Flow Id
-        id:
-          format: uuid
-          title: Id
-          type: string
-        properties:
-          $ref: '#/components/schemas/Properties'
-        sender:
-          title: Sender
-          type: string
-        sender_name:
-          title: Sender Name
-          type: string
-        session_id:
-          title: Session Id
-          type: string
-        session_metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Session Metadata
-        text:
-          title: Text
-          type: string
-        timestamp:
-          format: date-time
-          title: Timestamp
-          type: string
-      required:
-      - sender
-      - sender_name
-      - session_id
-      - text
-      - id
-      - flow_id
-      title: MessageRead
-      type: object
-    VertexBuildTable:
-      properties:
-        artifacts:
-          additionalProperties: true
-          title: Artifacts
+        vertex_builds:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/VertexBuildTable'
+            type: array
+          title: Vertex Builds
           type: object
-        build_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Build Id
-        data:
-          additionalProperties: true
-          title: Data
-          type: object
-        flow_id:
-          format: uuid
-          title: Flow Id
-          type: string
-        id:
-          title: Id
-          type: string
-        job_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Job Id
-        params:
-          title: Params
-          type: string
-        timestamp:
-          format: date-time
-          title: Timestamp
-          type: string
-        valid:
-          title: Valid
-          type: boolean
       required:
-      - id
-      - valid
-      - flow_id
-      title: VertexBuildTable
-      type: object
-    Page_TransactionLogsResponse_:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/TransactionLogsResponse'
-          title: Items
-          type: array
-        page:
-          minimum: 1.0
-          title: Page
-          type: integer
-        pages:
-          minimum: 0.0
-          title: Pages
-          type: integer
-        size:
-          minimum: 1.0
-          title: Size
-          type: integer
-        total:
-          minimum: 0.0
-          title: Total
-          type: integer
-      required:
-      - items
-      - total
-      - page
-      - size
-      - pages
-      title: Page[TransactionLogsResponse]
+      - vertex_builds
+      title: VertexBuildMapModel
       type: object
     TransactionLogsResponse:
       description: Transaction response model for logs view - excludes error and flow_id fields.
@@ -1083,6 +1024,65 @@ components:
       - vertex_id
       - status
       title: TransactionLogsResponse
+      type: object
+    Page_TransactionLogsResponse_:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/TransactionLogsResponse'
+          title: Items
+          type: array
+        page:
+          minimum: 1.0
+          title: Page
+          type: integer
+        pages:
+          minimum: 0.0
+          title: Pages
+          type: integer
+        size:
+          minimum: 1.0
+          title: Size
+          type: integer
+        total:
+          minimum: 0.0
+          title: Total
+          type: integer
+      required:
+      - items
+      - total
+      - page
+      - size
+      - pages
+      title: Page[TransactionLogsResponse]
+      type: object
+    ContentBlock:
+      description: A block of content that can contain different types of content.
+      properties:
+        allow_markdown:
+          default: true
+          title: Allow Markdown
+          type: boolean
+        contents:
+          items:
+            additionalProperties: true
+            type: object
+          title: Contents
+          type: array
+        media_url:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Media Url
+        title:
+          title: Title
+          type: string
+      required:
+      - title
+      - contents
+      title: ContentBlock
       type: object
     MessageUpdate:
       properties:

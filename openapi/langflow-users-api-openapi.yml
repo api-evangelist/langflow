@@ -211,6 +211,71 @@ paths:
       - Users
 components:
   schemas:
+    UsersResponse:
+      properties:
+        total_count:
+          title: Total Count
+          type: integer
+        users:
+          items:
+            $ref: '#/components/schemas/UserRead'
+          title: Users
+          type: array
+      required:
+      - total_count
+      - users
+      title: UsersResponse
+      type: object
+    UserUpdate:
+      properties:
+        is_active:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Active
+        is_superuser:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Superuser
+        last_login_at:
+          anyOf:
+          - format: date-time
+            type: string
+          - type: 'null'
+          title: Last Login At
+        optins:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Optins
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        profile_image:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Profile Image
+        username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Username
+      title: UserUpdate
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -236,15 +301,6 @@ components:
       - msg
       - type
       title: ValidationError
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
       type: object
     UserRead:
       properties:
@@ -301,62 +357,6 @@ components:
       - updated_at
       - last_login_at
       title: UserRead
-      type: object
-    UserUpdate:
-      properties:
-        is_active:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Active
-        is_superuser:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Superuser
-        last_login_at:
-          anyOf:
-          - format: date-time
-            type: string
-          - type: 'null'
-          title: Last Login At
-        optins:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Optins
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-        profile_image:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Profile Image
-        username:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Username
-      title: UserUpdate
-      type: object
-    UsersResponse:
-      properties:
-        total_count:
-          title: Total Count
-          type: integer
-        users:
-          items:
-            $ref: '#/components/schemas/UserRead'
-          title: Users
-          type: array
-      required:
-      - total_count
-      - users
-      title: UsersResponse
       type: object
     UserCreate:
       properties:

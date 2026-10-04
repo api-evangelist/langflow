@@ -408,6 +408,41 @@ paths:
       - Chat
 components:
   schemas:
+    EventDeliveryType:
+      enum:
+      - streaming
+      - direct
+      - polling
+      title: EventDeliveryType
+      type: string
+    Body_build_flow_api_v1_build__flow_id__flow_post:
+      properties:
+        data:
+          anyOf:
+          - $ref: '#/components/schemas/FlowDataRequest'
+          - type: 'null'
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        inputs:
+          anyOf:
+          - $ref: '#/components/schemas/InputValueRequest'
+          - type: 'null'
+      title: Body_build_flow_api_v1_build__flow_id__flow_post
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
     ValidationError:
       properties:
         ctx:
@@ -434,70 +469,6 @@ components:
       - type
       title: ValidationError
       type: object
-    Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post:
-      properties:
-        files:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Files
-        inputs:
-          anyOf:
-          - $ref: '#/components/schemas/InputValueRequest'
-          - type: 'null'
-      title: Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
-      type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    EventDeliveryType:
-      enum:
-      - streaming
-      - direct
-      - polling
-      title: EventDeliveryType
-      type: string
-    CancelFlowResponse:
-      description: Response model for flow build cancellation.
-      properties:
-        message:
-          title: Message
-          type: string
-        success:
-          title: Success
-          type: boolean
-      required:
-      - success
-      - message
-      title: CancelFlowResponse
-      type: object
-    Body_build_flow_api_v1_build__flow_id__flow_post:
-      properties:
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/FlowDataRequest'
-          - type: 'null'
-        files:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Files
-        inputs:
-          anyOf:
-          - $ref: '#/components/schemas/InputValueRequest'
-          - type: 'null'
-      title: Body_build_flow_api_v1_build__flow_id__flow_post
-      type: object
     FlowDataRequest:
       properties:
         edges:
@@ -522,6 +493,21 @@ components:
       - nodes
       - edges
       title: FlowDataRequest
+      type: object
+    Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post:
+      properties:
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        inputs:
+          anyOf:
+          - $ref: '#/components/schemas/InputValueRequest'
+          - type: 'null'
+      title: Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
       type: object
     InputValueRequest:
       additionalProperties: false
@@ -582,6 +568,20 @@ components:
           description: Defines on which components the input value should be applied. 'any' applies to all input components.
           title: Type
       title: InputValueRequest
+      type: object
+    CancelFlowResponse:
+      description: Response model for flow build cancellation.
+      properties:
+        message:
+          title: Message
+          type: string
+        success:
+          title: Success
+          type: boolean
+      required:
+      - success
+      - message
+      title: CancelFlowResponse
       type: object
   securitySchemes:
     API_key_header:
