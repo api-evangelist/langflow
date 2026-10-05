@@ -1,0 +1,26 @@
+slug: langflow
+provider: Langflow
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Flows
+  spec_file: langflow-flows-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /api/v1/flows/ 'Create Flow'; PATCH /api/v1/flows/{flow_id} 'Update Flow'; schemas FlowCreate,
+    GraphData
+  reason: Full CRUD over Langflow 'flows' — the definitions of AI agent/RAG pipelines that are the vendor's
+    core artefact. This is authoring and lifecycle management of AI/LLM pipelines, mapping to Artificial
+    Intelligence Management.
