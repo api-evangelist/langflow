@@ -256,108 +256,6 @@ paths:
       - Projects
 components:
   schemas:
-    FolderUpdate:
-      properties:
-        auth_settings:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Auth Settings
-        components:
-          items:
-            format: uuid
-            type: string
-          title: Components
-          type: array
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        flows:
-          items:
-            format: uuid
-            type: string
-          title: Flows
-          type: array
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        parent_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Parent Id
-      title: FolderUpdate
-      type: object
-    FolderRead:
-      properties:
-        auth_settings:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: Authentication settings for the folder/project
-          title: Auth Settings
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        id:
-          format: uuid
-          title: Id
-          type: string
-        name:
-          title: Name
-          type: string
-        parent_id:
-          anyOf:
-          - format: uuid
-            type: string
-          - type: 'null'
-          title: Parent Id
-      required:
-      - name
-      - id
-      - parent_id
-      title: FolderRead
-      type: object
-    Page_FlowRead_:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/FlowRead'
-          title: Items
-          type: array
-        page:
-          minimum: 1.0
-          title: Page
-          type: integer
-        pages:
-          minimum: 0.0
-          title: Pages
-          type: integer
-        size:
-          minimum: 1.0
-          title: Size
-          type: integer
-        total:
-          minimum: 0.0
-          title: Total
-          type: integer
-      required:
-      - items
-      - total
-      - page
-      - size
-      - pages
-      title: Page[FlowRead]
-      type: object
     FlowRead:
       properties:
         access_type:
@@ -481,16 +379,42 @@ components:
           type: array
       title: HTTPValidationError
       type: object
-    FolderWithPaginatedFlows:
+    FolderCreate:
       properties:
-        flows:
-          $ref: '#/components/schemas/Page_FlowRead_'
-        folder:
-          $ref: '#/components/schemas/FolderRead'
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: Authentication settings for the folder/project
+          title: Auth Settings
+        components_list:
+          anyOf:
+          - items:
+              format: uuid
+              type: string
+            type: array
+          - type: 'null'
+          title: Components List
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        flows_list:
+          anyOf:
+          - items:
+              format: uuid
+              type: string
+            type: array
+          - type: 'null'
+          title: Flows List
+        name:
+          title: Name
+          type: string
       required:
-      - folder
-      - flows
-      title: FolderWithPaginatedFlows
+      - name
+      title: FolderCreate
       type: object
     ValidationError:
       properties:
@@ -518,6 +442,43 @@ components:
       - type
       title: ValidationError
       type: object
+    Page_FlowRead_:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/FlowRead'
+          title: Items
+          type: array
+        page:
+          minimum: 1.0
+          title: Page
+          type: integer
+        pages:
+          minimum: 0.0
+          title: Pages
+          type: integer
+        size:
+          minimum: 1.0
+          title: Size
+          type: integer
+        total:
+          minimum: 0.0
+          title: Total
+          type: integer
+      required:
+      - items
+      - total
+      - page
+      - size
+      - pages
+      title: Page[FlowRead]
+      type: object
+    AccessTypeEnum:
+      enum:
+      - PRIVATE
+      - PUBLIC
+      title: AccessTypeEnum
+      type: string
     Body_upload_file_api_v1_projects_upload__post:
       properties:
         file:
@@ -528,12 +489,77 @@ components:
           title: File
       title: Body_upload_file_api_v1_projects_upload__post
       type: object
-    AccessTypeEnum:
-      enum:
-      - PRIVATE
-      - PUBLIC
-      title: AccessTypeEnum
-      type: string
+    FolderRead:
+      properties:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          description: Authentication settings for the folder/project
+          title: Auth Settings
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          format: uuid
+          title: Id
+          type: string
+        name:
+          title: Name
+          type: string
+        parent_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Parent Id
+      required:
+      - name
+      - id
+      - parent_id
+      title: FolderRead
+      type: object
+    FolderUpdate:
+      properties:
+        auth_settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Auth Settings
+        components:
+          items:
+            format: uuid
+            type: string
+          title: Components
+          type: array
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        flows:
+          items:
+            format: uuid
+            type: string
+          title: Flows
+          type: array
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        parent_id:
+          anyOf:
+          - format: uuid
+            type: string
+          - type: 'null'
+          title: Parent Id
+      title: FolderUpdate
+      type: object
     FolderReadWithFlows:
       properties:
         auth_settings:
@@ -573,42 +599,16 @@ components:
       - parent_id
       title: FolderReadWithFlows
       type: object
-    FolderCreate:
+    FolderWithPaginatedFlows:
       properties:
-        auth_settings:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          description: Authentication settings for the folder/project
-          title: Auth Settings
-        components_list:
-          anyOf:
-          - items:
-              format: uuid
-              type: string
-            type: array
-          - type: 'null'
-          title: Components List
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        flows_list:
-          anyOf:
-          - items:
-              format: uuid
-              type: string
-            type: array
-          - type: 'null'
-          title: Flows List
-        name:
-          title: Name
-          type: string
+        flows:
+          $ref: '#/components/schemas/Page_FlowRead_'
+        folder:
+          $ref: '#/components/schemas/FolderRead'
       required:
-      - name
-      title: FolderCreate
+      - folder
+      - flows
+      title: FolderWithPaginatedFlows
       type: object
   securitySchemes:
     API_key_header:

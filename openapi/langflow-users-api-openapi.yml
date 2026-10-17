@@ -211,6 +211,64 @@ paths:
       - Users
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    UserCreate:
+      properties:
+        optins:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          default:
+            dialog_dismissed: false
+            discord_clicked: false
+            github_starred: false
+          title: Optins
+        password:
+          title: Password
+          type: string
+        username:
+          title: Username
+          type: string
+      required:
+      - username
+      - password
+      title: UserCreate
+      type: object
     UsersResponse:
       properties:
         total_count:
@@ -267,41 +325,6 @@ components:
           title: Username
       title: UserUpdate
       type: object
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          title: Detail
-          type: array
-      title: HTTPValidationError
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
     UserRead:
       properties:
         create_at:
@@ -357,29 +380,6 @@ components:
       - updated_at
       - last_login_at
       title: UserRead
-      type: object
-    UserCreate:
-      properties:
-        optins:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          default:
-            dialog_dismissed: false
-            discord_clicked: false
-            github_starred: false
-          title: Optins
-        password:
-          title: Password
-          type: string
-        username:
-          title: Username
-          type: string
-      required:
-      - username
-      - password
-      title: UserCreate
       type: object
   securitySchemes:
     API_key_header:

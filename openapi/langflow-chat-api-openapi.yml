@@ -408,13 +408,6 @@ paths:
       - Chat
 components:
   schemas:
-    EventDeliveryType:
-      enum:
-      - streaming
-      - direct
-      - polling
-      title: EventDeliveryType
-      type: string
     Body_build_flow_api_v1_build__flow_id__flow_post:
       properties:
         data:
@@ -442,72 +435,6 @@ components:
           title: Detail
           type: array
       title: HTTPValidationError
-      type: object
-    ValidationError:
-      properties:
-        ctx:
-          title: Context
-          type: object
-        input:
-          title: Input
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          title: Location
-          type: array
-        msg:
-          title: Message
-          type: string
-        type:
-          title: Error Type
-          type: string
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-      type: object
-    FlowDataRequest:
-      properties:
-        edges:
-          items:
-            additionalProperties: true
-            type: object
-          title: Edges
-          type: array
-        nodes:
-          items:
-            additionalProperties: true
-            type: object
-          title: Nodes
-          type: array
-        viewport:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Viewport
-      required:
-      - nodes
-      - edges
-      title: FlowDataRequest
-      type: object
-    Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post:
-      properties:
-        files:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Files
-        inputs:
-          anyOf:
-          - $ref: '#/components/schemas/InputValueRequest'
-          - type: 'null'
-      title: Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
       type: object
     InputValueRequest:
       additionalProperties: false
@@ -569,6 +496,47 @@ components:
           title: Type
       title: InputValueRequest
       type: object
+    ValidationError:
+      properties:
+        ctx:
+          title: Context
+          type: object
+        input:
+          title: Input
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post:
+      properties:
+        files:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Files
+        inputs:
+          anyOf:
+          - $ref: '#/components/schemas/InputValueRequest'
+          - type: 'null'
+      title: Body_build_public_tmp_api_v1_build_public_tmp__flow_id__flow_post
+      type: object
     CancelFlowResponse:
       description: Response model for flow build cancellation.
       properties:
@@ -583,6 +551,38 @@ components:
       - message
       title: CancelFlowResponse
       type: object
+    FlowDataRequest:
+      properties:
+        edges:
+          items:
+            additionalProperties: true
+            type: object
+          title: Edges
+          type: array
+        nodes:
+          items:
+            additionalProperties: true
+            type: object
+          title: Nodes
+          type: array
+        viewport:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Viewport
+      required:
+      - nodes
+      - edges
+      title: FlowDataRequest
+      type: object
+    EventDeliveryType:
+      enum:
+      - streaming
+      - direct
+      - polling
+      title: EventDeliveryType
+      type: string
   securitySchemes:
     API_key_header:
       in: header

@@ -84,23 +84,6 @@ paths:
       - Flow Events
 components:
   schemas:
-    FlowEventResponse:
-      properties:
-        summary:
-          title: Summary
-          type: string
-        timestamp:
-          title: Timestamp
-          type: number
-        type:
-          title: Type
-          type: string
-      required:
-      - type
-      - timestamp
-      - summary
-      title: FlowEventResponse
-      type: object
     HTTPValidationError:
       properties:
         detail:
@@ -172,6 +155,23 @@ components:
       - events
       - settled
       title: FlowEventsResponse
+      type: object
+    FlowEventResponse:
+      properties:
+        summary:
+          title: Summary
+          type: string
+        timestamp:
+          title: Timestamp
+          type: number
+        type:
+          title: Type
+          type: string
+      required:
+      - type
+      - timestamp
+      - summary
+      title: FlowEventResponse
       type: object
   securitySchemes:
     API_key_header:
