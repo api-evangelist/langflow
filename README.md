@@ -1,4 +1,4 @@
-# Langflow (langflow)
+# Langflow
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,340 +66,180 @@
 
 Langflow is an open-source low-code visual builder for AI agents, RAG pipelines, and LangChain-based workflows. It pairs a drag-and-drop React Flow frontend with a FastAPI backend that exposes every flow as a REST API, an MCP server, and an OpenAI-compatible Responses endpoint. Components are editable Python and ship with integrations across most major LLMs, vector stores, and observability platforms. Langflow was acquired by DataStax in 2025; DataStax itself was acquired by IBM and the deal closed on May 28, 2025, making Langflow an IBM property while remaining MIT-licensed open source. The project is the canonical reference implementation for visually composing LangChain agents — 149k+ GitHub stars, distributed via PyPI, Docker, Helm, and native Desktop apps, with a hosted cloud option run by DataStax.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/langflow/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/langflow/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · Agents · Workflows · Low-Code · Visual Builder · LangChain · RAG · MCP · Open Source · FastAPI
 
-## Scope
+## Langflow on APIs.io
 
-- **Position:** Producing
-- **Access:** 3rd-Party
+Everything profiled for Langflow is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/langflow/](https://apis.io/providers/langflow/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (15)
 
-- AI
-- Artificial Intelligence
-- Agents
-- Workflows
-- Low-Code
-- Visual Builder
-- LangChain
-- RAG
-- MCP
-- Open Source
-- FastAPI
+- [Langflow Base API](https://apis.io/apis/langflow/langflow-base-api/) — The Base API from Langflow — 6 operation(s) for base.
+- [Langflow Chat API](https://apis.io/apis/langflow/langflow-chat-api/) — The Chat API from Langflow — 6 operation(s) for chat.
+- [Langflow Files API](https://apis.io/apis/langflow/langflow-files-api/) — The Files API from Langflow — 11 operation(s) for files.
+- [Langflow Flow Events API](https://apis.io/apis/langflow/langflow-flow-events-api/) — The Flow Events API from Langflow — 1 operation(s) for flow events.
+- [Langflow Flows API](https://apis.io/apis/langflow/langflow-flows-api/) — The Flows API from Langflow — 8 operation(s) for flows.
+- [Langflow Health Check API](https://apis.io/apis/langflow/langflow-health-check-api/) — The Health Check API from Langflow — 2 operation(s) for health check.
+- [Langflow Log API](https://apis.io/apis/langflow/langflow-log-api/) — The Log API from Langflow — 2 operation(s) for log.
+- [Langflow MCP API](https://apis.io/apis/langflow/langflow-mcp-api/) — The MCP API from Langflow — 2 operation(s) for mcp.
+- [Langflow MCP Projects API](https://apis.io/apis/langflow/langflow-mcp-projects-api/) — The mcp_projects API from Langflow — 4 operation(s) for mcp_projects.
+- [Langflow Monitor API](https://apis.io/apis/langflow/langflow-monitor-api/) — The Monitor API from Langflow — 12 operation(s) for monitor.
+- [Langflow OpenAI Responses API](https://apis.io/apis/langflow/langflow-openai-responses-api-api/) — The OpenAI Responses API API from Langflow — 1 operation(s) for openai responses api.
+- [Langflow Projects API](https://apis.io/apis/langflow/langflow-projects-api/) — The Projects API from Langflow — 4 operation(s) for projects.
+- [Langflow Traces API](https://apis.io/apis/langflow/langflow-traces-api/) — The Traces API from Langflow — 2 operation(s) for traces.
+- [Langflow Users API](https://apis.io/apis/langflow/langflow-users-api/) — The Users API from Langflow — 4 operation(s) for users.
+- [Langflow Workflow API](https://apis.io/apis/langflow/langflow-workflow-api/) — The Workflow API from Langflow — 2 operation(s) for workflow.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-24T00:00:00.000Z
-- **Modified:** 2026-05-24
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Langflow API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-Langflow's FastAPI-based REST API exposes every capability of a running Langflow server — running flows, building flows, managing projects, files, users, API keys, MCP servers, messages and sessions, traces, starter projects, and an OpenAI-compatible Responses endpoint. Authentication is via the `x-api-key` header or query parameter. An interactive OpenAPI 3.1 spec is served at `/docs` and `/openapi.json` on every deployment.
+- [Langflow Agentic Access](https://apis.io/agentic-access/langflow/langflow-agentic-access/)
 
-- **Human URL:** [https://docs.langflow.org/api-reference-api-examples](https://docs.langflow.org/api-reference-api-examples)
-- **Base URL:** `http://localhost:7860/api`
+#### JSON Schema (5)
 
-#### Tags
+The data models the API reads and writes.
 
-- AI
-- Agents
-- Workflows
-- Low-Code
-- LangChain
+- [FlowRead](https://apis.io/schemas/langflow/langflow-flow/)
+- [MCPServerConfig](https://apis.io/schemas/langflow/langflow-mcp-server/)
+- [MessageResponse](https://apis.io/schemas/langflow/langflow-message/)
+- [FolderReadWithFlows](https://apis.io/schemas/langflow/langflow-project/)
+- [UserRead](https://apis.io/schemas/langflow/langflow-user/)
 
-#### Properties
+#### JSON Structure (1)
 
-- [Documentation](https://docs.langflow.org/api-reference-api-examples)
-- [Authentication](https://docs.langflow.org/api-keys-and-authentication)
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON-LD](json-ld/langflow-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Vocabulary](vocabulary/langflow-vocabulary.yml)
-- [Spectral Ruleset](rules/langflow-rules.yml)
+Data models expressed in JSON Structure.
 
-### Langflow Flows API
+- [Langflow Flow Structure](https://apis.io/json-structure/langflow/langflow-flow-structure/)
 
-Create, read, update, delete, upload, download, and list flows. A flow is the canonical Langflow unit — a directed graph of components representing an AI agent or workflow. Includes endpoints for batch creation, basic examples, public flows, and starter projects.
+#### JSON-LD (1)
 
-- **Human URL:** [https://docs.langflow.org/concepts-flows](https://docs.langflow.org/concepts-flows)
+Linked-data contexts for the provider's vocabulary.
 
-#### Tags
+- [Langflow Context](https://apis.io/jsonld/langflow/langflow-context/)
 
-- AI
-- Flows
-- Agents
+#### Vocabulary (1)
 
-#### Properties
+The provider's domain terms, defined.
 
-- [Documentation](https://docs.langflow.org/concepts-flows)
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/langflow-flow-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [Langflow Vocabulary](https://apis.io/vocabularies/langflow/langflow-vocabulary/)
 
-### Langflow Run API
+#### Examples (4)
 
-Execute a flow by id or name via POST `/api/v1/run/{flow_id_or_name}` (simplified), POST `/api/v1/run/advanced/{flow_id_or_name}` (experimental advanced), or POST `/api/v1/webhook/{flow_id_or_name}` for webhook-triggered runs. Returns flow outputs and supports streaming via the `stream` query parameter.
+Example requests and responses.
 
-- **Human URL:** [https://docs.langflow.org/api-reference-api-examples](https://docs.langflow.org/api-reference-api-examples)
+- [Langflow Create Flow Example](https://apis.io/examples/langflow/langflow-create-flow-example/)
+- [Langflow List Mcp Servers Example](https://apis.io/examples/langflow/langflow-list-mcp-servers-example/)
+- [Langflow Run Flow Example](https://apis.io/examples/langflow/langflow-run-flow-example/)
+- [Langflow Webhook Example](https://apis.io/examples/langflow/langflow-webhook-example/)
 
-#### Tags
+#### Collections (16)
 
-- AI
-- Agents
-- Execution
+Postman and Open Collection request collections.
 
-#### Properties
+- [Langflow](https://apis.io/collections/langflow/open-langflow/)
+- [Langflow Base API](https://apis.io/collections/langflow/open-langflow-base-api/)
+- [Langflow Base Chat API](https://apis.io/collections/langflow/open-langflow-chat-api/)
+- [Langflow Base Files API](https://apis.io/collections/langflow/open-langflow-files-api/)
+- [Langflow Base Flow Events API](https://apis.io/collections/langflow/open-langflow-flow-events-api/)
+- [Langflow Base Flows API](https://apis.io/collections/langflow/open-langflow-flows-api/)
+- [Langflow Base Health Check API](https://apis.io/collections/langflow/open-langflow-health-check-api/)
+- [Langflow Base Log API](https://apis.io/collections/langflow/open-langflow-log-api/)
+- [Langflow Base MCP API](https://apis.io/collections/langflow/open-langflow-mcp-api/)
+- [Langflow Base mcp_projects API](https://apis.io/collections/langflow/open-langflow-mcp-projects-api/)
+- [Langflow Base Monitor API](https://apis.io/collections/langflow/open-langflow-monitor-api/)
+- [Langflow Base OpenAI Responses API API](https://apis.io/collections/langflow/open-langflow-openai-responses-api-api/)
+- [Langflow Base Projects API](https://apis.io/collections/langflow/open-langflow-projects-api/)
+- [Langflow Base Traces API](https://apis.io/collections/langflow/open-langflow-traces-api/)
+- [Langflow Base Users API](https://apis.io/collections/langflow/open-langflow-users-api/)
+- [Langflow Base Workflow API](https://apis.io/collections/langflow/open-langflow-workflow-api/)
 
-- [Documentation](https://docs.langflow.org/api-reference-api-examples)
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Governance rules (2)
 
-### Langflow Build API
+Spectral rulesets for the provider's contracts.
 
-Build endpoints run a flow with full vertex-level streaming. POST `/api/v1/build/{flow_id}/flow` kicks off a build job and returns a job id; GET `/api/v1/build/{job_id}/events` streams vertex build events; POST `/api/v1/build/{job_id}/cancel` cancels in-flight builds. Public-tmp variants exist for unauthenticated public flow execution.
+- [Langflow — jsonschema rules](https://apis.io/rules/langflow/langflow-jsonschema-spectral-rules/)
+- [Langflow API Rules](https://apis.io/rules/langflow/langflow-rules/)
 
-- **Human URL:** [https://docs.langflow.org/api-reference-api-examples](https://docs.langflow.org/api-reference-api-examples)
+#### Security (2)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- AI
-- Build
-- Streaming
+- [Langflow Authentication](https://apis.io/security/langflow/langflow-authentication/)
+- [Langflow Domain Security](https://apis.io/security/langflow/langflow-domain-security/)
 
-#### Properties
+#### OAuth scopes (1)
 
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+The permissions the API asks for.
 
-### Langflow Projects API
+- [Langflow Scopes](https://apis.io/scopes/langflow/langflow-scopes/)
 
-Create, list, read, update, delete, upload, and download Langflow projects. Projects are containers that group flows and provide MCP server installation context.
+## Where to find this API
 
-- **Human URL:** [https://docs.langflow.org/concepts-flows-import](https://docs.langflow.org/concepts-flows-import)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- AI
-- Projects
-- Organization
-
-#### Properties
-
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/langflow-project-schema.json) — [JSON Schema](https://json-schema.org/specification)
-
-### Langflow Files API
-
-Upload, download, list, and delete files attached to a flow (v1) or to the authenticated user (v2). The v2 Files API supports batch upload/download, batch delete, and profile-picture management.
-
-- **Human URL:** [https://docs.langflow.org/concepts-file-management](https://docs.langflow.org/concepts-file-management)
-
-#### Tags
-
-- AI
-- Files
-- Storage
-
-#### Properties
-
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Langflow Monitor API
-
-Inspect and manage execution history — vertex builds, chat messages, sessions, and shared sessions. Supports listing, updating, renaming, and deleting messages and entire sessions, plus shared-session sharing for read-only collaboration.
-
-- **Human URL:** [https://docs.langflow.org/concepts-flows-monitor](https://docs.langflow.org/concepts-flows-monitor)
-
-#### Tags
-
-- AI
-- Monitoring
-- Messages
-- Sessions
-
-#### Properties
-
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/langflow-message-schema.json) — [JSON Schema](https://json-schema.org/specification)
-
-### Langflow Traces API
-
-Retrieve and delete execution traces. GET `/api/v1/monitor/traces` lists traces with flow-id filtering; GET `/api/v1/monitor/traces/{trace_id}` returns a single trace. Integrates with external observability providers like LangSmith and LangFuse.
-
-- **Human URL:** [https://docs.langflow.org/concepts-flows-monitor](https://docs.langflow.org/concepts-flows-monitor)
-
-#### Tags
-
-- AI
-- Tracing
-- Observability
-
-#### Properties
-
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Langflow Users API
-
-User management endpoints — create, read, patch, and delete users; `/api/v1/users/whoami` returns the current authenticated user; reset-password endpoint for superuser-driven credential resets.
-
-- **Human URL:** [https://docs.langflow.org/configuration-authentication](https://docs.langflow.org/configuration-authentication)
-
-#### Tags
-
-- AI
-- Users
-- Administration
-
-#### Properties
-
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/langflow-user-schema.json) — [JSON Schema](https://json-schema.org/specification)
-
-### Langflow MCP API
-
-Manage MCP (Model Context Protocol) servers attached to Langflow projects and globally. Every Langflow project can be exposed as an MCP server so its flows are callable as MCP tools. Endpoints list, register, update, and remove MCP servers, and install MCP configurations into Claude Desktop and other MCP hosts.
-
-- **Human URL:** [https://docs.langflow.org/mcp-server](https://docs.langflow.org/mcp-server)
-
-#### Tags
-
-- AI
-- MCP
-- Model Context Protocol
-- Servers
-
-#### Properties
-
-- [Documentation](https://docs.langflow.org/mcp-server)
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/langflow-mcp-server-schema.json) — [JSON Schema](https://json-schema.org/specification)
-
-### Langflow Workflow API
-
-v2 Workflow execution API — POST `/api/v2/workflows` executes a workflow; GET returns workflow status; POST `/api/v2/workflows/stop` halts a running workflow. The v2 workflow surface is the forward-looking execution interface for Langflow agents.
-
-- **Human URL:** [https://docs.langflow.org/concepts-flows](https://docs.langflow.org/concepts-flows)
-
-#### Tags
-
-- AI
-- Workflows
-- Execution
-
-#### Properties
-
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Langflow OpenAI Responses API
-
-OpenAI-compatible Responses endpoint at POST `/api/v1/responses`. Lets clients written against OpenAI's Responses API point at a Langflow flow without code changes — the flow plays the role of the model and tool-calling layer.
-
-- **Human URL:** [https://docs.langflow.org/api-reference-api-examples](https://docs.langflow.org/api-reference-api-examples)
-
-#### Tags
-
-- AI
-- OpenAI-Compatible
-- Responses
-
-#### Properties
-
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Langflow API Keys API
-
-Create, list, rotate, and delete Langflow API keys. Keys authenticate requests against any of the Langflow REST endpoints via the `x-api-key` header. Also creatable via the `langflow api-key` CLI when the frontend is disabled.
-
-- **Human URL:** [https://docs.langflow.org/api-keys-and-authentication](https://docs.langflow.org/api-keys-and-authentication)
-
-#### Tags
-
-- AI
-- Authentication
-- Administration
-
-#### Properties
-
-- [Documentation](https://docs.langflow.org/api-keys-and-authentication)
-- [OpenAPI](openapi/langflow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/langflow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/langflow.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [Portal](https://www.langflow.org)
+- [Website](https://www.langflow.org/)
 - [Documentation](https://docs.langflow.org)
-- [Getting Started](https://docs.langflow.org/get-started-installation)
-- [Getting Started](https://docs.langflow.org/get-started-quickstart)
-- [Documentation](https://docs.langflow.org/api-reference-api-examples)
-- [Authentication](https://docs.langflow.org/api-keys-and-authentication)
-- [Documentation](https://docs.langflow.org/concepts-flows)
-- [Documentation](https://docs.langflow.org/concepts-components)
-- [Documentation](https://docs.langflow.org/configuration-authentication)
-- [Documentation](https://docs.langflow.org/deployment-overview)
-- [Documentation](https://docs.langflow.org/deployment-docker)
-- [Documentation](https://docs.langflow.org/deployment-kubernetes)
+- [Getting started](https://docs.langflow.org/get-started-installation)
 - [Changelog](https://docs.langflow.org/release-notes)
-- [Source Code](https://github.com/langflow-ai/langflow)
-- [GitHub Organization](https://github.com/langflow-ai)
-- [License](https://github.com/langflow-ai/langflow/blob/main/LICENSE)
-- [Changelog](https://github.com/langflow-ai/langflow/releases)
-- [Issue Tracker](https://github.com/langflow-ai/langflow/issues)
-- [Documentation](https://github.com/langflow-ai/langflow/blob/main/CONTRIBUTING.md)
-- [Helm Chart](https://github.com/langflow-ai/langflow-helm-charts)
-- [Tool](https://github.com/langflow-ai/langflow-embedded-chat)
-- [SDK](https://github.com/langflow-ai/langflow-client-ts)
-- [Deployment](https://github.com/langflow-ai/langflow-railway)
-- [Tool](https://github.com/langflow-ai/openrag)
-- [Tool](https://github.com/langflow-ai/langflow-bundles)
-- [Code Examples](https://github.com/langflow-ai/langflow-twilio-voice)
-- [Tool](https://github.com/langflow-ai/mcp-sse-shim)
-- [Package](https://pypi.org/project/langflow/)
-- [Container](https://hub.docker.com/r/langflowai/langflow)
-- [Documentation](https://docs.langflow.org/develop-application)
-- [Documentation](https://docs.langflow.org/concepts-flows-import)
-- [Documentation](https://docs.langflow.org/concepts-file-management)
-- [Documentation](https://docs.langflow.org/concepts-flows-monitor)
-- [Documentation](https://docs.langflow.org/concepts-publish)
-- [Documentation](https://docs.langflow.org/concepts-playground)
-- [Documentation](https://docs.langflow.org/agents-overview)
-- [Documentation](https://docs.langflow.org/mcp-server)
-- [Documentation](https://docs.langflow.org/mcp-client)
-- [Documentation](https://docs.langflow.org/typescript-client)
-- [Forum](https://discord.com/invite/EqksyE2EX9)
-- [Video](https://www.youtube.com/@Langflow)
-- [Twitter](https://twitter.com/langflow_ai)
-- [LinkedIn](https://www.linkedin.com/company/langflow-ai/)
 - [Blog](https://www.langflow.org/blog)
-- [Use Cases](https://www.langflow.org/use-cases)
-- [Newsletter](https://www.langflow.org/newsletter)
-- [Owner](https://www.ibm.com/products/datastax)
-- [Features](undefined)
+- [GitHub](https://github.com/langflow-ai)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 41.5** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 57.3 |
+| Contract governance | 27.3 |
+| Operational transparency | 21.1 |
+| Developer ergonomics | 57.1 |
+| Access clarity | 0.0 |
+
+**Agent readiness 24.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/langflow/](https://apis.io/providers/langflow/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Langflow: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/langflow/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
